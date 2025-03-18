@@ -1,0 +1,17 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+SHOW_PERSON_OUTLINE()
+Person("reiziger", "reiziger", "Stelt reis samen en boekt deze")
+System("Triptop", "Triptop", "Systeem waar reiziger reis kan plannen en boeken  ")
+
+System_Ext("Booking", "Booking", "Biedt hotel informatie aan")
+System_Ext("KLM", "KLM", "Biedt vlucht informatie aan")
+System_Ext("IP", "Identity Provider", "Verifieert de identiteit van de reiziger")
+
+Rel("reiziger", "Triptop", "Stelt reis samen en boekt deze")
+Rel("Triptop", "Booking", "Haalt hotel informatie op")
+Rel("Triptop", "KLM", "Haalt vlucht informatie op")
+Rel("Triptop", "IP", "Verifieert identiteit van de reiziger")
+
+@enduml
