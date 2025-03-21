@@ -36,7 +36,7 @@ Rel(reisAgent, singlePageApp, "Helpt klant via")
 
 ' Triptop relaties
 Rel_R(webApp, singlePageApp, "Levert")
-Rel(singlePageApp, restAPI, "Communiceert met", "JSON, HTTP")
+Rel(singlePageApp, restAPI, "Communiceert met", "JSON/HTTP")
 Rel_L(restAPI, database, "Leest en schrijft data naar")
 
 'API relaties
