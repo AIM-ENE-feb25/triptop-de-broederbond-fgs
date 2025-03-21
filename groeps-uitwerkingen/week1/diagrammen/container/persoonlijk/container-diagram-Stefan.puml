@@ -1,0 +1,46 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+SHOW_PERSON_OUTLINE()
+LAYOUT_WITH_LEGEND()
+
+Person(klant, "Klant", "Stelt reis samen en boekt deze")
+
+System_Boundary(tripTopApp, "Triptop App") {
+Container(webApp, "Web applicatie", "Container: Java and Spring Data", "Levert de content van de website")
+Container(singlePageApp, "Single page applicatie", "Container: JavaScript and React", "Single page applicatie voor het samenstellen van een reis")
+Container(restAPI, "REST API", "Container: Java and Spring Data", "API voor het communiceren met de back-end")
+ContainerDb(database, "Database", "Container: ?", "Database voor het opslaan en ophalen van gegevens")
+}
+
+Container_Ext(overnachtingService, "Overnachting service", "Service zoals booking.com of AirBnB voor het boeken van een overnachting")
+Container_Ext(vervoerService, "Vervoer service", "Service zoals NS of KLM voor het vervoer naar de bestemming")
+Container_Ext(activiteitService, "Activiteit service", "Service zoals GetYourGuide voor het plannen van excursies/activiteiten")
+Container_Ext(autohuurService, "Autohuur service", "Service zoals Sixt of Hertz voor het huren van vervoer")
+Container_Ext(voedselService, "Voedsel service", "Service zoals TakeAway voor het bestellen van eten en drinken")
+Container_Ext(identityProviderService, "Identity provider service", "Service zoals Google of Facebook voor het inloggen")
+Container_Ext(paymentService, "Betaal service", "Service zoals PayPal of iDeal voor het betalen")
+Container_Ext(noticationService, "Notificatie service", "Service zoals e-mail of SMS voor het versturen van notificaties")
+Container_Ext(identityProviderService, "Identity provider service", "Service zoals Google of Facebook voor het inloggen")
+
+' Klant relaties
+Rel(klant, webApp, "Bezoekt pagina")
+Rel(klant, singlePageApp, "Stelt reis samen met")
+Rel(noticationService, klant, "Stuurt notificaties naar")
+
+' Triptop relaties
+Rel_R(webApp, singlePageApp, "Levert")
+Rel(singlePageApp, restAPI, "Communiceert met")
+Rel_L(restAPI, database, "Leest en schrijft data naar")
+
+'API relaties
+Rel_R(restAPI, overnachtingService, "Boekt overnachting met")
+Rel_U(restAPI, vervoerService, "Regelt vervoer met")
+Rel_U(restAPI, activiteitService, "Plant activiteiten met")
+Rel_U(restAPI, autohuurService, "Huurt vervoer met")
+Rel(restAPI, voedselService, "Regelt voedsel met")
+Rel(restAPI, identityProviderService, "Logt in met")
+Rel(restAPI, paymentService, "Betaalt met")
+Rel(restAPI, noticationService, "Stuurt notificaties via")
+@enduml

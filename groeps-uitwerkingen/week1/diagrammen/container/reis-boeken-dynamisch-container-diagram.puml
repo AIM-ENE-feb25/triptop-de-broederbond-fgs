@@ -1,0 +1,30 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+SHOW_PERSON_OUTLINE()
+LAYOUT_WITH_LEGEND()
+
+System_Boundary(tripTopApp, "Triptop App") {
+    Container(singlePageApp, "Single page applicatie", "JavaScript and React", "Voor het samenstellen van een reis")
+    Container(restAPI, "REST API", "Java and Spring Data", "API voor het communiceren met de back-end")
+    ContainerDb(database, "Database", "?", "Opslaan en ophalen van gegevens")
+}
+
+Container_Ext(overnachtingService, "Overnachting service", "Boekt accommodaties")
+Container_Ext(vervoerService, "Vervoer service", "Regelt vervoer")
+Container_Ext(paymentService, "Betaal service", "Handelt betalingen af")
+Container_Ext(noticationService, "Notificatie service", "Stuurt bevestigingen")
+
+Rel_D(singlePageApp, restAPI, "1. Stuurt boekingsverzoek", "JSON/HTTP")
+' Om te voorkomen dat een andere gebruiken deze boeking kan 'overnemen'
+Rel_D(restAPI, database, "2. Slaat boeking op")
+Rel_D(restAPI, paymentService, "3. Vraagt betaling aan")
+Rel_D(paymentService, restAPI, "4. Bevestigt betaling")
+Rel_D(restAPI, overnachtingService, "5. Boekt overnachting")
+Rel_D(restAPI, vervoerService, "6. Regelt vervoer")
+Rel_D(restAPI, database, "7. Slaat definitieve boeking op")
+Rel_D(restAPI, noticationService, "8. Stuurt bevestiging naar klant")
+Rel(restAPI, singlePageApp, "9. Geeft bevestiging terug", "JSON/HTTP")
+
+@enduml
