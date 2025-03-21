@@ -1,0 +1,92 @@
+@startuml
+!include https://raw.githubusercontent.com/craft-coder/plantuml-styles/main/styles/modern-style.plantuml
+'https://plantuml.com/class-diagram
+
+class Reiziger {
+    -telefoonnummer: Telefoonnummer
+    -postcode: Postcode
+    -huisnummer: Huisnummer
+    +maakTrip(): Trip
+}
+class Reisbureaumedewerker {
+    -functieTitel: String
+    +maakReservering(trip: Trip, reiziger: Reiziger): Reservering
+}
+class TriptopGebruiker {
+    -voornaam:String
+    -tussenvoegsels:String
+    -achternaam:String
+    -email:Email
+    -wachtwoord:Wachtwoord
+}
+class Trip {
+    -startDatum:Datum
+    -eindDatum:Datum
+    -budget:double
+    +berekenDuur(): int
+    +berekenPrijs(): double
+    +bepaalDuurzaamheidsScore():DuurzaamheidsScore
+}
+class Excursie {
+    -titel:String
+    -datum:Datum
+    -startTijd:Tijd
+    -eindTijd:Tijd
+    -prijs:double
+}
+class Verblijf {
+    -startDatum:Datum
+    -eindDatum:Datum
+    +berekenVerblijfsduur(): int
+}
+class Verblijfplaats {
+    -locatie:Locatie
+    -prijs:double
+}
+class Locatie {
+    -lat:Coordinaat
+    -lon:Coordinaat
+}
+class Reis {
+    -startDatum:Datum
+    -eindDatum:Datum
+    -prijs:double
+    -vervoer:Vervoer
+}
+class Reservering {
+    -reserveringsnummer: String
+    -status: ReserveringsStatus
+    +bevestigen(): void
+}
+enum ReserveringsStatus {
+    BEVESTIGD
+    GEANNULEERD
+    INAFWACHTING
+}
+enum Vervoer {
+    HUURAUTO
+    VLIEGTUIG
+    TREIN
+    BUS
+}
+enum DuurzaamheidsScore {
+    GROEN
+    GEEL
+    ROOD
+}
+
+TriptopGebruiker <|-- Reisbureaumedewerker
+TriptopGebruiker <|-- Reiziger
+Reisbureaumedewerker "1" -- "1..*"  Reiziger : klanten
+
+Reis "1..*" -- "1"  Locatie : bestemming
+Reis "1..*" -- "1"  Locatie : vertrek
+Trip "1" -- "2..*"  Reis : verplaatsing
+Trip "1" -- "0..*"  Excursie : excursie
+Trip "1" -- "0..*"  Verblijf : verblijf
+Trip "1" -- "1..*"  Reiziger : plannen
+Trip "1" -- "1..*"  Reisbureaumedewerker : verkopen
+Verblijf "1" -- "1"  Verblijfplaats : verblijfplaats
+Reservering "1" -- "1"  Trip : trip
+Reservering "1" -- "1..*"  Reiziger : reiziger
+@enduml

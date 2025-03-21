@@ -1,0 +1,87 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
+
+########### Docusaurus (from https://github.com/facebook/docusaurus/blob/main/.gitignore)
+
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.iml
+*.code-workspace
+.changelog
+.history
+
+node_modules
+.yarn
+package-lock.json
+
+.eslintcache
+
+yarn-error.log
+build
+coverage
+.docusaurus
+.cache-loader
+types
+test-website
+test-website-in-workspace
+
+packages/create-docusaurus/lib/
+packages/lqip-loader/lib/
+packages/docusaurus/lib/
+packages/docusaurus-*/lib/*
+packages/eslint-plugin/lib/
+packages/stylelint-copyright/lib/
+
+website/netlifyDeployPreview/*
+website/changelog
+!website/netlifyDeployPreview/index.html
+!website/netlifyDeployPreview/_redirects
+
+website/_dogfooding/_swizzle_theme_tests
+
+CrowdinTranslations_*.zip
+
+website/i18n/**/*
+#!website/i18n/fr
+#!website/i18n/fr/**/*
+
+.netlify
+
+############# My Additions
+
+# JetBrains IDE
+.idea
+
+# MSOffice temp files
+~$*
+.vscode/settings.json
+
+# Docusaurus build
+build/
+
+# Kroki cashed svg's
+kroki

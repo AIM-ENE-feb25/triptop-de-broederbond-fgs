@@ -1,0 +1,28 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+
+System_Boundary(c1, "Triptop System") {
+    Container(front_end, "Front-End", "Javascript + React", "Stelt gebruikers in staat om te interfacen met de back-end")
+    Container(back_end, "Back-End", "Java + Spring", "Behandelt logica en interageert met andere api's")
+}
+
+System_Ext("IdentityProvider","IdentityProviderService (WireMock)", "Biedt opties aan om je te identificeren")
+
+'Rel_U(front_end, IdentityProvider, "Verstuurd inlog gegevens", "JSON/HTTPS")
+'Rel(IdentityProvider, front_end, "Stuurt een token terug", "JSON/HTTPS")
+'Rel(front_end, back_end, "Maakt API verzoek met een token", "JSON/HTTPS")
+'Rel_U(back_end, IdentityProvider, "Maakt API verzoek om de token te autoriseren", "JSON/HTTPS")
+'Rel_D(IdentityProvider, back_end, "Stuurt melding terug als token toegang heeft tot systeem", "JSON/HTTPS")
+
+
+Rel_U(front_end, back_end, "Verstuurd inlog gegevens", "JSON/HTTP")
+Rel_U(back_end, IdentityProvider, "Maakt API verzoek om de token te maken", "JSON/HTTP")
+Rel_D(IdentityProvider, back_end, "Stuurt een token terug", "JSON/HTTP")
+Rel(back_end, front_end, "Stuurt een token terug", "JSON/HTTP")
+
+
+@enduml

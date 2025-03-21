@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- created with bpmn-js / http://bpmn.io -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background-color:white" width="1057" height=" 827" viewBox="-184 -344 1057 857" version="1.1"><defs><marker id="activity-black-black-0ptwn3f6hjomyfz5o38mw94dz" viewBox="0 0 20 20" refX="11" refY="10" markerWidth="10" markerHeight="10" orient="auto"><path d="M 1 5 L 11 10 L 1 15 Z" style="fill: black; stroke-width: 1px; stroke-linecap: round; stroke-dasharray: 10000px, 1px; stroke: black;"/></marker></defs><g class="djs-group"><g class="djs-element djs-shape" style = "display:block" transform="translate(-194 -444)"><g class="djs-visual"><text lineHeight="1.2" class="djs-label" style="font-family: Arial, sans-serif; font-size: 30; font-weight: normal; fill: rgb(0, 0, 0);"><tspan x="8" y="145" font-size="30">reis-boeken-tobe-coursegrained</tspan></text><text lineHeight="1.2" class="djs-label" style="font-family: Arial, sans-serif; font-size: 12; font-weight: normal; fill: rgb(0, 0, 0);"><tspan x="8" y="165" font-size="12"></tspan></text></g></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_8567" style="display: block;"><g class="djs-visual"><polyline points="202,-39 170,-63 " style="stroke: rgb(0, 0, 0); stroke-width: 1.5px; stroke-linejoin: round; stroke-dasharray: 5px, 5px;"/></g><polyline points="202,-39 170,-63 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="164" y="-69" width="44" height="36" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_1191" style="display: block;"><g class="djs-visual"><polyline points="28,96 202,9 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="129.572491470487" y="63.072491470487">kiest</tspan></text><text style="font-family: Courier; font-size: 150px; font-weight: normal; fill: white;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="2" y="92.19331058796534">.</tspan></text><text style="font-family: Courier New; font-size: 50px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="32" y="95.19331058796534">o</tspan></text><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="44" y="88.19331058796534">2</tspan></text></g><polyline points="28,96 202,9 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="22" y="3" width="186" height="99" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_5065" style="display: block;"><g class="djs-visual"><polyline points="795,142 605,-63 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Courier; font-size: 150px; font-weight: normal; fill: white;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="729.9665529398267" y="130">.</tspan></text><text style="font-family: Courier New; font-size: 50px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="759.9665529398267" y="133">o</tspan></text><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="771.9665529398267" y="126">1</tspan></text></g><polyline points="795,142 605,-63 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="599" y="-69" width="202" height="217" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_5355" style="display: block;"><g class="djs-visual"><polyline points="542,-125 467,-195 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="520.89028144384" y="-165.2194371123202">met</tspan></text></g><polyline points="542,-125 467,-195 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="461" y="-201" width="87" height="82" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_8874" style="display: block;"><g class="djs-visual"><polyline points="283,-10 442,-10 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="348.85" y="5">uit</tspan></text></g><polyline points="283,-10 442,-10 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="277" y="-16" width="171" height="12" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_9010" style="display: block;"><g class="djs-visual"><polyline points="513,9 792,170 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/></g><polyline points="513,9 792,170 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="507" y="3" width="291" height="173" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_7339" transform="matrix(1, 0, 0, 1, 402, -258)" style="display: block;"><g class="djs-visual"><svg fill=" black" height="48.75" viewBox="0 0 24 26" width="48.75" xmlns="http://www.w3.org/2000/svg" x="12.5" y="12.5"><path d="M0 0h24v24H0z" fill="none"/><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="3.887500762939453" y="74.75">bouwstenen</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_9036" transform="matrix(1, 0, 0, 1, 70, -116)" style="display: block;"><g class="djs-visual"><rect x="0" y="0" width="100" height="72" rx="0" ry="0" style="stroke: none; stroke-width: 2px; fill: none;"/><path d="m 0, 0 m 10,0 l -10,0 l 0,72 l 10,0" style="fill: none; stroke-width: 2px; stroke: black;"/><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: black;" lineHeight="1.2" class="djs-label"><tspan x="5" y="15.799999999999999">Met duur, </tspan><tspan x="5" y="30.199999999999996">aantal reizigers</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="100" height="72"/><rect x="-6" y="-6" width="112" height="84" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_9064" transform="matrix(1, 0, 0, 1, 542, -128)" style="display: block;"><g class="djs-visual"><svg fill=" black" viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg" width="48.75" height="48.75" x="12.5" y="12.5"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M9.17,6l2,2H20v10L4,18V6H9.17 M10,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V8c0-1.1-0.9-2-2-2 h-8L10,4L10,4z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="0.1875" y="74.75">reispakketten</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_4004" style="display: block;"><g class="djs-visual"><polyline points="44,118 170,140 332,205 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="112.6506972021623" y="120.10046480144155">wijzigt</tspan></text><text style="font-family: Courier; font-size: 150px; font-weight: normal; fill: white;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="18" y="129.3013944043246">.</tspan></text><text style="font-family: Courier New; font-size: 50px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="48" y="132.3013944043246">o</tspan></text><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="60" y="125.30139440432461">3</tspan></text></g><polyline points="44,118 170,140 332,205 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="38" y="112" width="300" height="99" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_9793" style="display: block;"><g class="djs-visual"><polyline points="370,182 370,157 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="384" y="169.5">van</tspan></text></g><polyline points="370,182 370,157 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="364" y="151" width="12" height="37" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_7418" style="display: block;"><g class="djs-visual"><polyline points="792,184 415,226 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="617.8531595410819" y="217.8810427535085">wijzigt</tspan></text><text style="font-family: Courier; font-size: 150px; font-weight: normal; fill: white;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="726" y="190.53159541081916">.</tspan></text><text style="font-family: Courier New; font-size: 50px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="756" y="193.53159541081916">o</tspan></text><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="768" y="186.53159541081916">4</tspan></text></g><polyline points="792,184 415,226 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="409" y="178" width="389" height="54" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_7437" transform="matrix(1, 0, 0, 1, 442, -48)" style="display: block;"><g class="djs-visual"><svg fill=" black" viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg" width="48.75" height="48.75" x="12.5" y="12.5"><path fill="none" d="M0,0h24v24H0V0z"/><path d="M9.17,6l2,2H20v10L4,18V6H9.17 M10,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V8c0-1.1-0.9-2-2-2 h-8L10,4L10,4z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="0.1875" y="74.75">reispakketten</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_9192" transform="matrix(1, 0, 0, 1, 202, -48)" style="display: block;"><g class="djs-visual"><svg fill=" black" xmlns="http://www.w3.org/2000/svg" width="48.75" height="48.75" viewBox="0 0 24 26" x="12.5" y="12.5"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="27.325000762939453" y="74.75">reis</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_9870" transform="matrix(1, 0, 0, 1, 332, 182)" style="display: block;"><g class="djs-visual"><svg fill=" black" height="48.75" viewBox="0 0 24 26" width="48.75" xmlns="http://www.w3.org/2000/svg" x="12.5" y="12.5"><path d="M0 0h24v24H0z" fill="none"/><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="3.887500762939453" y="74.75">bouwstenen</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_8933" transform="matrix(1, 0, 0, 1, 332, 72)" style="display: block;"><g class="djs-visual"><svg fill=" black" xmlns="http://www.w3.org/2000/svg" width="48.75" height="48.75" viewBox="0 0 24 26" x="12.5" y="12.5"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="27.325000762939453" y="74.75">reis</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_7040" transform="matrix(1, 0, 0, 1, 792, 142)" style="display: block;"><g class="djs-visual"><svg fill=" black" viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg" width="75" height="75"><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="19.275001525878906" y="75">lokale </tspan><tspan x="6.100002288818359" y="89">reisbureau </tspan><tspan x="3.2250022888183594" y="103">medewerker</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_3628" style="display: block;"><g class="djs-visual"><polyline points="2,157 8,262 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="23.454918679469404" y="209.1366124529796">wijzigt</tspan></text><text style="font-family: Courier; font-size: 150px; font-weight: normal; fill: white;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="-42.18306226489802" y="185">.</tspan></text><text style="font-family: Courier New; font-size: 50px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="-12.18306226489802" y="188">o</tspan></text><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="-0.18306226489801958" y="181">5</tspan></text></g><polyline points="2,157 8,262 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="-4" y="151" width="18" height="117" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_3284" style="display: block;"><g class="djs-visual"><polyline points="5,347 -6,452 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/></g><polyline points="5,347 -6,452 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="-12" y="341" width="23" height="117" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_5210" style="display: block;"><g class="djs-visual"><polyline points="-22,157 -66,251 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Courier; font-size: 150px; font-weight: normal; fill: white;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="-79.14826400275152" y="185">.</tspan></text><text style="font-family: Courier New; font-size: 50px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="-49.14826400275152" y="188">o</tspan></text><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="-37.14826400275152" y="181">6</tspan></text></g><polyline points="-22,157 -66,251 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="-72" y="151" width="56" height="106" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_3347" style="display: block;"><g class="djs-visual"><polyline points="-102,327 -127,381 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/></g><polyline points="-102,327 -127,381 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="-133" y="321" width="37" height="66" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_3157" style="display: block;"><g class="djs-visual"><polyline points="-68,323.75 -25,452 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/></g><polyline points="-68,323.75 -25,452 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="-74" y="313" width="55" height="145" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_7384" style="display: block;"><g class="djs-visual"><polyline points="31,130 372,355 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="211.06963136776676" y="236.21308757851116">betaalt</tspan></text><text style="font-family: Courier; font-size: 150px; font-weight: normal; fill: white;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="5" y="149.13926273553352">.</tspan></text><text style="font-family: Courier New; font-size: 50px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="35" y="152.13926273553352">o</tspan></text><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" position="absolute" class="djs-labelNumber"><tspan x="47" y="145.13926273553352">7</tspan></text></g><polyline points="31,130 372,355 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="25" y="124" width="353" height="237" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_4486" style="display: block;"><g class="djs-visual"><polyline points="413,427 417,482 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/></g><polyline points="413,427 417,482 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="407" y="421" width="16" height="67" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-connection" data-element-id="connection_5982" style="display: block;"><g class="djs-visual"><polyline points="440,367 792,214 " style="stroke: black; fill: none; stroke-width: 1.5px; stroke-linejoin: round; marker-end: url('#activity-black-black-0ptwn3f6hjomyfz5o38mw94dz');"/><text style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; fill: black;" lineHeight="1.2" wordWrap="break-word" overflowWrap="break-word" hyphens="auto" class="djs-label"><tspan x="631.0845644189797" y="301.5845644189797">aan</tspan></text></g><polyline points="440,367 792,214 " style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-stroke"/><rect x="434" y="208" width="364" height="165" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_0207" transform="matrix(1, 0, 0, 1, -118, 242)" style="display: block;"><g class="djs-visual"><svg fill=" black" xmlns="http://www.w3.org/2000/svg" width="48.75" height="48.75" viewBox="0 0 24 26" x="12.5" y="12.5"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M15 18.5c-2.51 0-4.68-1.42-5.76-3.5H15v-2H8.58c-.05-.33-.08-.66-.08-1s.03-.67.08-1H15V9H9.24C10.32 6.92 12.5 5.5 15 5.5c1.61 0 3.09.59 4.23 1.57L21 5.3C19.41 3.87 17.3 3 15 3c-3.92 0-7.24 2.51-8.48 6H3v2h3.06c-.04.33-.06.66-.06 1s.02.67.06 1H3v2h3.52c1.24 3.49 4.56 6 8.48 6 2.31 0 4.41-.87 6-2.3l-1.78-1.77c-1.13.98-2.6 1.57-4.22 1.57z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="25.862500190734863" y="74.75">prijs</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_6678" transform="matrix(1, 0, 0, 1, -178, 372)" style="display: block;"><g class="djs-visual"><svg fill=" black" height="48.75" viewBox="0 0 24 26" width="48.75" xmlns="http://www.w3.org/2000/svg" x="12.5" y="12.5"><path d="M0 0h24v24H0z" fill="none"/><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="7.350000381469727" y="74.75">bouwsteen</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_6980" transform="matrix(1, 0, 0, 1, 372, 342)" style="display: block;"><g class="djs-visual"><svg fill=" black" xmlns="http://www.w3.org/2000/svg" width="48.75" height="48.75" viewBox="0 0 24 26" x="12.5" y="12.5"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M15 18.5c-2.51 0-4.68-1.42-5.76-3.5H15v-2H8.58c-.05-.33-.08-.66-.08-1s.03-.67.08-1H15V9H9.24C10.32 6.92 12.5 5.5 15 5.5c1.61 0 3.09.59 4.23 1.57L21 5.3C19.41 3.87 17.3 3 15 3c-3.92 0-7.24 2.51-8.48 6H3v2h3.06c-.04.33-.06.66-.06 1s.02.67.06 1H3v2h3.52c1.24 3.49 4.56 6 8.48 6 2.31 0 4.41-.87 6-2.3l-1.78-1.77c-1.13.98-2.6 1.57-4.22 1.57z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="25.862500190734863" y="74.75">prijs</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_1420" transform="matrix(1, 0, 0, 1, 382, 482)" style="display: block;"><g class="djs-visual"><svg fill=" black" xmlns="http://www.w3.org/2000/svg" width="48.75" height="48.75" viewBox="0 0 24 26" x="12.5" y="12.5"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="27.325000762939453" y="74.75">reis</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_3074" transform="matrix(1, 0, 0, 1, -38, 72)" style="display: block;"><g class="djs-visual"><svg fill=" black" viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg" width="75" height="75"><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="14.475000381469727" y="75">Reiziger</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape" data-element-id="shape_2940" transform="matrix(1, 0, 0, 1, -28, 262)" style="display: block;"><g class="djs-visual"><svg fill=" black" height="48.75" viewBox="0 0 24 26" width="48.75" xmlns="http://www.w3.org/2000/svg" x="12.5" y="12.5"><path d="M0 0h24v24H0z" fill="none"/><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="3.887500762939453" y="74.75">bouwstenen</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g><g class="djs-group"><g class="djs-element djs-shape selected" data-element-id="shape_4689" transform="matrix(1, 0, 0, 1, -38, 452)" style="display: block;"><g class="djs-visual"><svg fill=" black" viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg" width="75" height="75"><path d="M20,18c1.1,0,2-0.9,2-2V6c0-1.1-0.9-2-2-2H4C2.9,4,2,4.9,2,6v10c0,1.1,0.9,2,2,2H0v2h24v-2H20z M4,6h16v10H4V6z"/></svg><text style="font-family: Arial, sans-serif; font-size: 12px; font-weight: normal; fill: rgb(0, 0, 0);" lineHeight="1.2" class="djs-label"><tspan x="0" y="75">extern systeem</tspan></text></g><rect style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;" class="djs-hit djs-hit-all" x="0" y="0" width="75" height="75"/><rect x="-6" y="-6" width="87" height="87" style="fill: none;" class="djs-outline"/></g></g></svg>
+<!-- <DST>
+{
+  "domain": {
+    "name": "",
+    "actors": {
+      "Person": "<svg viewBox=\"0 0 24 26\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>",
+      "Group": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"48\" viewBox=\"0 0 24 26\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z\"/></svg>",
+      "System": "<svg viewBox=\"0 0 24 26\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20,18c1.1,0,2-0.9,2-2V6c0-1.1-0.9-2-2-2H4C2.9,4,2,4.9,2,6v10c0,1.1,0.9,2,2,2H0v2h24v-2H20z M4,6h16v10H4V6z\"/></svg>"
+    },
+    "workObjects": {
+      "Document": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 26\"><path fill=\"none\" d=\"M0 0h24v24H0V0z\"/><path d=\"M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z\"/></svg>",
+      "Folder": "<svg viewBox=\"0 0 24 26\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M9.17,6l2,2H20v10L4,18V6H9.17 M10,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V8c0-1.1-0.9-2-2-2 h-8L10,4L10,4z\"/></svg>",
+      "Call": "<svg viewBox=\"0 0 24 26\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path d=\"M6.54,5C6.6,5.89,6.75,6.76,6.99,7.59l-1.2,1.2C5.38,7.59,5.12,6.32,5.03,5H6.54 M16.4,17.02c0.85,0.24,1.72,0.39,2.6,0.45 v1.49c-1.32-0.09-2.59-0.35-3.8-0.75L16.4,17.02 M7.5,3H4C3.45,3,3,3.45,3,4c0,9.39,7.61,17,17,17c0.55,0,1-0.45,1-1v-3.49\tc0-0.55-0.45-1-1-1c-1.24,0-2.45-0.2-3.57-0.57c-0.1-0.04-0.21-0.05-0.31-0.05c-0.26,0-0.51,0.1-0.71,0.29l-2.2,2.2 c-2.83-1.45-5.15-3.76-6.59-6.59l2.2-2.2C9.1,8.31,9.18,7.92,9.07,7.57C8.7,6.45,8.5,5.25,8.5,4C8.5,3.45,8.05,3,7.5,3L7.5,3z\"/></svg>",
+      "Email": "<svg viewBox=\"0 0 24 26\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" d=\"M0,0h24v24H0V0z\"/><path fill-opacity=\"0.9\" d=\"M12,1.95c-5.52,0-10,4.48-10,10s4.48,10,10,10h5v-2h-5c-4.34,0-8-3.66-8-8s3.66-8,8-8s8,3.66,8,8v1.43 c0,0.79-0.71,1.57-1.5,1.57S17,14.17,17,13.38v-1.43c0-2.76-2.24-5-5-5s-5,2.24-5,5s2.24,5,5,5c1.38,0,2.64-0.56,3.54-1.47 c0.65,0.89,1.77,1.47,2.96,1.47c1.97,0,3.5-1.6,3.5-3.57v-1.43C22,6.43,17.52,1.95,12,1.95z M12,14.95c-1.66,0-3-1.34-3-3 s1.34-3,3-3s3,1.34,3,3S13.66,14.95,12,14.95z\"/></svg>",
+      "Conversation": "<svg height=\"48\" viewBox=\"0 0 24 26\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 0h24v24H0V0z\" fill=\"none\"/><path d=\"M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z\"/></svg>",
+      "Info": "<svg height=\"48\" viewBox=\"0 0 24 26\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z\"/></svg>",
+      "Euro": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 26\"><path fill=\"none\" d=\"M0 0h24v24H0V0z\"/><path d=\"M15 18.5c-2.51 0-4.68-1.42-5.76-3.5H15v-2H8.58c-.05-.33-.08-.66-.08-1s.03-.67.08-1H15V9H9.24C10.32 6.92 12.5 5.5 15 5.5c1.61 0 3.09.59 4.23 1.57L21 5.3C19.41 3.87 17.3 3 15 3c-3.92 0-7.24 2.51-8.48 6H3v2h3.06c-.04.33-.06.66-.06 1s.02.67.06 1H3v2h3.52c1.24 3.49 4.56 6 8.48 6 2.31 0 4.41-.87 6-2.3l-1.78-1.77c-1.13.98-2.6 1.57-4.22 1.57z\"/></svg>"
+    }
+  },
+  "dst": [
+    {
+      "type": "domainStory:workObjectDocument",
+      "name": "reis",
+      "id": "shape_1420",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 382,
+      "y": 482
+    },
+    {
+      "type": "domainStory:workObjectEuro",
+      "name": "prijs",
+      "id": "shape_6980",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 372,
+      "y": 342
+    },
+    {
+      "type": "domainStory:workObjectInfo",
+      "name": "bouwsteen",
+      "id": "shape_6678",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": -178,
+      "y": 372
+    },
+    {
+      "type": "domainStory:workObjectEuro",
+      "name": "prijs",
+      "id": "shape_0207",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": -118,
+      "y": 242
+    },
+    {
+      "type": "domainStory:actorSystem",
+      "name": "extern systeem",
+      "id": "shape_4689",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": -38,
+      "y": 452,
+      "parent": "shape_7438"
+    },
+    {
+      "type": "domainStory:workObjectInfo",
+      "name": "bouwstenen",
+      "id": "shape_2940",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": -28,
+      "y": 262,
+      "parent": "shape_7438"
+    },
+    {
+      "type": "domainStory:workObjectInfo",
+      "name": "bouwstenen",
+      "id": "shape_9870",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 332,
+      "y": 182
+    },
+    {
+      "type": "domainStory:workObjectFolder",
+      "name": "reispakketten",
+      "id": "shape_7437",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 442,
+      "y": -48
+    },
+    {
+      "type": "domainStory:workObjectDocument",
+      "name": "reis",
+      "id": "shape_8933",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 332,
+      "y": 72
+    },
+    {
+      "type": "domainStory:workObjectInfo",
+      "name": "bouwstenen",
+      "id": "shape_7339",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 402,
+      "y": -258
+    },
+    {
+      "type": "domainStory:workObjectFolder",
+      "name": "reispakketten",
+      "id": "shape_9064",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 542,
+      "y": -128
+    },
+    {
+      "type": "domainStory:connection",
+      "name": "",
+      "id": "connection_8567",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "waypoints": [
+        {
+          "original": {
+            "x": 240,
+            "y": -10
+          },
+          "x": 202,
+          "y": -39
+        },
+        {
+          "original": {
+            "x": 120,
+            "y": -101
+          },
+          "x": 170,
+          "y": -63
+        }
+      ],
+      "source": "shape_9192",
+      "target": "shape_9036"
+    },
+    {
+      "type": "domainStory:actorPerson",
+      "name": "lokale reisbureau medewerker",
+      "id": "shape_7040",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 792,
+      "y": 142
+    },
+    {
+      "type": "domainStory:textAnnotation",
+      "name": "",
+      "id": "shape_9036",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "x": 70,
+      "y": -116,
+      "width": 100,
+      "height": 72,
+      "text": "Met duur, aantal reizigers",
+      "number": 72
+    },
+    {
+      "type": "domainStory:workObjectDocument",
+      "name": "reis",
+      "id": "shape_9192",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": 202,
+      "y": -48
+    },
+    {
+      "type": "domainStory:actorPerson",
+      "name": "Reiziger",
+      "id": "shape_3074",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "x": -38,
+      "y": 72
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "kiest",
+      "id": "connection_1191",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": 2,
+      "waypoints": [
+        {
+          "original": {
+            "x": 0,
+            "y": 110
+          },
+          "x": 28,
+          "y": 96
+        },
+        {
+          "original": {
+            "x": 240,
+            "y": -10
+          },
+          "x": 202,
+          "y": 9
+        }
+      ],
+      "source": "shape_3074",
+      "target": "shape_9192",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "",
+      "id": "connection_5065",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": 1,
+      "waypoints": [
+        {
+          "original": {
+            "x": 830,
+            "y": 180
+          },
+          "x": 795,
+          "y": 142
+        },
+        {
+          "original": {
+            "x": 580,
+            "y": -90
+          },
+          "x": 605,
+          "y": -63
+        }
+      ],
+      "source": "shape_7040",
+      "target": "shape_9064",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "met",
+      "id": "connection_5355",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 580,
+            "y": -90
+          },
+          "x": 542,
+          "y": -125
+        },
+        {
+          "original": {
+            "x": 440,
+            "y": -220
+          },
+          "x": 467,
+          "y": -195
+        }
+      ],
+      "source": "shape_9064",
+      "target": "shape_7339",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "uit",
+      "id": "connection_8874",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 240,
+            "y": -10
+          },
+          "x": 283,
+          "y": -10
+        },
+        {
+          "original": {
+            "x": 480,
+            "y": -10
+          },
+          "x": 442,
+          "y": -10
+        }
+      ],
+      "source": "shape_9192",
+      "target": "shape_7437",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "",
+      "id": "connection_9010",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 480,
+            "y": -10
+          },
+          "x": 513,
+          "y": 9
+        },
+        {
+          "original": {
+            "x": 810,
+            "y": 180
+          },
+          "x": 792,
+          "y": 170
+        }
+      ],
+      "source": "shape_7437",
+      "target": "shape_7040"
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "wijzigt",
+      "id": "connection_4004",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": 3,
+      "waypoints": [
+        {
+          "original": {
+            "x": 0,
+            "y": 110
+          },
+          "x": 44,
+          "y": 118
+        },
+        {
+          "x": 170,
+          "y": 140
+        },
+        {
+          "original": {
+            "x": 370,
+            "y": 220
+          },
+          "x": 332,
+          "y": 205
+        }
+      ],
+      "source": "shape_3074",
+      "target": "shape_9870",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "van",
+      "id": "connection_9793",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 370,
+            "y": 220
+          },
+          "x": 370,
+          "y": 182
+        },
+        {
+          "original": {
+            "x": 370,
+            "y": 110
+          },
+          "x": 370,
+          "y": 157
+        }
+      ],
+      "source": "shape_9870",
+      "target": "shape_8933",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "wijzigt",
+      "id": "connection_7418",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": 4,
+      "waypoints": [
+        {
+          "original": {
+            "x": 830,
+            "y": 180
+          },
+          "x": 792,
+          "y": 184
+        },
+        {
+          "original": {
+            "x": 380,
+            "y": 230
+          },
+          "x": 415,
+          "y": 226
+        }
+      ],
+      "source": "shape_7040",
+      "target": "shape_9870",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "wijzigt",
+      "id": "connection_3628",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": 5,
+      "waypoints": [
+        {
+          "original": {
+            "x": 0,
+            "y": 110
+          },
+          "x": 2,
+          "y": 157
+        },
+        {
+          "original": {
+            "x": 10,
+            "y": 300
+          },
+          "x": 8,
+          "y": 262
+        }
+      ],
+      "source": "shape_3074",
+      "target": "shape_2940",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "",
+      "id": "connection_3284",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 10,
+            "y": 300
+          },
+          "x": 5,
+          "y": 347
+        },
+        {
+          "original": {
+            "x": -11,
+            "y": 499
+          },
+          "x": -6,
+          "y": 452
+        }
+      ],
+      "source": "shape_2940",
+      "target": "shape_4689",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "",
+      "id": "connection_5210",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": 6,
+      "waypoints": [
+        {
+          "original": {
+            "x": 0,
+            "y": 110
+          },
+          "x": -22,
+          "y": 157
+        },
+        {
+          "original": {
+            "x": -80,
+            "y": 280
+          },
+          "x": -66,
+          "y": 251
+        }
+      ],
+      "source": "shape_3074",
+      "target": "shape_0207"
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "",
+      "id": "connection_3347",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": -80,
+            "y": 280
+          },
+          "x": -102,
+          "y": 327
+        },
+        {
+          "original": {
+            "x": -140,
+            "y": 410
+          },
+          "x": -127,
+          "y": 381
+        }
+      ],
+      "source": "shape_0207",
+      "target": "shape_6678"
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "",
+      "id": "connection_3157",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": -80,
+            "y": 280
+          },
+          "x": -68,
+          "y": 319
+        },
+        {
+          "original": {
+            "x": -10,
+            "y": 499
+          },
+          "x": -25,
+          "y": 452
+        }
+      ],
+      "source": "shape_0207",
+      "target": "shape_4689"
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "betaalt",
+      "id": "connection_7384",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": 7,
+      "waypoints": [
+        {
+          "original": {
+            "x": 0,
+            "y": 110
+          },
+          "x": 31,
+          "y": 130
+        },
+        {
+          "original": {
+            "x": 410,
+            "y": 380
+          },
+          "x": 372,
+          "y": 355
+        }
+      ],
+      "source": "shape_3074",
+      "target": "shape_6980",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "",
+      "id": "connection_4486",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 410,
+            "y": 380
+          },
+          "x": 413,
+          "y": 427
+        },
+        {
+          "original": {
+            "x": 420,
+            "y": 520
+          },
+          "x": 417,
+          "y": 482
+        }
+      ],
+      "source": "shape_6980",
+      "target": "shape_1420"
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "aan",
+      "id": "connection_5982",
+      "$type": "Element",
+      "di": {},
+      "$descriptor": {},
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 410,
+            "y": 380
+          },
+          "x": 440,
+          "y": 367
+        },
+        {
+          "original": {
+            "x": 830,
+            "y": 197
+          },
+          "x": 792,
+          "y": 214
+        }
+      ],
+      "source": "shape_6980",
+      "target": "shape_7040",
+      "multipleNumberAllowed": false
+    },
+    {
+      "info": ""
+    },
+    {
+      "version": "2.0.0-dev"
+    }
+  ]
+}
+ </DST> -->
