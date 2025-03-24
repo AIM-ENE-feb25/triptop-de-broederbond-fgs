@@ -1,47 +1,45 @@
 @startuml
 
-skinparam componentStyle rectangle
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 ' Frontend Components
-package "Frontend" {
-    [AppComponent]
-    [LoginComponent]
-    [ClaimOverzichtComponent]
-    [ClaimAanmakenComponent]
+Container_Boundary(frontend,"Frontend"){
+    Component(appComponent, "App")
+    Component(loginComponent, "Login")
+    Component(claimOverzichtComponent, "ClaimOverzicht")
+    Component(claimAanmakenComponent, "ClaimAanmaken")
 }
 
 ' Backend Components
-package "Backend" {
-    [ClaimController]
-    [LoginController]
-    [ClaimService]
-    [AuthenticationService]
-    [ClaimDAO]
-    [UserDAO]
+Container_Boundary(backend,"Backend"){
+    Component(claimController, "ClaimController")
+    Component(loginController, "LoginController")
+    Component(claimService, "ClaimService")
+    Component(authenticationService, "AuthenticationService")
+    Component(claimDAO, "ClaimDAO")
+    Component(userDAO, "UserDAO")
 }
 
 ' Database
-package "Database" {
-    [Claims Table]
-    [Users Table]
+Container_Boundary(database,"Database"){
+    Component(claimsTable, "Claims Table")
+    Component(usersTable, "Users Table")
 }
 
 ' Relationships
-[AppComponent] --> [LoginComponent] : "Renders"
-[AppComponent] --> [ClaimOverzichtComponent] : "Renders"
-[AppComponent] --> [ClaimAanmakenComponent] : "Renders"
-
-[LoginComponent] --> [LoginController] : "Stuurt login request"
-[ClaimOverzichtComponent] --> [ClaimController] : "Haalt claims op"
-[ClaimAanmakenComponent] --> [ClaimController] : "Stuurt nieuwe claim"
-
-[LoginController] --> [AuthenticationService] : "Authenticate user"
-[AuthenticationService] --> [UserDAO] : "Haalt user data op"
-[UserDAO] --> [Users Table] : "Query users"
-
-[ClaimController] --> [AuthenticationService] : "Verifieert user"
-[ClaimController] --> [ClaimService] : "Handelt claim requests af"
-[ClaimService] --> [ClaimDAO] : "Behandelt claim data"
-[ClaimDAO] --> [Claims Table] : "Query voor claims"
+    ' Frontend
+Rel(appComponent, claimOverzichtComponent, "Renders")
+Rel(appComponent, loginComponent, "Renders")
+Rel(appComponent, claimAanmakenComponent, "Renders")
+Rel(loginComponent, loginController, "Sends requests to")
+Rel(claimOverzichtComponent, claimController, "Sends requests to")
+    ' Backend
+Rel(claimController, claimService, "Uses")
+Rel(claimService, claimDAO, "Uses")
+Rel(claimService, authenticationService, "Uses")
+Rel(authenticationService, userDAO, "Uses")
+Rel(loginController, authenticationService, "Uses")
+Rel(claimDAO, claimsTable, "Reads/Writes")
+Rel(userDAO, usersTable, "Reads/Writes")
 
 @enduml
