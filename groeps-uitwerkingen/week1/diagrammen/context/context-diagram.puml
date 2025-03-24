@@ -19,14 +19,15 @@ System_Ext("AutohuurService", "Autohuur service", "Service zoals Sixt of Hertz v
 System_Ext("VoedselService", "Voedsel service", "Service zoals TakeAway voor het bestellen van eten en drinken")
 System_Ext("IdentityProvider","IdentityProvider (Apple, Google, etc)", "Biedt opties aan om je te identificeren")
 System_Ext("PaymentProvider","PaymentProvider (Adyen, PayPal, etc)", "Biedt opties aan om te betalen")
+System_Ext("NotificatieService", "Notificatie service", "Service zoals e-mail of SMS voor het versturen van notificaties")
 
 Rel("Triptop", "OvernachtingService", "Boekt overnachting met")
 Rel("Triptop", "VervoerService", "Regelt vervoer met")
 Rel("Triptop", "ActiviteitService", "Plant activiteiten met")
 Rel("Triptop", "AutohuurService", "Huurt vervoer met")
 Rel("Triptop", "VoedselService", "Regelt voedsel met")
-
 Rel("Triptop", "PaymentProvider", "Maakt betaling mogelijk")
 Rel("Triptop", "IdentityProvider", "Regelt authenticatie en autorisatie")
+Rel("Triptop", "NotificatieService", "Stuurt notificaties via")
 
 @enduml
