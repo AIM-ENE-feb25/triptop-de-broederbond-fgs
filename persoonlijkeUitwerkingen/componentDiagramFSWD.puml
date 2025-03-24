@@ -1,0 +1,47 @@
+@startuml
+
+skinparam componentStyle rectangle
+
+' Frontend Components
+package "Frontend" {
+    [AppComponent]
+    [LoginComponent]
+    [ClaimOverzichtComponent]
+    [ClaimAanmakenComponent]
+}
+
+' Backend Components
+package "Backend" {
+    [ClaimController]
+    [LoginController]
+    [ClaimService]
+    [AuthenticationService]
+    [ClaimDAO]
+    [UserDAO]
+}
+
+' Database
+package "Database" {
+    [Claims Table]
+    [Users Table]
+}
+
+' Relationships
+[AppComponent] --> [LoginComponent] : "Renders"
+[AppComponent] --> [ClaimOverzichtComponent] : "Renders"
+[AppComponent] --> [ClaimAanmakenComponent] : "Renders"
+
+[LoginComponent] --> [LoginController] : "Stuurt login request"
+[ClaimOverzichtComponent] --> [ClaimController] : "Haalt claims op"
+[ClaimAanmakenComponent] --> [ClaimController] : "Stuurt nieuwe claim"
+
+[LoginController] --> [AuthenticationService] : "Authenticate user"
+[AuthenticationService] --> [UserDAO] : "Haalt user data op"
+[UserDAO] --> [Users Table] : "Query users"
+
+[ClaimController] --> [AuthenticationService] : "Verifieert user"
+[ClaimController] --> [ClaimService] : "Handelt claim requests af"
+[ClaimService] --> [ClaimDAO] : "Behandelt claim data"
+[ClaimDAO] --> [Claims Table] : "Query voor claims"
+
+@enduml
