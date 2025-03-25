@@ -40,12 +40,12 @@ Rel(singlePageApp, restAPI, "Communiceert met", "JSON/HTTP")
 Rel_L(restAPI, database, "Leest en schrijft data naar")
 
 'API relaties
-Rel_R(restAPI, overnachtingService, "Boekt overnachting met")
-Rel_U(restAPI, vervoerService, "Regelt vervoer met")
-Rel_U(restAPI, activiteitService, "Plant activiteiten met")
-Rel_U(restAPI, autohuurService, "Huurt vervoer met")
-Rel(restAPI, voedselService, "Regelt voedsel met")
+Rel_R(restAPI, overnachtingService, "Boekt overnachting met", "HTTPS")
+Rel_U(restAPI, vervoerService, "Regelt vervoer met", "HTTPS")
+Rel_U(restAPI, activiteitService, "Plant activiteiten met", "HTTPS")
+Rel_U(restAPI, autohuurService, "Huurt vervoer met", "HTTPS")
+Rel(restAPI, voedselService, "Regelt voedsel met", "HTTPS")
 Rel(restAPI, identityProviderService, "Logt in met")
-Rel(restAPI, paymentService, "Betaalt met")
+Rel(restAPI, paymentService, "Betaalt met", "HTTPS")
 Rel(restAPI, noticationService, "Stuurt notificaties via")
 @enduml
