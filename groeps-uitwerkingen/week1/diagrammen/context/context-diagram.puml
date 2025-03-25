@@ -17,8 +17,8 @@ System_Ext("VervoerService", "Vervoer service", "Service zoals NS of KLM voor he
 System_Ext("ActiviteitService", "Activiteit service", "Service zoals GetYourGuide voor het plannen van excursies/activiteiten")
 System_Ext("AutohuurService", "Autohuur service", "Service zoals Sixt of Hertz voor het huren van vervoer")
 System_Ext("VoedselService", "Voedsel service", "Service zoals TakeAway voor het bestellen van eten en drinken")
-System_Ext("IdentityProvider","IdentityProvider (Apple, Google, etc)", "Biedt opties aan om je te identificeren")
-System_Ext("PaymentProvider","PaymentProvider (Adyen, PayPal, etc)", "Biedt opties aan om te betalen")
+System_Ext("IdentityProvider","Identity provider", "Service zoals Google of Apple waarmee je kunt authenticeren met een bestaand account")
+System_Ext("PaymentProvider","Betaal service", "Service zoals Adyen of PayPal voor het regelen van betalingen")
 System_Ext("NotificatieService", "Notificatie service", "Service zoals e-mail of SMS voor het versturen van notificaties")
 
 Rel("Triptop", "OvernachtingService", "Boekt overnachting met")
