@@ -1,0 +1,34 @@
+@startuml
+class IdentityController {
+    + authenticate(token: String): ResponseEntity<User>
+    + getUserInfo(userId: String): ResponseEntity<UserInfo>
+}
+
+class IdentityService {
+    + authenticate(token: String): User
+    + getUserInfo(userId: String): UserInfo
+}
+
+class IdentityDao {
+    + findByUsername(username: String): Optional<User>
+    + save(user: User): void
+}
+
+interface IdentityProvider {
+    + authenticate(token: String): User
+    + getUserInfo(userId: String): UserInfo
+}
+
+class MockAPIProvider implements IdentityProvider {
+    + authenticate(token: String): User
+    + getUserInfo(userId: String): UserInfo
+}
+
+class User {}
+
+class UserInfo {}
+
+IdentityController --> IdentityService
+IdentityService --> IdentityDao
+IdentityService --> IdentityProvider
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_TOP_DOWN()
+
+Container_Boundary(api, "API") {
+    Component(authentication_controller, "AuthenticationController")
+    Component(expense_controller, "ExpenseController")
+
+    Component(authentication_service, "AuthenticationService")
+    Component(expense_service, "ExpenseService")
+    Component(userdetails_service, "UserDetailsService")
+
+
+    Component(spring_security, "SpringSecurity")
+    Component(token_provider, "TokenProvider")
+
+
+    Component(blacklist_dao, "BlacklistDao")
+    Component(expense_dao, "ExpenseDao")
+    Component(user_dao, "UserDao")
+}
+
+Rel(authentication_controller, authentication_service, "Uses")
+Rel(authentication_controller, user_dao, "Reads")
+
+Rel(expense_controller, expense_service, "Uses")
+Rel(expense_controller, authentication_service, "Retrieves user")
+
+Rel(authentication_service, user_dao, "Retrieves user")
+Rel(authentication_service, token_provider, "Generates token")
+Rel(expense_service, expense_dao, "Accesses data")
+Rel(userdetails_service, user_dao, "Gets user details")
+
+Rel(spring_security, blacklist_dao, "Checks blacklist")
+Rel(spring_security, token_provider, "Verifies token")
+
+@enduml

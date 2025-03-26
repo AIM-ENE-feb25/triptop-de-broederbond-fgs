@@ -1,0 +1,32 @@
+@startuml
+
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+SHOW_PERSON_OUTLINE()
+
+Person("Reiziger", "Reiziger", "Klant")
+Person("Reisagent", "Reisagent", "Support")
+
+System("Triptop", "Triptop", "Zelfstandig reisplanning en beheer")
+
+Rel("Reiziger", "Triptop", "Het samenstellen, boeken, annuleren en aanpassen van een reis")
+Rel("Reisagent", "Triptop", "Verleent support aan reizigers")
+
+System_Ext("OvernachtingService", "Overnachting service", "Service zoals booking.com of AirBnB voor het boeken van een overnachting")
+System_Ext("VervoerService", "Vervoer service", "Service zoals NS of KLM voor het vervoer naar de bestemming")
+System_Ext("ActiviteitService", "Activiteit service", "Service zoals GetYourGuide voor het plannen van excursies/activiteiten")
+System_Ext("AutohuurService", "Autohuur service", "Service zoals Sixt of Hertz voor het huren van vervoer")
+System_Ext("VoedselService", "Voedsel service", "Service zoals TakeAway voor het bestellen van eten en drinken")
+System_Ext("IdentityProvider","IdentityProvider (Apple, Google, etc)", "Biedt opties aan om je te identificeren")
+System_Ext("PaymentProvider","PaymentProvider (Adyen, PayPal, etc)", "Biedt opties aan om te betalen")
+
+Rel("Triptop", "OvernachtingService", "Boekt overnachting met")
+Rel("Triptop", "VervoerService", "Regelt vervoer met")
+Rel("Triptop", "ActiviteitService", "Plant activiteiten met")
+Rel("Triptop", "AutohuurService", "Huurt vervoer met")
+Rel("Triptop", "VoedselService", "Regelt voedsel met")
+
+Rel("Triptop", "PaymentProvider", "Maakt betaling mogelijk")
+Rel("Triptop", "IdentityProvider", "Regelt authenticatie en autorisatie")
+
+@enduml
