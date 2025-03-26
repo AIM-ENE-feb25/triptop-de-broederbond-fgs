@@ -1,0 +1,91 @@
+@startuml
+
+class BoekingController {
+    +createBoeking(request: BoekingRequest): Boeking
+    +getBoekingDetails(boekingId: Long): Boeking
+    +cancelBoeking(boekingId: Long): boolean
+}
+
+class BoekingService {
+    +createBoeking(request: BoekingRequest): Boeking
+    +getBoekingDetails(boekingId: Long): Boeking
+    +cancelBoeking(boekingId: Long): boolean
+}
+
+interface IBoekingService {
+    +createBoeking(request: BoekingRequest): Boeking
+    +getBoekingDetails(boekingId: Long): Boeking
+    +cancelBoeking(boekingId: Long): boolean
+}
+
+BoekingService -|> IBoekingService
+BoekingController --> BoekingService
+
+class BoekingRepository {
+    +save(boeking: Boeking): Boeking
+    +findById(boekingId: Long): Boeking
+    +delete(boekingId: Long): void
+}
+
+interface IBoekingRepository {
+    +save(boeking: Boeking): Boeking
+    +findById(boekingId: Long): Boeking
+    +delete(boekingId: Long): void
+}
+
+BoekingRepository -|> IBoekingRepository
+BoekingService --> BoekingRepository
+
+class BetalingController {
+    +initiatePayment(request: PaymentRequest): Payment
+    +checkPaymentStatus(paymentId: Long): PaymentStatus
+    +refundPayment(paymentId: Long): boolean
+}
+
+class BetalingService {
+    +initiatePayment(request: PaymentRequest): Payment
+    +checkPaymentStatus(paymentId: Long): PaymentStatus
+    +refundPayment(paymentId: Long): boolean
+}
+
+interface IBetalingService {
+    +initiatePayment(request: PaymentRequest): Payment
+    +checkPaymentStatus(paymentId: Long): PaymentStatus
+    +refundPayment(paymentId: Long): boolean
+}
+
+BetalingService -|> IBetalingService
+BetalingController --> BetalingService
+
+class BetalingRepository {
+    +save(payment: Payment): Payment
+    +findById(paymentId: Long): Payment
+    +delete(paymentId: Long): void
+}
+
+interface IBetalingRepository {
+    +save(payment: Payment): Payment
+    +findById(paymentId: Long): Payment
+    +delete(paymentId: Long): void
+}
+
+BetalingRepository -|> IBetalingRepository
+BetalingService --> BetalingRepository
+
+class Boeking {
+    - boekingId: Long
+    - bestemming: String
+    - datum: Date
+    - status: String
+}
+
+class Betaling {
+    - paymentId: Long
+    - amount: Double
+    - status: PaymentStatus
+}
+
+BoekingService --> Boeking
+BetalingService --> Betaling
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+
+title C4 Dynamic Diagram - Triptop
+
+Actor User
+
+User -> Frontend : Start boeking
+Frontend -> Backend : API request voor boeking
+Backend -> IdentityProvider : Authenticatie
+IdentityProvider -> Backend : Bevestiging
+Backend -> BoekingController : Verwerk boekingsverzoek
+BoekingController -> BoekingService : Verwerk boekingslogica
+BoekingService -> Backend : Bevestiging van boeking
+Backend -> BetalingController : Start betalingsproces
+BetalingController -> BetalingService : Verwerk betaling
+BetalingService -> Backend : Betaling bevestigd
+Backend -> Frontend : Bevestiging van boeking en betaling
+Frontend -> User : Bevestiging weergegeven
+
+@enduml
