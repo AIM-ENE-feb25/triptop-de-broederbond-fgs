@@ -1,0 +1,34 @@
+@startuml
+
+class PaymentController{
+    + handlePaymentRequest(PaymentRequest)
+}
+PaymentController --> PaymentRequest
+PaymentController --> PaymentService
+
+class PaymentService {
+    + handlePayment(PaymentRequest)
+}
+PaymentService --> PaymentRepository
+
+class PaymentRepository {
+    + savePayment(PaymentRequest)
+}
+
+interface PaymentMethod{
+    + verifyPaymentMethod()
+}
+
+class PayPal implements PaymentMethod{
+    + verifyPaymentMethod()
+}
+class Ideal implements PaymentMethod{
+    + verifyPaymentMethod()
+}
+
+class PaymentRequest {
+    + PaymentRequest(PaymentMethod)
+}
+PaymentRequest --> PaymentMethod
+
+@enduml
