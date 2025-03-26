@@ -6,18 +6,18 @@ Container(singlePageApp, "Single-Page Application", "Frontend van de applicatie"
 
 Container_Boundary(backend, "REST API") {
     'Vervoer componenten
-    Component(transportationController, "Vervoer Controller", "API Endpoint voor vervoer")
-    Component(transportationService, "Vervoer Service", "Behandelt de logica voor vervoer")
-    Component(transportationRepository, "Vervoer Repository", "Repository klasse voor vervoer")
+    Component(transportationController, "Vervoer Controller*", "Spring rest controller", "API Endpoint voor vervoer")
+    Component(transportationService, "Vervoer Service", "Spring service", "Behandelt de logica voor vervoer")
+    Component(transportationRepository, "Vervoer Repository", "Spring repository", "Repository klasse voor vervoer")
 
     'Betaal componenten
-    Component(paymentController, "Betaal Controller", "Verantwoordelijk voor het afhandelen van betalingen")
-    Component(paymentService, "Betaal Service", "Verantwoordelijk voor het verwerken van betalingen")
-    Component(paymentRepository, "Betaal Repository", "Verantwoordelijk voor het lezen en schrijven van data")
+    Component(paymentController, "Betaal Controller*", "Spring rest controller", "Verantwoordelijk voor het afhandelen van betalingen")
+    Component(paymentService, "Betaal Service", "Spring service", "Verantwoordelijk voor het verwerken van betalingen")
+    Component(paymentRepository, "Betaal Repository", "Spring repository", "Verantwoordelijk voor het lezen en schrijven van data")
 
     'Identity componenten
     Component(identity_controller, "Identity Controller", "Spring rest controller")
-    Component(identity_service, "Identity Service", "Spring service")
+    Component(identity_service, "Identity Service", "Spring service", "Componenten met ster roepen deze aan voor het controleren van de token")
     Component(identity_dao, "Identity Repository", "Spring repository")
 }
 
