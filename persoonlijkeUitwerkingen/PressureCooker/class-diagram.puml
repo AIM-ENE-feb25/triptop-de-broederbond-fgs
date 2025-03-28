@@ -1,34 +1,43 @@
 @startuml
 
-class PaymentController{
-    + handlePaymentRequest(PaymentRequest)
+class PaymentRequest{
+    + bouwstenen: List<Bouwsteen>
+    + paymentMethod: PaymentMethod
+    + amount: double
 }
-PaymentController --> PaymentRequest
+PaymentRequest --> PaymentMethod
+
+class PaymentController{
+    + handlePayment(requestBody: PaymentRequest) : ResponseEntity
+}
 PaymentController --> PaymentService
+PaymentController --> PaymentRequest
+
 
 class PaymentService {
-    + handlePayment(PaymentRequest)
+    + handlePayment(paymentRequest : PaymentRequest)
 }
-PaymentService --> PaymentRepository
+PaymentService --> PaymentMethod
+PaymentService --> Bouwsteen
 
-class PaymentRepository {
-    + savePayment(PaymentRequest)
+interface Bouwsteen {
+    + savePayment(paymentRequest : PaymentRequest)
+}
+class TreinBouwsteen implements Bouwsteen{
+    + savePayment(paymentRequest : PaymentRequest)
+}
+class VliegtuigBouwsteen implements Bouwsteen{
+    + savePayment(paymentRequest : PaymentRequest)
 }
 
 interface PaymentMethod{
-    + verifyPaymentMethod()
+    + handlePayment(amount: double)
 }
-
 class PayPal implements PaymentMethod{
-    + verifyPaymentMethod()
+    + handlePayment(amount: double)
 }
 class Ideal implements PaymentMethod{
-    + verifyPaymentMethod()
+    + handlePayment(amount: double)
 }
-
-class PaymentRequest {
-    + PaymentRequest(PaymentMethod)
-}
-PaymentRequest --> PaymentMethod
 
 @enduml
