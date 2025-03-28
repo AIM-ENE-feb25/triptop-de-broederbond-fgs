@@ -1,0 +1,58 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+interface IdentityProvider {
+  + validateToken(token: String, options: List<String>): boolean
+}
+
+enum IdentityProviderType {
+    MOCKAPI
+    AUTH0
+}
+
+class MockAPIIdentityProviderAdapter {
+  + validateToken(token: String, options: List<String>): boolean
+}
+
+class Auth0IdentityProviderTypeAdapter {
+'  - domain: String
+'  - audience: String
+  + validateToken(token: String, options: List<String>): boolean
+}
+
+class AuthController {
+  + validateToken(requestBody: AuthBodyDTO): ResponseEntity
+}
+
+class AuthService {
+    - identityProviderFactory: IdentityProviderFactory
+    + validateToken(token: String, type: IdentityProviderType options: List<String>)
+}
+
+class IdentityProviderFactory {
+  - {static} Map<IdentityProviderType, IdentityProvider> providers
+  + {static} getIdentityProvider(provider: IdentityProviderType): IdentityProvider
+}
+
+class AuthBodyDTO {
+    + type: IdentityProviderType
+    + token: String
+    + options: List<String>
+}
+
+
+IdentityProvider <|.. MockAPIIdentityProviderAdapter
+IdentityProvider <|.. Auth0IdentityProviderTypeAdapter
+
+AuthService --> IdentityProviderFactory
+AuthService --> IdentityProvider
+AuthService --> IdentityProviderType
+AuthController --> AuthService
+AuthController --> AuthBodyDTO
+IdentityProviderFactory --> IdentityProvider
+
+IdentityProviderFactory --> IdentityProviderType
+AuthBodyDTO --> IdentityProviderType
+
+@enduml

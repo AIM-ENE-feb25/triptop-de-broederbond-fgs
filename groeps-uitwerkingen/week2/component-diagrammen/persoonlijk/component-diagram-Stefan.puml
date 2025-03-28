@@ -1,0 +1,25 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Component(singlePagApp, "Single-Page Application", "Frontend van de applicatie")
+
+Container_Boundary(backend, "Backend") {
+    Component(paymentController, "Payment Controller", "Verantwoordelijk voor het afhandelen van betalingen")
+    Component(paymentService, "Payment Service", "Verantwoordelijk voor het verwerken van betalingen")
+    Component(paymentDao, "Payment DAO", "Verantwoordelijk voor het lezen en schrijven van data")
+}
+
+ComponentDb(database, "Database", "Verantwoordelijk voor het opslaan van data")
+
+Component_Ext(paymentProvider, "Payment Provider", "Service zoals PayPal of iDeal voor het betalen")
+
+Rel(singlePagApp, paymentController, "Communiceert met", "JSON/HTTP")
+Rel(paymentController, paymentService, "Roept")
+Rel(paymentService, paymentProvider, "Gebruikt")
+Rel(paymentService, paymentDao, "Roept")
+Rel(paymentDao, database, "Leest en schrijft data naar")
+
+Rel(paymentProvider, paymentService, "Stuurt response naar")
+
+@enduml
