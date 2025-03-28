@@ -5,52 +5,59 @@
 Container(singlePageApp, "Single-Page Application", "Frontend van de applicatie")
 
 Container_Boundary(backend, "REST API") {
+    'Betaal componenten
+    Component(paymentController, "Betaal Controller*", "Spring rest controller", "Verantwoordelijk voor het afhandelen van betalingen")
+    Component(paymentService, "Betaal Service", "Spring service", "Verantwoordelijk voor het verwerken van betalingen")
+
     'Vervoer componenten
     Component(transportationController, "Vervoer Controller*", "Spring rest controller", "API Endpoint voor vervoer")
     Component(transportationService, "Vervoer Service", "Spring service", "Behandelt de logica voor vervoer")
     Component(transportationRepository, "Vervoer Repository", "Spring repository", "Repository klasse voor vervoer")
 
-    'Betaal componenten
-    Component(paymentController, "Betaal Controller*", "Spring rest controller", "Verantwoordelijk voor het afhandelen van betalingen")
-    Component(paymentService, "Betaal Service", "Spring service", "Verantwoordelijk voor het verwerken van betalingen")
-    Component(paymentRepository, "Betaal Repository", "Spring repository", "Verantwoordelijk voor het lezen en schrijven van data")
-
     'Identity componenten
     Component(identity_controller, "Identity Controller", "Spring rest controller")
     Component(identity_service, "Identity Service", "Spring service", "Componenten met ster roepen deze aan voor het controleren van de token")
-    Component(identity_dao, "Identity Repository", "Spring repository")
+    Component(identity_dao, "Identity Repository", "Spring repository", "Repository klasse voor identity")
 }
 
 ContainerDb(database, "Database", "Container: ?", "Database voor het opslaan en ophalen van gegevens")
 
-Container_Ext(paymentProvider, "Payment Provider", "Service zoals PayPal of iDeal voor het betalen")
-Component_Ext(wireMockApi, "Wiremock API", "Identity provider voor het maken en controleren van een token")
-Container_Ext(transportationServiceExt, "Vervoer service", "Service voor het boeken van vervoer")
+System_Ext(paypal, "Paypal", "Systeem voor het verwerken van betalingen")
+System_Ext(stripe, "Stripe", "Systeem voor het verwerken van betalingen")
+
+System_Ext(wireMockApi, "Wiremock API", "Identity provider voor het maken en controleren van een token")
+System_Ext(auth0, "Auth0", "Identity provider voor het maken en controleren van een token")
+
+System_Ext(NS, "NS", "Systeem voor het boeken van vervoer")
+System_Ext(KLM, "KLM" , "Systeem voor het boeken van vervoer")
 
 'Frontend relaties
-Rel(singlePageApp, paymentController, "Communiceert met", "JSON/HTTP")
-
-Rel(singlePageApp, identity_controller, "Communiceert met", "JSON/HTTP")
-Rel(singlePageApp, wireMockApi, "Geneert een token via", "JSON/HTTPS")
-
 Rel(singlePageApp, transportationController, "Communiceert met", "JSON/HTTP")
+Rel(singlePageApp, paymentController, "Communiceert met", "JSON/HTTP")
+Rel(singlePageApp, identity_controller, "Communiceert met", "JSON/HTTP")
 
-'Vervoer relaties
-Rel(transportationController, transportationService, "Verwerkt vervoer logica")
-Rel(transportationService, transportationRepository, "Slaapt vervoer data op")
-Rel_L(transportationService, transportationServiceExt, "Communiceert met")
-Rel(transportationRepository, database, "Leest en schrijft data naar")
-
-'Betaal relaties
-Rel(paymentController, paymentService, "Verwerkt betalingslogica")
-Rel(paymentService, paymentProvider, "Gebruikt")
-Rel(paymentService, paymentRepository, "Roept")
-Rel(paymentRepository, database, "Leest en schrijft data naar")
+Rel(singlePageApp, wireMockApi, "Geneert een token via", "JSON/HTTPS")
+Rel(singlePageApp, auth0, "Geneert een token via", "JSON/HTTPS")
 
 'Identity relaties
 Rel(identity_controller, identity_service, "Gebruikt")
 Rel(identity_service, identity_dao, "Gebruikt")
-Rel(identity_service, wireMockApi, "Controleert de token via", "JSON/HTTPS")
 Rel(identity_dao, database, "leest en schrijft data naar")
+Rel(identity_service, wireMockApi, "Controleert de token via", "JSON/HTTPS")
+Rel_R(identity_service, auth0, "Controleert de token via", "JSON/HTTPS")
+
+'Betaal relaties
+Rel(paymentController, paymentService, "Verwerkt betalingslogica")
+Rel_L(paymentService, paypal, "Gebruikt", "HTTPS")
+Rel_L(paymentService, stripe, "Gebruikt", "HTTPS")
+Rel(paymentService, transportationService, "Checkt met")
+
+'Vervoer relaties
+Rel(transportationController, transportationService, "Verwerkt vervoer logica")
+Rel(transportationService, transportationRepository, "Slaapt vervoer data op")
+Rel_L(transportationService, NS, "Communiceert met", "HTTPS")
+Rel_L(transportationService, KLM, "Communiceert met", "HTTPS")
+Rel(transportationRepository, database, "Leest en schrijft data naar")
+
 
 @enduml
