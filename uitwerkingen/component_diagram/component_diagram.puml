@@ -3,22 +3,22 @@
 
 title C4 Component Diagram - Triptop
 
+System_Ext("NS", "NS", "API van NS")
+System_Ext("KLM", "KLM", "API van KLM")
+
 System_Boundary("Triptop", "Triptop Applicatie") {
-    System("IdentityProvider", "Identity Provider", "OAuth authenticatie")
-
-    System("BetalingController", "BetalingController", "API Endpoint voor betalingen")
-    System("BetalingService", "BetalingService", "Behandelt de logica voor betalingen")
-    System("BetalingRepository", "BetalingRepository", "Repository klasse voor betalingen")
-
     System("BoekingController", "BoekingController", "API Endpoint voor boekingen")
     System("BoekingService", "BoekingService", "Behandelt de logica voor boekingen")
     System("BoekingRepository", "BoekingRepository", "Repository klasse voor boekingen")
 }
 
-Rel(BetalingController, BetalingService, "Verwerkt betalingslogica")
-Rel(BetalingService, BetalingRepository, "")
+SystemDb("Database", "Database", "")
 
 Rel(BoekingController, BoekingService, "Verwerkt boekingslogica")
 Rel(BoekingService, BoekingRepository, "")
+Rel(BoekingService, NS, Gebruikt)
+Rel(BoekingService, KLM, Gebruikt)
+Rel(BoekingRepository, "Database", Leest/schrijft)
+
 
 @enduml

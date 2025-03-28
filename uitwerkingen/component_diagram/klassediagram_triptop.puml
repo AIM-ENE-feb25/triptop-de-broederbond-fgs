@@ -1,91 +1,74 @@
 @startuml
 
-class BoekingController {
-    +createBoeking(request: BoekingRequest): Boeking
-    +getBoekingDetails(boekingId: Long): Boeking
-    +cancelBoeking(boekingId: Long): boolean
+
+
+class VervoerController {
+    +createTicket(request: TicketRequest): Ticket
+    +getTicketDetails(ticketId: Long): Ticket
+    +cancelTicket(ticketId: Long): boolean
 }
 
-class BoekingService {
-    +createBoeking(request: BoekingRequest): Boeking
-    +getBoekingDetails(boekingId: Long): Boeking
-    +cancelBoeking(boekingId: Long): boolean
+VervoerController --> VervoerService
+
+class VervoerService {
+    +createTicket(request: TicketRequest): Ticket
+    +getTicketDetails(ticketId: Long): Ticket
+    +cancelTicket(ticketId: Long): boolean
+    +getAdapter(vervoerderType: VervoerderType): IVervoerderAdapter
 }
 
-interface IBoekingService {
-    +createBoeking(request: BoekingRequest): Boeking
-    +getBoekingDetails(boekingId: Long): Boeking
-    +cancelBoeking(boekingId: Long): boolean
+class TicketRepository {
+    +save(ticket: Ticket): Ticket
+    +findById(ticketId: Long): Ticket
+    +delete(ticketId: Long): void
 }
 
-BoekingService -|> IBoekingService
-BoekingController --> BoekingService
+VervoerService --> TicketRepository
 
-class BoekingRepository {
-    +save(boeking: Boeking): Boeking
-    +findById(boekingId: Long): Boeking
-    +delete(boekingId: Long): void
-}
-
-interface IBoekingRepository {
-    +save(boeking: Boeking): Boeking
-    +findById(boekingId: Long): Boeking
-    +delete(boekingId: Long): void
-}
-
-BoekingRepository -|> IBoekingRepository
-BoekingService --> BoekingRepository
-
-class BetalingController {
-    +initiatePayment(request: PaymentRequest): Payment
-    +checkPaymentStatus(paymentId: Long): PaymentStatus
-    +refundPayment(paymentId: Long): boolean
-}
-
-class BetalingService {
-    +initiatePayment(request: PaymentRequest): Payment
-    +checkPaymentStatus(paymentId: Long): PaymentStatus
-    +refundPayment(paymentId: Long): boolean
-}
-
-interface IBetalingService {
-    +initiatePayment(request: PaymentRequest): Payment
-    +checkPaymentStatus(paymentId: Long): PaymentStatus
-    +refundPayment(paymentId: Long): boolean
-}
-
-BetalingService -|> IBetalingService
-BetalingController --> BetalingService
-
-class BetalingRepository {
-    +save(payment: Payment): Payment
-    +findById(paymentId: Long): Payment
-    +delete(paymentId: Long): void
-}
-
-interface IBetalingRepository {
-    +save(payment: Payment): Payment
-    +findById(paymentId: Long): Payment
-    +delete(paymentId: Long): void
-}
-
-BetalingRepository -|> IBetalingRepository
-BetalingService --> BetalingRepository
-
-class Boeking {
-    - boekingId: Long
+class Ticket {
+    - ticketId: Long
+    - vertrekpunt: String
     - bestemming: String
     - datum: Date
-    - status: String
+    - status: TicketStatus
 }
 
-class Betaling {
-    - paymentId: Long
-    - amount: Double
-    - status: PaymentStatus
+enum TicketStatus {
+    GEBOEKT
+    AANGEKOMEN
+    GEANNULEERD
 }
 
-BoekingService --> Boeking
-BetalingService --> Betaling
+VervoerService --> Ticket
+Ticket --> TicketStatus
+
+enum VervoerderType {
+    KLM
+    NS
+}
+
+interface IVervoerderAdapter {
+    +createTicket(request: TicketRequest): Ticket
+}
+
+class KlmAdapter {
+    +createTicket(request: TicketRequest): Ticket
+}
+
+class NsAdapter {
+    +createTicket(request: TicketRequest): Ticket
+}
+
+KlmAdapter ..|> IVervoerderAdapter
+NsAdapter ..|> IVervoerderAdapter
+VervoerService --> IVervoerderAdapter
+AdapterFactory --> VervoerderType
+
+class AdapterFactory {
+    +getAdapter(vervoerderType: VervoerderType): IVervoerderAdapter
+}
+
+AdapterFactory --> IVervoerderAdapter
+VervoerService --> AdapterFactory
 
 @enduml
