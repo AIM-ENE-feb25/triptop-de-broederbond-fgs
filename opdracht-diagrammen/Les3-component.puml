@@ -11,7 +11,9 @@ Component(identity_service, "Identity service", "Spring service")
 Component(identity_dao, "Identity dao", "Spring repository")
 }
 
-Container_Ext(identityProviderService, "Identity provider service", "Service zoals Google of Facebook voor het inloggen")
+Container_Ext(identityProviderServiceGoogle, "Identity provider service (Google)", "Service voor het inloggen")
+Container_Ext(identityProviderServiceMockAPI, "Identity provider service (MockAPI)", "Service voor het inloggen")
+
 ContainerDb(database, "Database", "Container: ?", "Database voor het opslaan en ophalen van gegevens")
 
 
@@ -20,8 +22,10 @@ Rel(identity_controller, identity_service, "Gebruikt")
 Rel(identity_service, identity_dao, "Gebruikt")
 
 
-Rel(singlePageApp, identityProviderService, "Geneert een token via", "?")
-Rel(identity_service, identityProviderService, "Controleert de token via", "?")
+Rel(singlePageApp, identityProviderServiceGoogle, "Geneert een token via", "?")
+Rel(identity_service, identityProviderServiceGoogle, "Controleert de token via", "?")
+Rel(singlePageApp, identityProviderServiceMockAPI, "Geneert een token via", "?")
+Rel(identity_service, identityProviderServiceMockAPI, "Controleert de token via", "?")
 Rel(identity_dao, database, "leest of schrijft naar", "?")
 
 @enduml
