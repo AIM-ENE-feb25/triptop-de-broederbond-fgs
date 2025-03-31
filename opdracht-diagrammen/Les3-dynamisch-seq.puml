@@ -1,0 +1,32 @@
+@startuml
+
+autonumber
+
+actor "Reiziger" as R
+
+participant "Single Page Applicatie" as SPA
+participant "Identity Controller" as IC
+participant "Identity Service" as IS
+participant "Identity DAO" as IDAO
+participant "Database" as DB
+participant "Identity Provider Service" as IPS
+
+R -> SPA: Logt in
+SPA -> IPS: Verstuurt authenticatieverzoek
+IPS -> SPA: Retourneert JWT-token
+
+SPA -> IC: Stuurt API-verzoeken voor authenticatie en gebruikersbeheer (JSON/HTTP)
+IC -> IS: Verwerkt verzoeken en voert logica uit
+
+IS -> IPS: Valideert token bij externe provider (JSON/HTTP)
+IPS -> IS: Retourneert tokenvalidatie-informatie (JSON/HTTP)
+
+IS -> IDAO: Interactie met database
+IDAO -> DB: Leest en schrijft gebruikersgegevens
+DB -> IDAO: Levert gebruikersgegevens
+IDAO -> IS: Retourneert data aan service
+
+IS -> IC: Retourneert verwerkte gegevens aan controller
+IC -> SPA: Stuurt API-respons naar de applicatie (JSON/HTTP)
+
+@enduml
