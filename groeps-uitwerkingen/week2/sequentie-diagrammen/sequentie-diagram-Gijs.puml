@@ -1,0 +1,33 @@
+@startuml
+
+autonumber
+
+actor Reiziger
+
+participant "Frontend" as frontend
+participant "Identity Controller" as identityController
+participant "Identity Service" as identityService
+participant "Identity Repository" as identityRepository
+participant "Database" as database
+participant "Identity Provider Service" as identityProviderService
+
+Reiziger -> frontend: Logt in
+frontend -> identityProviderService: Verstuurt authenticatieverzoek
+identityProviderService --> frontend: Retourneert token
+
+frontend -> identityController: Stuurt token voor validatie
+identityController -> identityService: Valideert token
+
+identityService -> identityProviderService: Valideert token
+identityProviderService --> identityService: Retourneert validatie
+
+identityService -> identityRepository: Slaat profiel op
+identityRepository -> database: Slaat profiel op
+database --> identityRepository: Stuurt profiel gegevens op
+identityRepository --> identityService: Retourneert profielgegevens
+
+identityService --> identityController: Retourneert profielgegevens
+identityController --> frontend: Retourneert profielgegevens
+frontend --> Reiziger: Retourneert profielgegevens
+
+@enduml

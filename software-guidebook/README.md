@@ -111,14 +111,38 @@ De frontend stuurt een betaalverzoek naar de REST API (backend), de REST API con
 #### 7.2.1 Component Diagram
 ![img_9.png](img_9.png)
 
+De frontend stuurt een betaalverzoek met een lijst van bouwstenen die de gebruiker wilt betalen naar de 'Betaal Controller'. Deze controller heeft een *, wat betekent dat deze eerst de token authoriseert via de 'Identity Service'. Als de token geauthoriseert is, stuurt de 'Betaal Controller' het verzoek naar de 'Betaal Service'. De 'Betaal Service' gaat per bouwsteen naar de juiste service waar de bouwsteen verwerkt wordt. TripTop schiet per bouwsteen de betaling voor en regelt zo per bouwsteen de ticket. Is alles goed gegaan, gaat de 'Betaal Service' met de juiste externe betaalsyteem communiceren. Als de betaling is afgerond wordt per bouwsteen de informatie opgeslagen waarna de gebruiker zijn tickets krijgt.
+De frontend haalt vervoerinformatie op via de 'Vervoer Controller'. Enige logica nodig voor het ophalen van deze informatie gebeurd in de 'Vervoer Service'. Informatie over vervoer dat opgeslagen moet worden, gebeurd via de 'Vervoer Repository' die praat met de 'Database'.
+De frontend stuurt bij het inloggen een token mee, die de frontend krijgt via een extern identity provider service ('Auth0' of 'WireMock API'). Om deze token te valideren, stuurt de 'Identity Controller' de token naar de 'Identity Service'. Deze controleert de token met de juiste service. Op TripTop heeft elke gebruiker een eigen account die gekoppelt is aan één of meerdere identity provider. Dit profiel wordt opgeslagen via de 'Identity Repository' die het vervolgens de informatie opslaat en ophaalt via de 'Database'.
+
 
 > [!IMPORTANT]
 > Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
 
+> !TODO 
+> mark ging navragen over de scenario's en dynamisch diagram
 ###     7.3. Design & Code
 
 > [!IMPORTANT]
 > Voeg toe: Per ontwerpvraag een Class Diagram plus een Sequence Diagram van een aantal scenario's inclusief begeleidende tekst.
+
+#### 7.3.1 Ontwerpvraag 1: "Hoe kunnen we verschillende betalingssystemen integreren voor de verschillende bouwstenen?"
+##### Class Diagram
+![img_10.png](img_10.png)
+
+##### Sequentie Diagram
+
+#### 7.3.2 Ontwerpvraag 2: "Hoe kunnen we verschillende externe vervoer services integreren zonder afhankelijk te worden van hun specifieke implementaties?"
+##### Class Diagram
+![img_12.png](img_12.png)
+
+##### Sequentie Diagram
+
+#### 7.3.3 Ontwerpvraag 3: "Hoe kunnen we verschillende identity providers met verschillende interfaces integreren voor het gehele systeem?"
+##### Class Diagram
+![img_11.png](img_11.png)
+
+##### Sequentie Diagram
 
 ## 8. Architectural Decision Records
 
