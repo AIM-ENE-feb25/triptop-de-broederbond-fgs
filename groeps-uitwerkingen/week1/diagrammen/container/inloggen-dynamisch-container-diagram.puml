@@ -6,8 +6,8 @@ LAYOUT_TOP_DOWN()
 LAYOUT_WITH_LEGEND()
 
 System_Boundary(c1, "Triptop System") {
-    Container(front_end, "Front-End", "Javascript + React", "Stelt gebruikers in staat om te interfacen met de back-end")
-    Container(back_end, "Back-End", "Java + Spring", "Behandelt logica en interageert met andere api's")
+    Container(front_end, "Frontend", "Javascript + React", "Stelt gebruikers in staat om te interfacen met de back-end")
+    Container(back_end, "Backend", "Java + Spring", "Behandelt logica en interageert met andere api's")
 }
 
 System_Ext("IdentityProvider","IdentityProviderService (WireMock)", "Biedt opties aan om je te identificeren")
@@ -18,11 +18,12 @@ System_Ext("IdentityProvider","IdentityProviderService (WireMock)", "Biedt optie
 'Rel_U(back_end, IdentityProvider, "Maakt API verzoek om de token te autoriseren", "JSON/HTTPS")
 'Rel_D(IdentityProvider, back_end, "Stuurt melding terug als token toegang heeft tot systeem", "JSON/HTTPS")
 
-
-Rel_U(front_end, back_end, "Verstuurd inlog gegevens", "JSON/HTTP")
-Rel_U(back_end, IdentityProvider, "Maakt API verzoek om de token te maken", "JSON/HTTP")
-Rel_D(IdentityProvider, back_end, "Stuurt een token terug", "JSON/HTTP")
-Rel(back_end, front_end, "Stuurt een token terug", "JSON/HTTP")
+Rel(front_end, IdentityProvider, "Vraagt om een token", "JSON/HTTP")
+Rel_U(IdentityProvider, front_end, "Stuurt een token terug", "JSON/HTTP")
+Rel_U(front_end, back_end, "Verstuurd token bij request", "JSON/HTTP")
+Rel(back_end, IdentityProvider, "Controleert de token", "JSON/HTTP")
+Rel(IdentityProvider, back_end, "Stuurt response terug", "JSON/HTTP")
+Rel(back_end, front_end, "Stuurt response terug", "JSON/HTTP")
 
 
 @enduml

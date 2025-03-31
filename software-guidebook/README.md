@@ -9,13 +9,17 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 
 ## 2. Context
 
-> [!IMPORTANT]
-> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.
+![img.png](img.png)
 
-Toelichting op de context van de software inclusief System Context Diagram:
-* Functionaliteit
-* Gebruikers
-* Externe systemen
+### 2.1 Functionaliteit
+De TripTop-applicatie is een online platform waar gebruikers hun eigen reis kunnen plannen en boeken door middel van 'bouwstenen'. Bouwstenen zijn losse delen van een reis, denk hierbij aan accomodatie, vervoer, activiteiten en eetgelegenheden. De reiziger heeft vervolgens de mogelijkheid om per bouwsteen te betalen en te boeken. 
+
+### 2.2 Gebruikers
+De gebruikers van deze applicatie zijn reizigers en reisagenten. De reizigers zijn de klanten die de reis samenstellen. De reisagenten zijn medewerkers die reizigers helpen met het samenstellen van de reis (indien nodig).
+
+### 2.3 Externe systemen
+Om de TripTop-applicatie een werkelijkheid te maken zijn er een paar externe systemen nodig. Er is een overnachting service nodig voor het boeken van accomodaties gedurende de reis, denk hierbij aan booking.com of AirBnB. Er is ook een vervoer service nodig voor het regelen van het vervoer zoals NS of KLM. Voor het plannen van activiteiten is een activiteit service nodig die dit mogelijk maakt, denk hierbij aan GetYourGuide. Als de reiziger zelf vervoer wilt huren is er een authohuur service nodig zoals Sixt of Hertz. Voor het regelen van eten en drinken is er een voedsel service nodig die dit mogelijk maakt, een voorbeeld hiervan is TakeAway.
+Er zijn ook een paar extra externe systemen nodig voor het regelen van authenticatie, betalingen en notificaties. Er is een identity provider nodig voor het inloggen en het verifiëren van de reiziger, denk hierbij aan het inloggen met Google of Apple. Voor het betalen is er een betaal service nodig zoals Ayden of PayPal. Voor het sturen van enige notificaties is een notificatie service nodig voor het versturen van e-mails of SMS'jes. 
 
 ## 3. Functional Overview
 
@@ -67,8 +71,17 @@ Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgend
 
 ## 5. Constraints
 
-> [!IMPORTANT]
-> Beschrijf zelf de beperkingen die op voorhand bekend zijn die invloed hebben op keuzes die wel of niet gemaakt kunnen of mogen worden.
+### 5.1 Tijd
+Door gebrek aan tijd is er minder tijd om grondig onderzoek te doen. Dit zorgt ervoor dat er snel onderzoek gedaan moet worden, wat invloed heeft op de kwaliteit van de informatie en dus op enige gemaakte keuzes en resultaten.
+
+### 5.2 Budget
+Er is geen budget opengesteld voor enige betaalde API's. Dit zorgt ervoor dat de betere/snellere API's niet tot onze beschikking zijn, wat invloed heeft op de gekozen API's.
+
+### 5.3 Kennis
+Het developerteam bestaat uit onervaren studenten. Dit zorgt ervoor dat er minder kennis en ervarin is, waardoor er meer tijd moet worden besteet aan het onderzoeken en experimenteren.
+
+> !TODO 
+> Nog enige extra contraints bedenken
 
 ## 6. Principles
 
@@ -78,11 +91,26 @@ Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgend
 ## 7. Software Architecture
 
 ###     7.1. Containers
+#### 7.1.1 Container Diagram
+![img_1.png](img_1.png)
 
-> [!IMPORTANT]
-> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
+De klant en de reisagent sturen een request naar de TripTop-webapplicatie. Deze stuurt een response terug met de single page applicatie die ze kunnen gebruiken voor het samenstellen van een reis. Deze single page applicatie ontvangt en stuurt gegevens naar de REST API backend die de gegevens afhandeld. De backend communeert met externe services om het samenstellen van een reis mogelijk te maken. De backend slaat enige gegevens op die later gebruikt moeten worden. 
+
+#### 7.1.2 Dynamische Diagrammen
+##### Scenario 1: Inloggen
+![img_7.png](img_7.png)
+
+De frontend stuurt de inloggegevens naar de externe identity provider service, deze service verifieërt de inloggegevens en stuurt een token terug als deze gegevens kloppen, zo niet wordt de gebruiker niet ingelogd en krijgt deze geen token. Als de frontend een request stuurt, stuurt deze een token mee die de backend controleert via de externe identity provider service. Deze stuurt vervolgens een response terug met of de token geldig is. De backend handelt deze response af en stuurt vervolgens een passend response terug naar de frontend. 
+
+##### Scenario 2: Reis Boeken
+![img_8.png](img_8.png)
+
+De frontend stuurt een betaalverzoek naar de REST API (backend), de REST API controleert of de token van de gebruiker klopt. Wanneer dit klopt slaat de REST API de boeking op in de database om (race condition), en bevestigt de REST API de betaling doormiddel van de betaal service. Hierna boekt de REST API een overnachting en vervoer. Dan slaat de database de definitieve boeking op en stuurt de backend een notificatie naar de notificatie service. Als er iets fout gaat bij een van de externe services, dan handelt de backend dit af een stuurt een response naar de frontend.
 
 ###     7.2. Components
+#### 7.2.1 Component Diagram
+![img_9.png](img_9.png)
+
 
 > [!IMPORTANT]
 > Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
