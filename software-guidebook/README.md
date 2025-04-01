@@ -121,6 +121,7 @@ De frontend stuurt bij het inloggen een token mee, die de frontend krijgt via ee
 
 > !TODO 
 > mark ging navragen over de scenario's en dynamisch diagram
+> Antwoord: alleen maken als het relevant is
 ###     7.3. Design & Code
 
 > [!IMPORTANT]

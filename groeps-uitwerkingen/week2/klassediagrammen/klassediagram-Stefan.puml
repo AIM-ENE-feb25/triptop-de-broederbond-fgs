@@ -1,7 +1,7 @@
 @startuml
 
 class PaymentRequest{
-    + bouwstenen: List<Bouwsteen>
+    + bouwstenen: List<BouwsteenPaymentHandler>
     + paymentMethod: PaymentMethod
     + amount: double
 }
@@ -18,16 +18,19 @@ class PaymentService {
     + handlePayment(paymentRequest : PaymentRequest)
 }
 PaymentService --> PaymentMethod
-PaymentService --> Bouwsteen
+PaymentService --> BouwsteenPaymentHandler
 
-interface Bouwsteen {
+interface BouwsteenPaymentHandler {
     + savePayment(paymentRequest : PaymentRequest)
+    + cancelPayment(paymentRequest : PaymentRequest)
 }
-class TreinBouwsteen implements Bouwsteen{
+class TreinService implements BouwsteenPaymentHandler{
     + savePayment(paymentRequest : PaymentRequest)
+    + cancelPayment(paymentRequest : PaymentRequest)
 }
-class VliegtuigBouwsteen implements Bouwsteen{
+class VliegtuigService implements BouwsteenPaymentHandler{
     + savePayment(paymentRequest : PaymentRequest)
+    + cancelPayment(paymentRequest : PaymentRequest)
 }
 
 interface PaymentMethod{

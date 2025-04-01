@@ -3,53 +3,36 @@
 autonumber
 
 actor Reiziger
-participant "Frontend" as frontend
-participant "Payment Controller" as paymentController
-participant "Payment Service" as paymentService
-participant "Identity Service" as identityService
-participant "Identity Provider" as identityProvider
-participant "Bouwsteen Service" as bouwsteenService
-participant "Bouwsteen Repository" as bouwsteenRepository
-participant "Payment Provider" as paymentProvider
+participant "paymentController:\nPaymentController" as paymentController
+participant "paymentService:\nPaymentService" as paymentService
+participant "paymentMethod:\nPaymentMethod" as paymentMethod
+participant "bouwsteenPaymentHandler:\nBouwsteenPaymentHandler" as bouwsteenPaymentHandler
+participant "External Payment Provider" as paymentProvider
 database "Database" as database
 
-Reiziger -> frontend : Start betaling voor bouwsteen
-frontend -> paymentController : Verzoek betaling
-paymentController -> identityService : Authoriseer Reiziger
-identityService -> identityProvider : Authoriseer Reiziger
+Reiziger -> paymentController : handlePayment(paymentRequest)
 
-alt Authorisatie gelukt
-    identityProvider --> identityService : Authorisatie succesvol
-    identityService --> paymentController : Reiziger geautoriseerd
 
-    paymentController -> paymentService : Roep betalingsservice aan
-    paymentService -> bouwsteenService : Sla bouwsteen op
-    bouwsteenService -> bouwsteenRepository : Sla bouwsteen op
-    bouwsteenRepository -> database : Sla bouwsteen op
-    paymentService -> paymentProvider : Stuur betalingsverzoek
+paymentController -> paymentService : handlePayment(paymentRequest)
+paymentService -> bouwsteenPaymentHandler : savePayment(paymentRequest)
+bouwsteenPaymentHandler -> database : save(paymentRequest)
+paymentService -> paymentMethod : handlePayment(amount)
+paymentMethod -> paymentProvider : Stuur betalingsverzoek
 
-    alt Betaling gelukt
-        paymentProvider --> paymentService : Response betaling
-        paymentService -> bouwsteenService : Bevestig betaling
-        bouwsteenService -> bouwsteenRepository : Sla betaling op bij bouwsteen
-        bouwsteenRepository -> database : Sla betaling op bij bouwsteen
-        paymentService --> paymentController : Bevestiging
-        paymentController --> frontend : Bevestiging
-        frontend --> Reiziger : Success melding
-    else Betaling mislukt
-        paymentProvider --> paymentService : Response betaling
-        paymentService -> bouwsteenService : Annuleer betaling
-        bouwsteenService -> bouwsteenRepository : Annuleer betaling bij bouwsteen
-        bouwsteenRepository -> database : Verwijder bouwsteen
-        paymentService --> paymentController : Annulering
-        paymentController --> frontend : Annulering
-        frontend --> Reiziger : Foutmelding
-    end
-else Authorisatie mislukt
-    identityProvider --> identityService : Authorisatie mislukt
-    identityService --> paymentController : Reiziger niet geautoriseerd
-    paymentController --> frontend : Reiziger niet geautoriseerd
-    frontend --> Reiziger : Toon foutmelding
+alt Betaling gelukt
+    paymentProvider --> paymentMethod : Response betaling
+    paymentMethod --> paymentService : Response betaling
+    paymentService -> bouwsteenPaymentHandler : savePayment(paymentRequest)
+    bouwsteenPaymentHandler -> database : save(paymentRequest)
+    paymentService --> paymentController : Bevestiging
+    paymentController --> Reiziger : Bevestiging
+else Betaling mislukt
+    paymentProvider --> paymentMethod : Response betaling
+    paymentMethod --> paymentService : Response betaling
+    paymentService -> bouwsteenPaymentHandler : cancelPayment(paymentRequest)
+    bouwsteenPaymentHandler -> database : delete(paymentRequest)
+    paymentService --> paymentController : Annulering
+    paymentController --> Reiziger : Annulering
 end
 
 @enduml
