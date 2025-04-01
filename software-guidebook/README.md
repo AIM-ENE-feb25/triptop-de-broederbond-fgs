@@ -129,9 +129,16 @@ De frontend stuurt bij het inloggen een token mee, die de frontend krijgt via ee
 
 #### 7.3.1 Ontwerpvraag 1: "Hoe kunnen we verschillende betalingssystemen integreren voor de verschillende bouwstenen?"
 ##### Class Diagram
-![img_10.png](img_10.png)
+![img_14.png](img_14.png)
+
+De 'PaymentController' is verantwoordelijk voor het ontvangen van het betaal verzoek. Deze krijgt als parameter een 'PaymentRequest' in de body. Zo'n 'PaymentRequest' heeft een lijst aan bouwstenen die gaan worden. Ook bevat deze de manier dat betaald gaat worden en het aantal. Via de PaymentMethod wordt er verbonden met een specifieke betaalservice via de bijbehorende klasse. Is de betaling voldaan dan wordt via de 'BouwsteenPaymentHandler' voor elke bouwsteen die betaald is de juiste service aangeroepen om dit op te slaan.
 
 ##### Sequentie Diagram
+![img_13.png](img_13.png)
+
+De Reiziger stuurt een verzoek via de frontend naar de 'PaymentController' om te betalen, die het vervolgens doorgeeft aan de 'PaymentService'. De PaymentService gaat eerst per bouwsteen het alvast opslaan, zodat niet iemand anders tijdens het betaalprocess hetzelfde bouwsteen kan boeken. Als dit gedaan is gaat de betaalprocedure verder. De service roept de 'PaymentMethod' aan om zo naar de juiste klasse te gaan. Deze stuurt dan het betaalverzoek naar de juiste API en handelt het zo af. De reiziger betaalt naar TripTop, TripTop regelt vervolgens zelf de betaling naar de externe systemen.
+Is de betaling succesvol, dan slaat de 'BouwsteenPaymentHandler' voor elke bouwsteen de definitieve boeking op. Hierna krijgt de reiziger een bevestiging dat het is gelukt en zijn bijbehorende boekingen.
+Is de betaling mislukt, dan haalt de 'BouwsteenPaymentHandler' voor elke bouwsteen de boeking uit de database. Hierna krijgt de reiziger een annulering van de betaling met bijbehorende info.
 
 #### 7.3.2 Ontwerpvraag 2: "Hoe kunnen we verschillende externe vervoer services integreren zonder afhankelijk te worden van hun specifieke implementaties?"
 ##### Class Diagram
