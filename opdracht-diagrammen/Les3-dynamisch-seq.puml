@@ -2,31 +2,57 @@
 
 autonumber
 
-actor "Reiziger" as R
+actor Reiziger
 
-participant "Single Page Applicatie" as SPA
-participant "Identity Controller" as IC
-participant "Identity Service" as IS
-participant "Identity DAO" as IDAO
-participant "Database" as DB
-participant "Identity Provider Service" as IPS
+participant "Frontend" as frontend
+participant "Identity Controller: \nAuthController" as identityController
+participant "Identity Service: \nAuthService" as identityService
+participant "Identity Repository: \nAuthRepository" as identityRepository
+participant "Identity Provider Service:\nIdentityProviderService" as identityProviderService
+database "Database" as database
 
-R -> SPA: Logt in
-SPA -> IPS: Verstuurt authenticatieverzoek
-IPS -> SPA: Retourneert JWT-token
+Reiziger -> frontend: Logt in
 
-SPA -> IC: Stuurt API-verzoeken voor authenticatie en gebruikersbeheer (JSON/HTTP)
-IC -> IS: Verwerkt verzoeken en voert logica uit
+alt Inloggen gelukt
 
-IS -> IPS: Valideert token bij externe provider (JSON/HTTP)
-IPS -> IS: Retourneert tokenvalidatie-informatie (JSON/HTTP)
+frontend -> identityProviderService: Verstuurt authenticatieverzoek
+identityProviderService --> frontend: Retourneert token
 
-IS -> IDAO: Interactie met database
-IDAO -> DB: Leest en schrijft gebruikersgegevens
-DB -> IDAO: Levert gebruikersgegevens
-IDAO -> IS: Retourneert data aan service
+alt valideren gelukt
 
-IS -> IC: Retourneert verwerkte gegevens aan controller
-IC -> SPA: Stuurt API-respons naar de applicatie (JSON/HTTP)
+frontend -> identityController: Stuurt token voor validatie
+identityController -> identityService: Valideert token
+
+identityService -> identityProviderService: Valideert token
+identityProviderService --> identityService: Retourneert validatie
+
+identityService -> identityRepository: Slaat profiel op
+identityRepository -> database: Slaat profiel op
+database --> identityRepository: Stuurt profiel gegevens op
+identityRepository --> identityService: Retourneert profielgegevens
+
+identityService --> identityController: Retourneert profielgegevens
+identityController --> frontend: Retourneert profielgegevens
+frontend --> Reiziger: Retourneert profielgegevens
+
+else valideren mislukt
+
+frontend -> identityController: Stuurt token voor validatie
+identityController -> identityService: Valideert token
+
+identityService -> identityProviderService: Valideert token
+identityProviderService --> identityService: Retourneert foutmelding
+identityService --> identityController : Retourneert foutmelding
+identityController --> frontend : Retourneert foutmelding
+
+end
+
+else Inloggen mislukt
+
+frontend -> identityProviderService: Verstuurt authenticatieverzoek
+identityProviderService --> frontend: Retourneert foutmelding
+frontend --> Reiziger: Retourneert foutmelding
+
+end
 
 @enduml
