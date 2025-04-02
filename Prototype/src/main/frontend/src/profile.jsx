@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 const Profile = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
+    useAuth0();
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -14,7 +15,10 @@ const Profile = () => {
     return navigate("/login");
   }
 
-  console.log(user, isAuthenticated, isLoading);
+  (async () => {
+    const token = await getAccessTokenSilently();
+    console.log(token);
+  })();
 
   return (
     isAuthenticated && (

@@ -35,6 +35,7 @@ createRoot(document.getElementById("root")).render(
       clientId="NCTqEhkXW0tMY13FuVVNoG83WSmSuP9O"
       authorizationParams={{
         redirect_uri: window.location.origin,
+        audience: "https://dev-1yukta3ze7ly4fnr.eu.auth0.com/api/v2/",
       }}
       cacheLocation="localstorage"
     >
