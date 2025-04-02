@@ -1,4 +1,4 @@
-package nl.han.soex.payment;
+package nl.han.soex.prototype.payment.domain;
 
 public enum PaymentStatus {
     PENDING,
