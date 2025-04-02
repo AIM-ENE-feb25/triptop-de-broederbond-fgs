@@ -1,0 +1,46 @@
+@startuml
+
+class PaymentRequest{
+    + bouwstenen: List<BouwsteenPaymentHandler>
+    + paymentMethod: PaymentMethod
+    + amount: double
+}
+PaymentRequest --> PaymentMethod
+
+class PaymentController{
+    + handlePayment(requestBody: PaymentRequest) : ResponseEntity
+}
+PaymentController --> PaymentService
+PaymentController --> PaymentRequest
+
+
+class PaymentService {
+    + handlePayment(paymentRequest : PaymentRequest)
+}
+PaymentService --> PaymentMethod
+PaymentService --> BouwsteenPaymentHandler
+
+interface BouwsteenPaymentHandler {
+    + savePayment(paymentRequest : PaymentRequest)
+    + cancelPayment(paymentRequest : PaymentRequest)
+}
+class TreinService implements BouwsteenPaymentHandler{
+    + savePayment(paymentRequest : PaymentRequest)
+    + cancelPayment(paymentRequest : PaymentRequest)
+}
+class VliegtuigService implements BouwsteenPaymentHandler{
+    + savePayment(paymentRequest : PaymentRequest)
+    + cancelPayment(paymentRequest : PaymentRequest)
+}
+
+interface PaymentMethod{
+    + handlePayment(amount: double)
+}
+class PayPal implements PaymentMethod{
+    + handlePayment(amount: double)
+}
+class Ideal implements PaymentMethod{
+    + handlePayment(amount: double)
+}
+
+@enduml

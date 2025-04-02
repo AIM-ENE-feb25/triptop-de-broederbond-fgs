@@ -1,0 +1,23 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+SHOW_PERSON_OUTLINE()
+
+Person("Klant", "Klant", "Stelt reis samen en boekt deze")
+System("Triptop", "Triptop")
+System_Ext("OvernachtingService", "Overnachting service", "Service zoals booking.com of AirBnB voor het boeken van een overnachting")
+System_Ext("VervoerService", "Vervoer service", "Service zoals NS of KLM voor het vervoer naar de bestemming")
+System_Ext("ActiviteitService", "Activiteit service", "Service zoals GetYourGuide voor het plannen van excursies/activiteiten")
+System_Ext("AutohuurService", "Autohuur service", "Service zoals Sixt of Hertz voor het huren van vervoer")
+System_Ext("VoedselService", "Voedsel service", "Service zoals TakeAway voor het bestellen van eten en drinken")
+
+Rel("Klant", "Triptop", "Stelt vakantie samen")
+
+Rel("Triptop", "OvernachtingService", "Boekt overnachting met")
+Rel("Triptop", "VervoerService", "Regelt vervoer met")
+Rel("Triptop", "ActiviteitService", "Plant activiteiten met")
+Rel("Triptop", "AutohuurService", "Huurt vervoer met")
+Rel("Triptop", "VoedselService", "Regelt voedsel met")
+
+@enduml

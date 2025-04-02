@@ -1,0 +1,38 @@
+@startuml
+
+autonumber
+
+actor Reiziger
+participant "paymentController:\nPaymentController" as paymentController
+participant "paymentService:\nPaymentService" as paymentService
+participant "paymentMethod:\nPaymentMethod" as paymentMethod
+participant "bouwsteenPaymentHandler:\nBouwsteenPaymentHandler" as bouwsteenPaymentHandler
+participant "External Payment Provider" as paymentProvider
+database "Database" as database
+
+Reiziger -> paymentController : handlePayment(paymentRequest)
+
+
+paymentController -> paymentService : handlePayment(paymentRequest)
+paymentService -> bouwsteenPaymentHandler : savePayment(paymentRequest)
+bouwsteenPaymentHandler -> database : save(paymentRequest)
+paymentService -> paymentMethod : handlePayment(amount)
+paymentMethod -> paymentProvider : Stuur betalingsverzoek
+
+alt Betaling gelukt
+    paymentProvider --> paymentMethod : Response betaling
+    paymentMethod --> paymentService : Response betaling
+    paymentService -> bouwsteenPaymentHandler : savePayment(paymentRequest)
+    bouwsteenPaymentHandler -> database : save(paymentRequest)
+    paymentService --> paymentController : Bevestiging
+    paymentController --> Reiziger : Bevestiging
+else Betaling mislukt
+    paymentProvider --> paymentMethod : Response betaling
+    paymentMethod --> paymentService : Response betaling
+    paymentService -> bouwsteenPaymentHandler : cancelPayment(paymentRequest)
+    bouwsteenPaymentHandler -> database : delete(paymentRequest)
+    paymentService --> paymentController : Annulering
+    paymentController --> Reiziger : Annulering
+end
+
+@enduml
