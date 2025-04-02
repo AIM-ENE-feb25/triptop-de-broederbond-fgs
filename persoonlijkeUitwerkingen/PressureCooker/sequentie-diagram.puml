@@ -1,0 +1,24 @@
+@startuml
+
+actor Gebruiker
+participant "Single-Page Application" as singlePageApp
+participant "Payment Controller" as paymentController
+participant "Payment Service" as paymentService
+participant "Payment paymentDao" as paymentDao
+participant "Database" as database
+participant "Payment Provider" as paymentProvider
+
+Gebruiker -> singlePageApp : Start betaling
+singlePageApp -> paymentController : Verzoek betaling
+paymentController -> paymentService : Roep betalingsservice aan
+paymentService -> paymentProvider : Stuur betalingsverzoek
+paymentProvider --> paymentService : Response betaling
+paymentService -> paymentDao : Opslaan transactie
+paymentDao -> database : Schrijf data
+database --> paymentDao : Bevestiging opslaan
+paymentDao --> paymentService : Bevestiging
+paymentService --> paymentController : Bevestiging
+paymentController --> singlePageApp : Bevestiging
+singlePageApp -> Gebruiker : Toon resultaat
+
+@enduml

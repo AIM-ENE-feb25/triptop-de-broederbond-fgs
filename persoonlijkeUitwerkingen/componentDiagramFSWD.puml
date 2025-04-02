@@ -1,0 +1,45 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+' Frontend Components
+Container_Boundary(frontend,"Frontend"){
+    Component(appComponent, "App")
+    Component(loginComponent, "Login")
+    Component(claimOverzichtComponent, "ClaimOverzicht")
+    Component(claimAanmakenComponent, "ClaimAanmaken")
+}
+
+' Backend Components
+Container_Boundary(backend,"Backend"){
+    Component(claimController, "ClaimController")
+    Component(loginController, "LoginController")
+    Component(claimService, "ClaimService")
+    Component(authenticationService, "AuthenticationService")
+    Component(claimDAO, "ClaimDAO")
+    Component(userDAO, "UserDAO")
+}
+
+' Database
+Container_Boundary(database,"Database"){
+    Component(claimsTable, "Claims Table")
+    Component(usersTable, "Users Table")
+}
+
+' Relationships
+    ' Frontend
+Rel(appComponent, claimOverzichtComponent, "Renders")
+Rel(appComponent, loginComponent, "Renders")
+Rel(appComponent, claimAanmakenComponent, "Renders")
+Rel(loginComponent, loginController, "Sends requests to")
+Rel(claimOverzichtComponent, claimController, "Sends requests to")
+    ' Backend
+Rel(claimController, claimService, "Uses")
+Rel(claimService, claimDAO, "Uses")
+Rel(claimService, authenticationService, "Uses")
+Rel(authenticationService, userDAO, "Uses")
+Rel(loginController, authenticationService, "Uses")
+Rel(claimDAO, claimsTable, "Reads/Writes")
+Rel(userDAO, usersTable, "Reads/Writes")
+
+@enduml
