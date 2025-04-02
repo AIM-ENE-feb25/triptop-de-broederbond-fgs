@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentService {
-    public void handlePayment(PaymentRequest paymentRequest) throws InterruptedException {
+    public String handlePayment(PaymentRequest paymentRequest) throws InterruptedException {
         // Handle payment
         PaymentMethodHandler paymentMethodHandler = PaymentMethodStrategy.getHandler(paymentRequest.getPaymentMethod());
 
@@ -15,6 +15,6 @@ public class PaymentService {
             throw new IllegalArgumentException("Payment method not supported!");
         }
 
-        paymentMethodHandler.handlePayment(paymentRequest);
+        return paymentMethodHandler.handlePayment(paymentRequest);
     }
 }

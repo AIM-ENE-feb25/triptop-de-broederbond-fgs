@@ -23,9 +23,8 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<String> handlePayment(@RequestBody PaymentRequest paymentRequest) throws InterruptedException {
-        paymentService.handlePayment(paymentRequest);
+        String paymentLink = paymentService.handlePayment(paymentRequest);
 
-        return ResponseEntity.ok("Payment with "  + paymentRequest.getPaymentMethod()
-                + " of: " + paymentRequest.getAmount() + " handled!");
+        return ResponseEntity.ok(paymentLink);
     }
 }
