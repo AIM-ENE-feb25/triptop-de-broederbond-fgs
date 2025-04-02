@@ -1,0 +1,62 @@
+@startuml
+
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+SHOW_PERSON_OUTLINE()
+
+'Person("Reiziger", "Reiziger", "Klant")
+'Person("Reisagent", "Reisagent", "Support")
+'
+'System("Triptop", "Triptop", "Zelfstandig reisplanning en beheer")
+'
+'System_Ext("Accommodatie","Accommodatie (Airbnb, booking, etc)", "Biedt verhuur opties aan van accommodaties")
+'System_Ext("VervoerVerhuur","Vervoer verhuur (Sixt, hertz, etc)", "Biedt verhuur opties voor vervoer")
+'System_Ext("VervoerMaatschappij","Vervoer maatschappij (KLM, NS, etc)", "Biedt tickets aan aan van vervoersmaatschappijen")
+'System_Ext("Activiteiten","Activiteiten GetYourGuide, Tripadvisor, etc)", "Biedt activiteiten aan")
+'System_Ext("IdentityProvider","IdentityProvider (Apple, Google, etc)", "Biedt opties aan om je te identificeren")
+'System_Ext("EtenEnDrinken","Eten en drinken (UberEats, Eet.nu, etc)", "Biedt opties aan om eten te bestellen")
+'System_Ext("PaymentProvider","PaymentProvider (Adyen, PayPal, etc)", "Biedt opties aan om te betalen")
+'
+'Rel("Reiziger", "Triptop", "Het samenstellen, boeken, annuleren en aanpassen van een reis")
+'Rel("Reisagent", "Triptop", "Verleent support aan reizigers")
+'Rel("Triptop", "Accommodatie", "Biedt verhuur opties aan van accommodaties")
+'Rel("Triptop", "VervoerVerhuur", "Biedt verhuur opties voor vervoer")
+'Rel("Triptop", "VervoerMaatschappij", "Biedt tickets aan aan van vervoersmaatschappijen")
+'Rel("Triptop", "Activiteiten", "Biedt activiteiten aan")
+'Rel("Triptop", "IdentityProvider", "Biedt opties aan om je te identificeren")
+'Rel("Triptop", "EtenEnDrinken", "Biedt opties aan om eten te bestellen")
+'Rel("Triptop", "PaymentProvider", "Biedt opties aan om te betalen")
+
+Person("Reiziger", "Reiziger", "Klant")
+Person("Reisagent", "Reisagent", "Support")
+System_Boundary(c1, "Triptop System") {
+    Container(front_end, "Front-End", "Javascript + React", "Allows users to interface with the back-end")
+    Container(front_end2, "Front-End (Support)", "Javascript + React", "Allows support to assists traveller")
+    Container(back_end, "Back-End", "Java + Spring", "Handle logic and interacts with others apis")
+    ContainerDb(database, "Database", "??", "Stores user information")
+}
+
+System("Accommodatie","AccommodatieService (Airbnb, booking, etc)", "Biedt verhuur opties aan van accommodaties")
+System("VervoerVerhuur","Vervoer verhuur service (Sixt, hertz, etc)", "Biedt verhuur opties voor vervoer")
+System("VervoerMaatschappij","VervoerService (KLM, NS, etc)", "Biedt tickets aan aan van vervoersmaatschappijen")
+System("Activiteiten","ActiviteitenService(GetYourGuide, Tripadvisor, etc)", "Biedt activiteiten aan")
+System("IdentityProvider","IdentityProviderService (Apple, Google, etc)", "Biedt opties aan om je te identificeren")
+System("EtenEnDrinken","Eten en drinken service (UberEats, Eet.nu, etc)", "Biedt opties aan om eten te bestellen")
+System("PaymentProvider","PaymentProviderService (Adyen, PayPal, etc)", "Biedt opties aan om te betalen")
+
+Rel(Reiziger, front_end, "Uses", "HTTPS")
+Rel(Reisagent, front_end2, "Uses", "HTTPS")
+
+Rel(front_end, back_end, "Makes API calls to", "JSON/HTTPS")
+Rel(front_end2, back_end, "Makes API calls to", "JSON/HTTPS")
+Rel(back_end, database, "Read/write from", "SQL/TCP")
+
+Rel(back_end, "Accommodatie", "Makes API calls to", "?")
+Rel(back_end, "VervoerMaatschappij", "Makes API calls to", "?")
+Rel(back_end, "Activiteiten", "Makes API calls to", "?")
+Rel(back_end, "VervoerVerhuur", "Makes API calls to", "?")
+Rel(back_end, "EtenEnDrinken", "Makes API calls to", "?")
+Rel(back_end, "IdentityProvider", "Makes API calls to", "?")
+Rel(back_end, "PaymentProvider", "Makes API calls to", "?")
+
+@enduml

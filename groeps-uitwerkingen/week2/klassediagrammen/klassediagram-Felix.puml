@@ -1,0 +1,72 @@
+@startuml
+
+class VervoerController {
+    +createTicket(request: TicketRequest): Ticket
+    +getTicketDetails(ticketId: Long): Ticket
+    +cancelTicket(ticketId: Long): boolean
+}
+
+VervoerController --> VervoerService
+
+class VervoerService {
+    +createTicket(request: TicketRequest): Ticket
+    +getTicketDetails(ticketId: Long): Ticket
+    +cancelTicket(ticketId: Long): boolean
+    +getAdapter(vervoerderType: VervoerderType): IVervoerderAdapter
+}
+
+class TicketRepository {
+    +save(ticket: Ticket): Ticket
+    +findById(ticketId: Long): Ticket
+    +delete(ticketId: Long): void
+}
+
+VervoerService --> TicketRepository
+
+class Ticket {
+    - ticketId: Long
+    - vertrekpunt: String
+    - bestemming: String
+    - datum: Date
+    - status: TicketStatus
+}
+
+enum TicketStatus {
+    GEBOEKT
+    AANGEKOMEN
+    GEANNULEERD
+}
+
+VervoerService --> Ticket
+Ticket --> TicketStatus
+
+enum VervoerderType {
+    KLM
+    NS
+}
+
+interface IVervoerderAdapter {
+    +createTicket(request: TicketRequest): Ticket
+}
+
+class KlmAdapter {
+    +createTicket(request: TicketRequest): Ticket
+}
+
+class NsAdapter {
+    +createTicket(request: TicketRequest): Ticket
+}
+
+KlmAdapter ..|> IVervoerderAdapter
+NsAdapter ..|> IVervoerderAdapter
+VervoerService --> IVervoerderAdapter
+AdapterFactory --> VervoerderType
+
+class AdapterFactory {
+    +getAdapter(vervoerderType: VervoerderType): IVervoerderAdapter
+}
+
+AdapterFactory --> IVervoerderAdapter
+VervoerService --> AdapterFactory
+
+@enduml
