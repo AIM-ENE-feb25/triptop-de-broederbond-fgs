@@ -1,18 +1,27 @@
 @startuml
 
-actor User
+autonumber
 
-User -> Frontend : Start boeking
-Frontend -> Backend : API request voor boeking
-Backend -> IdentityProvider : Authenticatie
-IdentityProvider -> Backend : Bevestiging
-Backend -> BoekingController : Verwerk boekingsverzoek
-BoekingController -> BoekingService : Verwerk boekingslogica
-BoekingService -> Backend : Bevestiging van boeking
-Backend -> BetalingController : Start betalingsproces
-BetalingController -> BetalingService : Verwerk betaling
-BetalingService -> Backend : Betaling bevestigd
-Backend -> Frontend : Bevestiging van boeking en betaling
-Frontend -> User : Bevestiging weergegeven
+actor Reiziger
+participant "TransportController:\nTransportController" as TC
+participant "TransportService:\nTransportService" as TS
+participant "AdapterFactory:\nAdapterFactory" as AF
+participant "ITransportAdapter:\nITransportAdapter" as Adapter
+participant "Journey:\nJourney" as J
+
+Reiziger -> TC: getAvailableTrips(request)
+TC -> TS: getAvailableTrips(request)
+TS -> TS: transportType = extractTransportType(request)
+TS -> AF: adapter = getTransportAdapter(transportType)
+
+alt Connection Established with API
+    TS -> Adapter: trips = adapter.getAvailableTrips(request)
+    TS -> TC: trips
+    TC -> Reiziger: trips
+else Connection Failure with API
+    Adapter -> TS: error("Could not retrieve data")
+    TS -> TC: error("Could not retrieve data")
+    TC -> Reiziger: error("Could not retrieve data")
+end
 
 @enduml

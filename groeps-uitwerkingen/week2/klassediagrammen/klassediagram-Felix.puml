@@ -1,72 +1,62 @@
 @startuml
 
-class VervoerController {
-    +createTicket(request: TicketRequest): Ticket
-    +getTicketDetails(ticketId: Long): Ticket
-    +cancelTicket(ticketId: Long): boolean
+class TransportController {
+    +getAvailableTrips(request: Request): Trips
 }
 
-VervoerController --> VervoerService
+TransportController --> TransportService
 
-class VervoerService {
-    +createTicket(request: TicketRequest): Ticket
-    +getTicketDetails(ticketId: Long): Ticket
-    +cancelTicket(ticketId: Long): boolean
-    +getAdapter(vervoerderType: VervoerderType): IVervoerderAdapter
+class TransportService {
+    +getAvailableTrips(request: Request): Trips
+    +getTransportAdapter(transportType: TransportType): ITransportAdapter
+    +extractTransportType(request: Request): TransportType
 }
 
-class TicketRepository {
-    +save(ticket: Ticket): Ticket
-    +findById(ticketId: Long): Ticket
-    +delete(ticketId: Long): void
+class Journey {
+    - journeyId: Long
+    - departure: String
+    - destination: String
+    - date: Date
+    - status: JourneyStatus
 }
 
-VervoerService --> TicketRepository
-
-class Ticket {
-    - ticketId: Long
-    - vertrekpunt: String
-    - bestemming: String
-    - datum: Date
-    - status: TicketStatus
+enum JourneyStatus {
+    AVAILABLE
+    BOOKED
+    CANCELLED
 }
 
-enum TicketStatus {
-    GEBOEKT
-    AANGEKOMEN
-    GEANNULEERD
-}
-
-VervoerService --> Ticket
-Ticket --> TicketStatus
-
-enum VervoerderType {
+enum TransportType {
     KLM
     NS
 }
 
-interface IVervoerderAdapter {
-    +createTicket(request: TicketRequest): Ticket
+interface ITransportAdapter {
+    +getAvailableTrips(request: Request): Trips
 }
 
-class KlmAdapter {
-    +createTicket(request: TicketRequest): Ticket
+class KLMAdapter {
+    +getAvailableTrips(request: Request): Trips
 }
 
-class NsAdapter {
-    +createTicket(request: TicketRequest): Ticket
+class NSAdapter {
+    +getAvailableTrips(request: Request): Trips
 }
-
-KlmAdapter ..|> IVervoerderAdapter
-NsAdapter ..|> IVervoerderAdapter
-VervoerService --> IVervoerderAdapter
-AdapterFactory --> VervoerderType
 
 class AdapterFactory {
-    +getAdapter(vervoerderType: VervoerderType): IVervoerderAdapter
+    +getAdapter(transportType: TransportType): ITransportAdapter
 }
 
-AdapterFactory --> IVervoerderAdapter
-VervoerService --> AdapterFactory
+TransportService --> Journey
+Journey --> JourneyStatus
+
+KLMAdapter ..|> ITransportAdapter
+NSAdapter ..|> ITransportAdapter
+TransportService --> ITransportAdapter
+
+AdapterFactory --> ITransportAdapter
+TransportService --> AdapterFactory
+
+TransportService --> TransportType
 
 @enduml
