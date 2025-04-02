@@ -4,19 +4,21 @@ skinparam linetype ortho
 
 interface IdentityProvider {
   + validateToken(token: String, options: List<String>): boolean
-  + getName(): String
+}
+
+enum IdentityProviderType {
+    MOCKAPI
+    AUTH0
 }
 
 class MockAPIIdentityProviderAdapter {
   + validateToken(token: String, options: List<String>): boolean
-  + getName(): String
 }
 
 class Auth0IdentityProviderTypeAdapter {
 '  - domain: String
 '  - audience: String
   + validateToken(token: String, options: List<String>): boolean
-  + getName(): String
 }
 
 class AuthController {
@@ -25,16 +27,16 @@ class AuthController {
 
 class AuthService {
     - identityProviderFactory: IdentityProviderFactory
-    + validateToken(token: String, type: String options: List<String>)
+    + validateToken(token: String, type: IdentityProviderType options: List<String>)
 }
 
 class IdentityProviderFactory {
-  - {static} Map<String, IdentityProvider> providers
-  + {static} getIdentityProvider(provider: String): IdentityProvider
+  - {static} Map<IdentityProviderType, IdentityProvider> providers
+  + {static} getIdentityProvider(provider: IdentityProviderType): IdentityProvider
 }
 
 class AuthBodyDTO {
-    + name: String
+    + type: IdentityProviderType
     + token: String
     + options: List<String>
 }
@@ -45,8 +47,12 @@ IdentityProvider <|.. Auth0IdentityProviderTypeAdapter
 
 AuthService --> IdentityProviderFactory
 AuthService --> IdentityProvider
+AuthService --> IdentityProviderType
 AuthController --> AuthService
 AuthController --> AuthBodyDTO
 IdentityProviderFactory --> IdentityProvider
+
+IdentityProviderFactory --> IdentityProviderType
+AuthBodyDTO --> IdentityProviderType
 
 @enduml

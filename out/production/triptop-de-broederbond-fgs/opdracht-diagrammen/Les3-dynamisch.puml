@@ -1,0 +1,36 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+
+Container(singlePageApp, "Single Page Applicatie", "JavaScript & React", "Een interactieve webapplicatie voor het plannen en beheren van reizen.")
+
+System_Boundary(c1, "Rest API") {
+    Component(identity_controller, "Identity Controller", "Spring REST Controller", "Verwerkt API-verzoeken voor gebruikersauthenticatie en autorisatie.")
+    Component(identity_service, "Identity Service", "Spring Service", "Behandelt de logica voor authenticatie en gebruikersbeheer.")
+    Component(identity_dao, "Identity DAO", "Spring Repository", "Verantwoordelijk voor het opslaan en ophalen van gebruikersgegevens uit de database.")
+}
+
+Container_Ext(identityProviderService, "Identity Provider Service", "MockAPI", "Externe service (zoals Google of Facebook) voor gebruikersauthenticatie.")
+
+ContainerDb(database, "Database", "?", "Bevat gebruikersgegevens en authenticatie-informatie.")
+
+Rel(singlePageApp, identityProviderService, "Verstuurt authenticatieverzoek", "?")
+Rel(identityProviderService, singlePageApp, "Retourneert JWT-token", "?")
+
+Rel(singlePageApp, identity_controller, "Stuurt API-verzoeken voor authenticatie en gebruikersbeheer", "JSON/HTTP")
+Rel(identity_controller, identity_service, "Verwerkt verzoeken en voert logica uit")
+
+Rel(identity_service, identityProviderService, "Valideert token bij externe provider", "JSON/HTTP")
+Rel(identityProviderService, identity_service, "Retourneert tokenvalidatie-informatie", "JSON/HTTP")
+
+Rel(identity_service, identity_dao, "Interactie met database")
+Rel(identity_dao, database, "Leest en schrijft gebruikersgegevens", "?")
+Rel(database, identity_dao, "Levert gebruikersgegevens", "?")
+Rel(identity_dao, identity_service, "Retourneert data aan service")
+Rel(identity_service, identity_controller, "Retourneert verwerkte gegevens aan controller")
+Rel(identity_controller, singlePageApp, "Stuurt API-respons naar de applicatie", "JSON/HTTP")
+
+@enduml

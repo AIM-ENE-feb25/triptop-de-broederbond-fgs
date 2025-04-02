@@ -1,0 +1,89 @@
+@startuml
+
+autonumber
+
+actor Reiziger
+
+participant "Frontend" as frontend
+participant "Identity Controller: \nAuthController" as identityController
+participant "Identity Service: \nAuthService" as identityService
+participant "Identity Provider Factory: \nIdentityProviderFactory" as identityProviderFactory
+participant "Identity Provider:\nIdentityProvider" as identityProvider
+participant "Identity Provider Service:\nIdentityProviderService" as identityProviderService
+
+'participant "Identity Repository: \nAuthRepository" as identityRepository
+'database "Database" as database
+
+
+
+Reiziger -> frontend: Logt in
+
+alt Inloggen gelukt
+
+frontend -> identityProviderService: Versuurt authenticatieverzoek
+identityProviderService --> frontend: Retourneert token
+
+alt Valideren gelukt
+
+frontend -> identityController: ...
+identityController -> identityService: validateToken(token, type, options)
+identityService -> identityProviderFactory: provider = getIdentityProvider(type)
+identityService -> identityProvider: provider.validateToken(token, options)
+identityProvider -> identityProviderService: Valideert token
+identityProviderService --> identityProvider: Retourneert validatie
+identityProvider --> identityService: Retourneert validatie
+else Valideren mislukt
+
+end
+
+else Inloggen mislukt
+
+frontend -> identityProviderService: Verstuurt authenticatieverzoek
+identityProviderService --> frontend: Retourneert foutmelding
+frontend --> Reiziger: Retourneert foutmelding
+
+end
+
+'alt Inloggen gelukt
+'
+'frontend -> identityProviderService: Verstuurt authenticatieverzoek
+'identityProviderService --> frontend: Retourneert token
+'
+'alt valideren gelukt
+'
+'frontend -> identityController: Stuurt token voor validatie
+'identityController -> identityService: Valideert token
+'
+'identityService -> identityProviderService: Valideert token
+'identityProviderService --> identityService: Retourneert validatie
+'
+'identityService -> identityRepository: Slaat profiel op
+'identityRepository -> database: Slaat profiel op
+'database --> identityRepository: Stuurt profiel gegevens op
+'identityRepository --> identityService: Retourneert profielgegevens
+'
+'identityService --> identityController: Retourneert profielgegevens
+'identityController --> frontend: Retourneert profielgegevens
+'frontend --> Reiziger: Retourneert profielgegevens
+'
+'else valideren mislukt
+'
+'frontend -> identityController: Stuurt token voor validatie
+'identityController -> identityService: Valideert token
+'
+'identityService -> identityProviderService: Valideert token
+'identityProviderService --> identityService: Retourneert foutmelding
+'identityService --> identityController : Retourneert foutmelding
+'identityController --> frontend : Retourneert foutmelding
+'
+'end
+'
+'else Inloggen mislukt
+'
+'frontend -> identityProviderService: Verstuurt authenticatieverzoek
+'identityProviderService --> frontend: Retourneert foutmelding
+'frontend --> Reiziger: Retourneert foutmelding
+'
+'end
+
+@enduml
