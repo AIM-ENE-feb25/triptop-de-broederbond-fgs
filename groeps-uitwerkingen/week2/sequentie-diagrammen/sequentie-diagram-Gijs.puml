@@ -5,29 +5,52 @@ autonumber
 actor Reiziger
 
 participant "Frontend" as frontend
-participant "Identity Controller" as identityController
-participant "Identity Service" as identityService
-participant "Identity Repository" as identityRepository
-participant "Database" as database
+
+participant "AuthenticationController:\nAuthenticationController" as AuthenticationController
+participant "AuthenticationService:\nAuthenticationService" as AuthenticationService
+participant "IdentityProviderFactory:\nIdentityProviderFactory" as IdentityProviderFactory
+participant "IdentityProvider:\nIdentityProvider" as IdentityProvider
+participant "Token Provider:\nTokenProvider" as tokenProvider
 participant "Identity Provider Service" as identityProviderService
 
-Reiziger -> frontend: Logt in
+Reiziger --> frontend : Logt in
+
+alt Inloggen gelukt
+
 frontend -> identityProviderService: Verstuurt authenticatieverzoek
 identityProviderService --> frontend: Retourneert token
 
-frontend -> identityController: Stuurt token voor validatie
-identityController -> identityService: Valideert token
+frontend -> AuthenticationController : authenticate(requestBody)
+AuthenticationController -> AuthenticationService : authenticate(token, name, options)
+AuthenticationService -> IdentityProviderFactory : provider = getIdentityProvider(name)
+AuthenticationService -> IdentityProvider : token = provider.authenticate(token, options)
 
-identityService -> identityProviderService: Valideert token
-identityProviderService --> identityService: Retourneert validatie
+alt Identity Provider heeft jwt token
 
-identityService -> identityRepository: Slaat profiel op
-identityRepository -> database: Slaat profiel op
-database --> identityRepository: Stuurt profiel gegevens op
-identityRepository --> identityService: Retourneert profielgegevens
+IdentityProvider -> IdentityProvider : validates jwt token.
+IdentityProvider --> AuthenticationService : returns token
+AuthenticationService --> AuthenticationController : returns token
+AuthenticationController --> frontend : returns token
 
-identityService --> identityController: Retourneert profielgegevens
-identityController --> frontend: Retourneert profielgegevens
-frontend --> Reiziger: Retourneert profielgegevens
+else Identity Provider heeft geen jwt token
+
+IdentityProvider -> identityProviderService : verify token with external service
+IdentityProvider -> tokenProvider : token = generateToken(options.username)
+IdentityProvider --> AuthenticationService : returns token
+AuthenticationService --> AuthenticationController : returns token
+AuthenticationController --> frontend : returns token
+
+end
+
+frontend --> Reiziger: Reiziger is nu ingelogd
+
+
+else Inloggen mislukt
+
+frontend -> identityProviderService: Verstuurt authenticatieverzoek
+identityProviderService --> frontend: Retourneert foutmelding
+frontend --> Reiziger: Retourneert foutmelding
+
+end
 
 @enduml
