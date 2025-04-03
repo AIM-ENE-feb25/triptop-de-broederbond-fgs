@@ -360,6 +360,9 @@ zijn. Om te kijken welke versie je hebt kan je de volgende commando's gebruiken:
 java -version
 mvn -v
 ```
+
+Daarnaast is Node.js v22 vereist om de frontend voor de identity provider te kunnen draaien.
+
 Om de software te installeren kan je de repository klonen of downloaden.
 Als de repository is gedownload, open de folder met IntelliJ en ga naar het volgende bestand:
 'triptop-de-broederbond-fgs/prototype/src/main/java/nl/han/soex/prototype/PrototypeApplication.java'
@@ -370,3 +373,36 @@ http://localhost:8080
 ```
 Er zijn verschillende endpoints die de applicatie gebruikt. Alle endpoints met method staan in de bijbehorende 
 controller klasse. In de parameters staat dan vervolgens wat deze endpoint verwacht.
+
+Om de frontend te starten, navigeer naar de frontend directory van de applicatie:
+
+```bash
+cd triptop-de-broederbond-fgs/prototype/src/main/frontend
+```
+
+Voer vervolgens de volgende commando’s uit:
+1.	Installeer de benodigde afhankelijkheden:
+
+
+```bash
+npm install
+```
+
+2.	Start de frontend met:
+
+
+```bash
+npm run dev
+```
+
+Let op: Om gebruik te maken van de API’s die we hebben geïntegreerd (zoals Stripe, PayPal en Auth0), moet je accounts aanmaken bij deze diensten om een API-sleutel (API key) te verkrijgen. Deze sleutels zijn nodig om verbinding te maken met de respectieve API’s voor betalingen en authenticatie. Zorg ervoor dat je de API-sleutels correct configureert in de applicatie om de functionaliteit te kunnen testen.
+
+Backend Configuratie voor Identity Providers
+
+Voor de backend kun je de benodigde gegevens voor de identity providers aanpassen in de application.properties die zich bevindt in de resources map. Denk hierbij aan de issuer link van Auth0 en de URL voor de mock API. Zorg ervoor dat de juiste configuraties zijn ingesteld voor de applicatie om correct te kunnen communiceren met de identity providers en mock API.
+
+Frontend Configuratie voor Auth0
+
+Voor de frontend kun je de Auth0-gegevens aanpassen in de auth_config.json. Mocht de URL van de mock API veranderen, kun je deze ook aanpassen in de mockApiLogin.js methode binnen de api.js file. In principe kan de frontend volledig gevolgd worden via de Auth0 Quickstart, waar je stap voor stap kunt zien hoe de Auth0-integratie werkt.
+
+Door deze aanpassingen te maken, kun je de applicatie succesvol testen en de verschillende identity providers en mock API’s benaderen via de frontend en backend.
