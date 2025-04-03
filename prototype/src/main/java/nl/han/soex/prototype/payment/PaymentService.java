@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentService {
-    public String handlePayment(PaymentRequest paymentRequest) throws InterruptedException {
+    public String handlePayment(PaymentRequest paymentRequest) {
         // Handle payment
         PaymentMethodHandler paymentMethodHandler = PaymentMethodStrategy.getHandler(paymentRequest.getPaymentMethod());
 

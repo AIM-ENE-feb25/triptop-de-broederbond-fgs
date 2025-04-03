@@ -7,5 +7,4 @@ import java.math.BigDecimal;
 
 public interface PaymentMethodHandler {
     String handlePayment(PaymentRequest paymentRequest);
-    void canclePayment();
 }

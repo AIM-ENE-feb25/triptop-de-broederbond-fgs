@@ -1,14 +1,7 @@
 package nl.han.soex.prototype;
 
-import nl.han.soex.prototype.payment.domain.PaymentMethods;
-import nl.han.soex.prototype.payment.domain.PaymentRequest;
-import nl.han.soex.prototype.payment.domain.handlers.PaymentMethodHandler;
-import nl.han.soex.prototype.payment.domain.handlers.StripeHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 @SpringBootApplication
 public class PrototypeApplication {

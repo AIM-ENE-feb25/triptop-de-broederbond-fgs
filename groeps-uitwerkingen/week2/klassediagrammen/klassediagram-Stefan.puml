@@ -1,46 +1,62 @@
 @startuml
 
-class PaymentRequest{
-    + bouwstenen: List<BouwsteenPaymentHandler>
-    + paymentMethod: PaymentMethod
-    + amount: double
-}
-PaymentRequest --> PaymentMethod
-
 class PaymentController{
-    + handlePayment(requestBody: PaymentRequest) : ResponseEntity
-}
-PaymentController --> PaymentService
-PaymentController --> PaymentRequest
+    -paymentService : PaymentService
 
+    +handlePayment(PaymentRequest paymentRequest) : ResponseEntity<String>
+}
+PaymentController --> PaymentService : calls
 
-class PaymentService {
-    + handlePayment(paymentRequest : PaymentRequest)
+class PaymentService{
+    +handlePayment(PaymentRequest paymentRequest) : String
 }
-PaymentService --> PaymentMethod
-PaymentService --> BouwsteenPaymentHandler
+PaymentService --> PaymentMethodStrategy : uses
+PaymentService --> PaymentMethodHandler : uses
 
-interface BouwsteenPaymentHandler {
-    + savePayment(paymentRequest : PaymentRequest)
-    + cancelPayment(paymentRequest : PaymentRequest)
-}
-class TreinService implements BouwsteenPaymentHandler{
-    + savePayment(paymentRequest : PaymentRequest)
-    + cancelPayment(paymentRequest : PaymentRequest)
-}
-class VliegtuigService implements BouwsteenPaymentHandler{
-    + savePayment(paymentRequest : PaymentRequest)
-    + cancelPayment(paymentRequest : PaymentRequest)
+interface PaymentMethodHandler{
+    +handlePayment(PaymentRequest request): String
 }
 
-interface PaymentMethod{
-    + handlePayment(amount: double)
+class PaypalHandler{
+    -CLIENT_ID : String
+    -CLIENT_SECRET : String
+    -MAX_TRIES : int
+
+    +handlePayment(PaymentRequest request): String
+    -checkStatus(String token, String paymentId): void
+    -getToken() : String
+    -createPayment(String token, BigDecimal amount) : String
+    -getUserPaymentLink(JSONObject json) : String
+    -capturePayment(String token, String paymentId) : String
 }
-class PayPal implements PaymentMethod{
-    + handlePayment(amount: double)
+PaypalHandler ..|> PaymentMethodHandler : implements
+
+class StripeHandler{
+    -API_KEY : String
+
+    +handlePayment(PaymentRequest paymentRequest) : String
+    -createProduct(BigDecimal amount) : Product
+    -createPaymentLink(String amount) : PaymentLink
 }
-class Ideal implements PaymentMethod{
-    + handlePayment(amount: double)
+StripeHandler ..|> PaymentMethodHandler : implements
+
+class PaymentMethodStrategy{
+    -{static}handlers : Map<PaymentMethod, PaymentMethodHandler>
+    +{static}getHandler(PaymentMethod method) : PaymentMethodHandler
+}
+PaymentMethodStrategy --> PaymentMethod : uses
+PaymentMethodStrategy --> PaymentMethodHandler : uses
+
+class PaymentRequest{
+    -buildingBlocks : List<Object>
+    -paymentMethod : PaymentMethod
+    -amount : BigDecimal
+}
+PaymentRequest --> PaymentMethod : uses
+
+enum PaymentMethod{
+    PAYPAL
+    STRIPE
 }
 
 @enduml
