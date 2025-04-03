@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import nl.han.soex.prototype.transport.TrainTrip;
 import nl.han.soex.prototype.transport.Trip;
 import nl.han.soex.prototype.transport.TripRequest;
 import org.json.JSONArray;
@@ -52,13 +53,22 @@ public class NSAdapter implements ITransportAdapter {
 
             long tripId = i + 1;
             JSONObject firstLeg = tripObj.getJSONArray("legs").getJSONObject(0);
-            String departure = tripObj.getJSONArray("legs").getJSONObject(0).getJSONObject("origin").getString("name");
-            String destination = tripObj.getJSONArray("legs").getJSONObject(0).getJSONObject("destination").getString("name");
+            String departure = firstLeg.getJSONObject("origin").getString("name");
+            String destination = firstLeg.getJSONObject("destination").getString("name");
             String dateTime = tripObj.getString("plannedDepartureDateTime");
+
             String plannedTrack = firstLeg.getJSONObject("origin").optString("plannedTrack", "N/A");
             String actualTrack = firstLeg.getJSONObject("origin").optString("actualTrack", "N/A");
 
-            trips.add(new Trip(tripId, departure, destination, dateTime, plannedTrack, actualTrack));
+            TrainTrip trainTrip = new TrainTrip(
+                    tripId,
+                    departure,
+                    destination,
+                    dateTime,
+                    plannedTrack,
+                    actualTrack
+            );
+            trips.add(trainTrip);
         }
 
         return trips;

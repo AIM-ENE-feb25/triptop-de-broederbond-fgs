@@ -1,26 +1,24 @@
 package nl.han.soex.prototype.transport;
 
-public class Trip {
-    private Long tripId;
+public abstract class Trip {
     private String departure;
     private String destination;
     private String date;
-    private String plannedTrack;
-    private String actualTrack;
 
-    public Trip(Long tripId, String departure, String destination, String date, String plannedTrack, String actualTrack) {
-        this.tripId = tripId;
+    public Trip(String departure, String destination, String date) {
         this.departure = departure;
         this.destination = destination;
         this.date = date;
-        this.plannedTrack = plannedTrack;
-        this.actualTrack = actualTrack;
     }
 
     // Getters and Setters
-    public String getPlannedTrack() { return plannedTrack; }
-    public void setPlannedTrack(String plannedTrack) { this.plannedTrack = plannedTrack; }
+    public String getDeparture() { return departure; }
+    public void setDeparture(String departure) { this.departure = departure; }
 
-    public String getActualTrack() { return actualTrack; }
-    public void setActualTrack(String actualTrack) { this.actualTrack = actualTrack; }
+    public String getDestination() { return destination; }
+    public void setDestination(String destination) { this.destination = destination; }
+
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
+
 }
