@@ -142,7 +142,7 @@ verdere logica verwerkt in een klasse die 'PaymentMethodHandler' implementeert.
 De Reiziger stuurt een verzoek via de frontend naar de 'PaymentController' om te betalen, die het vervolgens 
 doorgeeft aan de 'PaymentService'. De 'PaymentService' haalt de juiste klasse op voor het betalen en daar wordt 
 vervolgens 'handlePayment' op aangeroepen. 
-In het geval van 'PaypalHandler' wordt eerst een authorisatie token aangemaakt via een Paypal endpoint. Deze token 
+In het geval van 'PaypalHandler' wordt eerst een autorisatie token aangemaakt via een Paypal endpoint. Deze token 
 wordt vervolgens bij 'createPayment' meegegeven, die weer een endpoint bij Paypal aanroept voor het maken van een 
 betaling. Vervolgens wordt de betaallink uit de resulterende json gehaald. Vervolgens gebeuren er 2 dingen. 1. De 
 betaallink wordt helemaal terug gestuurd naar de gebruiker die kan betalen. Tegelijkertijd is er een tweede thread 
