@@ -78,12 +78,30 @@ Door gebrek aan tijd is er minder tijd om grondig onderzoek te doen. Dit zorgt e
 Er is geen budget opengesteld voor enige betaalde API's. Dit zorgt ervoor dat de betere/snellere API's niet tot onze beschikking zijn, wat invloed heeft op de gekozen API's.
 
 ### 5.3 Kennis
-Het developerteam bestaat uit onervaren studenten. Dit zorgt ervoor dat er minder kennis en ervarin is, waardoor er meer tijd moet worden besteet aan het onderzoeken en experimenteren.
+Het developer team bestaat uit onervaren studenten. Dit zorgt ervoor dat er minder kennis en ervarin is, waardoor er 
+meer tijd moet worden besteed aan het onderzoeken en experimenteren.
 
 ## 6. Principles
 
 > [!IMPORTANT]
 > Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
+
+In de software is 'Programming to an interface' toegepast. Dit is toegepast omdat er veel verschillende externe 
+systemen zijn die met elkaar moeten communiceren. Door een interface te gebruiken, kunnen we de implementatie van 
+deze systemen makkelijker scheiden en later te gebruiken. Dit zorgt er ook voor dat er later makkelijker nieuwe 
+systemen kunnen worden toegevoegd. Dit principe is bijvoorbeeld gebruikt bij de verschillende betaalsystemen.
+Door gebruik te maken van 'Programming to an interface' is er ook gebruik kunnen worden gemaakt van 'Dependency 
+Inversion'. Dit is toegepast omdat er veel verschillende externe systemen zijn die met elkaar moeten communiceren. Door 
+de software zo te structureren, kunnen we de afhankelijkheden tussen de verschillende componenten verminderen. Dit 
+zorgt er ook voor dat de software makkelijker te onderhouden en uit te breiden is. Dit principe is bijvoorbeeld 
+toegepast bij de verschillende externe betaalsystemen. Er is een interface gemaakt voor het afhandelen van een 
+betaling. De verschillende handler klasse implementeren deze interface. Bij het regelen van een betaling wordt een 
+betaalmethode meegegeven en wordt een Handler klasse gedeclareerd en geïnitialiseerd met de juiste handler.
+Ook is er gebruik gemaakt van 'Single Responsibility Principle'. Dit is toegepast omdat er later mogelijk nieuwe 
+externe systemen moeten worden toegevoegd. Door de software zo te structureren, kunnen we de verantwoordelijkheden
+tussen de verschillende componenten scheiden. Dit zorgt er ook voor dat de software makkelijker te onderhouden en 
+uit te breiden is. Dit principe is bijvoorbeeld toegepast bij de verschillende externe betaalsystemen. Er is een 
+aparte handler klasse gemaakt voor elke betaalsysteem.
 
 ## 7. Software Architecture
 
