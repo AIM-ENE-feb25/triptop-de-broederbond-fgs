@@ -1,58 +1,115 @@
 @startuml
-skinparam classAttributeIconSize 0
 skinparam linetype ortho
 
-interface IdentityProvider {
-  + validateToken(token: String, options: List<String>): boolean
+class AuthenticationController {
+  - authenticationService : AuthenticationService
+  + authenticate(requestBody: AuthBodyDTO): ResponseEntity<String>
+  + getProviders() : ResponseEntity<List<String>>
 }
 
-enum IdentityProviderType {
-    MOCKAPI
-    AUTH0
+class ProtectedController {
+  - authenticationService : AuthenticationService
+  + protectedMethod() : ResponseEntity<String>
 }
 
-class MockAPIIdentityProviderAdapter {
-  + validateToken(token: String, options: List<String>): boolean
-}
-
-class Auth0IdentityProviderTypeAdapter {
-'  - domain: String
-'  - audience: String
-  + validateToken(token: String, options: List<String>): boolean
-}
-
-class AuthController {
-  + validateToken(requestBody: AuthBodyDTO): ResponseEntity
-}
-
-class AuthService {
-    - identityProviderFactory: IdentityProviderFactory
-    + validateToken(token: String, type: IdentityProviderType options: List<String>)
-}
-
-class IdentityProviderFactory {
-  - {static} Map<IdentityProviderType, IdentityProvider> providers
-  + {static} getIdentityProvider(provider: IdentityProviderType): IdentityProvider
-}
-
-class AuthBodyDTO {
-    + type: IdentityProviderType
+class AuthRequestDTO {
+    + name: String
     + token: String
     + options: List<String>
 }
 
+class MockApiResponseDTO {
+    + access: String
+    + role: String
+}
 
-IdentityProvider <|.. MockAPIIdentityProviderAdapter
-IdentityProvider <|.. Auth0IdentityProviderTypeAdapter
+class AuthenticationFilter {
+- tokenProvider: TokenProvider
++ doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain): void
+- getTokenFromRequest(request: HttpServletRequest): String
+- getTypeFromRequest(request: HttpServletRequest): String
+}
 
-AuthService --> IdentityProviderFactory
-AuthService --> IdentityProvider
-AuthService --> IdentityProviderType
-AuthController --> AuthService
-AuthController --> AuthBodyDTO
-IdentityProviderFactory --> IdentityProvider
+'STatic facotyr
+class AuthenticationService {
+    + authenticate(token: String, name: String, options: List<String>)
+}
 
-IdentityProviderFactory --> IdentityProviderType
-AuthBodyDTO --> IdentityProviderType
+class JwtNotValidException {}
+JwtNotValidException --|> RuntimeException : Extends
+
+class AuthenticationEntryPointImpl {
++ commence(request: HttpServletRequest, response: HttpServletResponse, authException: AuthenticationException) : void
+}
+
+interface AuthenticationEntryPoint {}
+
+class AuthenticationEntryPointImpl {}
+
+class SecurityConfig {
+- authenticationEntryPoint: AuthenticationEntryPointImpl
+- authenticationFilter: AuthenticationFilter
++ securityFilterChain(http: HttpSecurity) : SecurityFilterChain
+- jwtAuthenticationConverter(): JwtAuthenticationConverter
+}
+
+interface IdentityProvider {
+  + authenticate(token: String, options: List<String>): String
+  + isValidToken(token: String): boolean
+  + getProviderName(): String
+}
+
+class MockAPIIdentityProviderImpl {
+  - baseUrl: String
+  - tokenProvider: TokenProvider
+  + authenticate(token: String, options: List<String>): String
+  + isValidToken(token: String): boolean
+  + getProviderName(): String
+}
+
+class Auth0IdentityProviderImpl {
+  - jwtDecoder: JwtDecoder
+  - issuer: String
+  + authenticate(token: String, options: List<String>): String
+  + isValidToken(token: String): boolean
+  + getProviderName(): String
+}
+
+class IdentityProviderFactory {
+  - {static} Map<String, IdentityProvider> providers
+  + {static} getIdentityProvider(provider: IdentityProviderType): IdentityProvider
+}
+
+class TokenProvider {
+- secret: String
+- expirationDate: long
++ generateToken(username: String): String
++  generateToken(username: String, issuedAt: Date, expireDate: LocalDate): String
+- getSecretKey() : SecretKey
++ getUsername(token: String): String
+}
+
+AuthenticationController --> AuthenticationService : Uses
+AuthenticationController --> AuthRequestDTO : Uses
+
+IdentityProvider <|.. MockAPIIdentityProviderImpl : Implements
+IdentityProvider <|.. Auth0IdentityProviderImpl : Implements
+
+AuthenticationService --> IdentityProviderFactory : Uses
+AuthenticationService --> IdentityProvider : Uses
+IdentityProviderFactory --> IdentityProvider : Uses
+
+MockAPIIdentityProviderImpl --> MockApiResponseDTO : Uses
+MockAPIIdentityProviderImpl --> TokenProvider : Uses
+
+SecurityConfig --> AuthenticationEntryPointImpl : Uses
+SecurityConfig --> AuthenticationFilter : Uses
+AuthenticationFilter --> TokenProvider : Uses
+AuthenticationFilter --> JwtNotValidException : Uses
+AuthenticationFilter --> IdentityProviderFactory : Uses
+
+AuthenticationFilter --|> OncePerRequestFilter : Extends
+AuthenticationEntryPoint <|.. AuthenticationEntryPointImpl : Implements
+
 
 @enduml
