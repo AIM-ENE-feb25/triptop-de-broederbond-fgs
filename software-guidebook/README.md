@@ -164,9 +164,20 @@ link is gemaakt krijgt de gebruiker deze terug en kan betalen.
 
 #### 7.3.3 Ontwerpvraag 3: "Hoe kunnen we verschillende identity providers met verschillende interfaces integreren voor het gehele systeem?"
 ##### Class Diagram
-![img_11.png](img_11.png)
+![img_6.png](img_6.png)
+
+De 'AuthenticationController' ontvangt als eerste een verzoek wanneer een reiziger een token heeft ontvangen van de Identity Provider. Vervolgens wordt de 'authenticate' aangeroepen met een 'AuthRequestDTO' als parameter.
+Binnen deze methode wordt de 'AuthenticationService' aangeroepen, die op zijn beurt de 'getIdentityProvider' van de 'IdentityProviderFactory' aanroept. Hierdoor kan de service de juiste implementatie van de 'IdentityProvider' interface gebruiken.
+Wanneer het token geen JWT-token is, genereert de 'TokenProvider' een eigen JWT-token, zodat de applicatie consistent met JWT-authenticatie kan werken.
+De 'SecurityConfig', samen met de 'AuthenticationFilter' en 'AuthenticationEntryPointImpl', is verantwoordelijk voor de authenticatie en beveiliging van de endpoints binnen de applicatie. De 'AuthenticationFilter' krijgt via de 'IdentityProviderFactory' de juiste implementatie van de 'IdentityProvider' interface, die vervolgens de 'isValidToken' uitvoert om het token te verifiëren. Dit zorgt ervoor dat het token bij het bezoeken van de endpoints gecontroleerd wordt op geldigheid.
 
 ##### Sequentie Diagram
+![img_5.png](img_5.png)
+
+De reiziger stuurt via de 'frontend' een verzoek naar de 'Identity Provider Service' om in te loggen. Wanneer de inloggegevens correct zijn, genereert de 'Identity Provider Service' een token en retourneert deze naar de frontend. Als de inloggegevens niet correct zijn, wordt er een foutmelding teruggestuurd.
+Nadat de 'frontend' het token heeft ontvangen, stuurt het een verzoek naar de 'AuthenticationController', die het via de 'authenticate' doorgeeft aan de 'AuthenticationService'. Deze maakt gebruik van de 'IdentityProviderFactory' om de juiste implementatie van de 'IdentityProvider' interface te gebruiken voor de tokenvalidatie.
+Wanneer het om een JWT-token gaat, wordt dit door de implementatie geverifieerd. Als het geen JWT-token betreft, wordt de token geverifieerd via de API van de 'Identity Provider Service'. Als dit succesvol is, genereert de implementatie een JWT-token via de methode 'generateToken' van de klasse 'TokenProvider' en retourneert deze naar de 'frontend' via de response van het verzoek.
+Nadat de 'frontend' het JWT-token (van de service of van de applicatie zelf) heeft ontvangen, kan de reiziger beschermde endpoints aanroepen.
 
 ## 8. Architectural Decision Records
 

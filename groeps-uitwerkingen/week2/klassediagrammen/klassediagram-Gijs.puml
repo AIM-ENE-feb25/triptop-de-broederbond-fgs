@@ -106,6 +106,7 @@ SecurityConfig --> AuthenticationEntryPointImpl : Uses
 SecurityConfig --> AuthenticationFilter : Uses
 AuthenticationFilter --> TokenProvider : Uses
 AuthenticationFilter --> JwtNotValidException : Uses
+AuthenticationFilter --> IdentityProviderFactory : Uses
 
 AuthenticationFilter --|> OncePerRequestFilter : Extends
 AuthenticationEntryPoint <|.. AuthenticationEntryPointImpl : Implements
