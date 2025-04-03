@@ -1,7 +1,6 @@
 package nl.han.soex.prototype.payment.domain.handlers;
 
 import nl.han.soex.prototype.payment.domain.PaymentRequest;
-import nl.han.soex.prototype.payment.domain.PaymentStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,43 +23,56 @@ public class PaypalHandler implements PaymentMethodHandler {
         String token = getToken();
         System.out.println(token);
 
-        String paymentId = createPayment(token, paymentRequest.getAmount());
-        System.out.println(paymentId);
+        String payment = createPayment(token, paymentRequest.getAmount());
+        System.out.println(payment);
+
+        JSONObject jsonPayment = new JSONObject(payment);
+        String paymentId = jsonPayment.getString("id");
 
         // User needs to have agreed to pay before this method is called
-        PaymentStatus paymentStatus = checkStatus(token, paymentId);
+        // running this on a different thread so that the user get the payment link
+        // and can go there while we check if the payment is completed
+        new Thread(() ->{
+            checkStatus(token, paymentId);
+        }).start();
 
-        if(paymentStatus == PaymentStatus.PAID){
-            return "Payment successful!";
-        }
-        return "Payment failed!";
+        return getUserPaymentLink(jsonPayment);
     }
 
-    private PaymentStatus checkStatus(String token, String paymentId){
+    private void checkStatus(String token, String paymentId){
         int tries = 0;
 
         while(tries < MAX_TRIES) {
             System.out.println("Checking payment status...");
+
             String status = capturePayment(token, paymentId);
+
             if(status == null){
                 System.out.println("Payment not accepted yet!");
                 // wait a few seconds before checking again
+
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     System.out.println("Thread interrupted!");
                 }
+
                 tries++;
+
                 continue;
             }
+
             if(status.equals("COMPLETED")){
+                System.out.println("==================");
                 System.out.println("Payment completed!");
-                return PaymentStatus.PAID;
+                System.out.println("==================");
+                return;
             }
         }
 
+        System.out.println("---------------");
         System.out.println("Payment failed!");
-        return PaymentStatus.CANCELLED;
+        System.out.println("---------------");
     }
 
     private String getToken(){
@@ -87,11 +99,6 @@ public class PaypalHandler implements PaymentMethodHandler {
         return null;
     }
 
-    @Override
-    public void canclePayment() {
-        // TODO
-    }
-
     private String createPayment(String token, BigDecimal amount){
         String url = "https://api-m.sandbox.paypal.com/v2/checkout/orders/";
 
@@ -105,13 +112,25 @@ public class PaypalHandler implements PaymentMethodHandler {
 
         try {
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
-            JSONObject json = new JSONObject(response.body());
-            return json.getString("id");
+            return response.body();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+    }
+
+    private String getUserPaymentLink(JSONObject json) throws JSONException {
+        /* json looks like this:
+        {
+            "links":[
+                {"href":"https://api.sandbox.paypal.com/v2/checkout/orders/7WM27522KB655123W","rel":"self","method":"GET"},
+userlink -----> {"href":"https://www.sandbox.paypal.com/checkoutnow?token=7WM27522KB655123W","rel":"approve","method":"GET"},
+                {"href":"https://api.sandbox.paypal.com/v2/checkout/orders/7WM27522KB655123W","rel":"update","method":"PATCH"},
+                {"href":"https://api.sandbox.paypal.com/v2/checkout/orders/7WM27522KB655123W/capture","rel":"capture","method":"POST"}
+             ]
+        }
+        */
+        return json.getJSONArray("links").getJSONObject(1).getString("href");
     }
 
     // we need to capture the payment to complete the transaction

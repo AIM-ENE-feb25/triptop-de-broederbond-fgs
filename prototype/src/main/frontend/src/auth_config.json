@@ -1,0 +1,6 @@
+{
+    "domain": "dev-1yukta3ze7ly4fnr.eu.auth0.com",
+    "clientId": "NCTqEhkXW0tMY13FuVVNoG83WSmSuP9O",
+    "redirectUri": "http://localhost:5173/callback",
+    "audience": "https://dev-1yukta3ze7ly4fnr.eu.auth0.com/api/v2/"
+  }

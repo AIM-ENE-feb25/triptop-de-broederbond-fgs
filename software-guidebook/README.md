@@ -78,15 +78,30 @@ Door gebrek aan tijd is er minder tijd om grondig onderzoek te doen. Dit zorgt e
 Er is geen budget opengesteld voor enige betaalde API's. Dit zorgt ervoor dat de betere/snellere API's niet tot onze beschikking zijn, wat invloed heeft op de gekozen API's.
 
 ### 5.3 Kennis
-Het developerteam bestaat uit onervaren studenten. Dit zorgt ervoor dat er minder kennis en ervarin is, waardoor er meer tijd moet worden besteet aan het onderzoeken en experimenteren.
-
-> !TODO 
-> Nog enige extra contraints bedenken
+Het developer team bestaat uit onervaren studenten. Dit zorgt ervoor dat er minder kennis en ervarin is, waardoor er 
+meer tijd moet worden besteed aan het onderzoeken en experimenteren.
 
 ## 6. Principles
 
 > [!IMPORTANT]
 > Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
+
+In de software is 'Programming to an interface' toegepast. Dit is toegepast omdat er veel verschillende externe 
+systemen zijn die met elkaar moeten communiceren. Door een interface te gebruiken, kunnen we de implementatie van 
+deze systemen makkelijker scheiden en later te gebruiken. Dit zorgt er ook voor dat er later makkelijker nieuwe 
+systemen kunnen worden toegevoegd. Dit principe is bijvoorbeeld gebruikt bij de verschillende betaalsystemen.
+Door gebruik te maken van 'Programming to an interface' is er ook gebruik kunnen worden gemaakt van 'Dependency 
+Inversion'. Dit is toegepast omdat er veel verschillende externe systemen zijn die met elkaar moeten communiceren. Door 
+de software zo te structureren, kunnen we de afhankelijkheden tussen de verschillende componenten verminderen. Dit 
+zorgt er ook voor dat de software makkelijker te onderhouden en uit te breiden is. Dit principe is bijvoorbeeld 
+toegepast bij de verschillende externe betaalsystemen. Er is een interface gemaakt voor het afhandelen van een 
+betaling. De verschillende handler klasse implementeren deze interface. Bij het regelen van een betaling wordt een 
+betaalmethode meegegeven en wordt een Handler klasse gedeclareerd en geïnitialiseerd met de juiste handler.
+Ook is er gebruik gemaakt van 'Single Responsibility Principle'. Dit is toegepast omdat er later mogelijk nieuwe 
+externe systemen moeten worden toegevoegd. Door de software zo te structureren, kunnen we de verantwoordelijkheden
+tussen de verschillende componenten scheiden. Dit zorgt er ook voor dat de software makkelijker te onderhouden en 
+uit te breiden is. Dit principe is bijvoorbeeld toegepast bij de verschillende externe betaalsystemen. Er is een 
+aparte handler klasse gemaakt voor elke betaalsysteem.
 
 ## 7. Software Architecture
 
@@ -115,30 +130,31 @@ De frontend stuurt een betaalverzoek met een lijst van bouwstenen die de gebruik
 De frontend haalt vervoerinformatie op via de 'Vervoer Controller'. Enige logica nodig voor het ophalen van deze informatie gebeurd in de 'Vervoer Service'. Informatie over vervoer dat opgeslagen moet worden, gebeurd via de 'Vervoer Repository' die praat met de 'Database'.
 De frontend stuurt bij het inloggen een token mee, die de frontend krijgt via een extern identity provider service ('Auth0' of 'WireMock API'). Om deze token te valideren, stuurt de 'Identity Controller' de token naar de 'Identity Service'. Deze controleert de token met de juiste service. Op TripTop heeft elke gebruiker een eigen account die gekoppelt is aan één of meerdere identity provider. Dit profiel wordt opgeslagen via de 'Identity Repository' die het vervolgens de informatie opslaat en ophaalt via de 'Database'.
 
-
-> [!IMPORTANT]
-> Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
-
-> !TODO 
-> mark ging navragen over de scenario's en dynamisch diagram
-> Antwoord: alleen maken als het relevant is
 ###     7.3. Design & Code
-
-> [!IMPORTANT]
-> Voeg toe: Per ontwerpvraag een Class Diagram plus een Sequence Diagram van een aantal scenario's inclusief begeleidende tekst.
-
 #### 7.3.1 Ontwerpvraag 1: "Hoe kunnen we verschillende betalingssystemen integreren voor de verschillende bouwstenen?"
 ##### Class Diagram
-![img_14.png](img_14.png)
+![img_3.png](img_3.png)
 
-De 'PaymentController' is verantwoordelijk voor het ontvangen van het betaal verzoek. Deze krijgt als parameter een 'PaymentRequest' in de body. Zo'n 'PaymentRequest' heeft een lijst aan bouwstenen die gaan worden. Ook bevat deze de manier dat betaald gaat worden en het aantal. Via de PaymentMethod wordt er verbonden met een specifieke betaalservice via de bijbehorende klasse. Is de betaling voldaan dan wordt via de 'BouwsteenPaymentHandler' voor elke bouwsteen die betaald is de juiste service aangeroepen om dit op te slaan.
+De 'PaymentController' krijgt het initiële request van de reiziger. Deze krijgt een 'PaymentRequest' in de 
+'handlePayment' waarin de 'PaymentService' wordt aangeroepen. De 'PaymentService' roept vervolgens 
+'PaymentMethodStrategy' aan voor het verkrijgen van de juiste handler. Hierna wordt de handler aangeroepen en wordt 
+verdere logica verwerkt in een klasse die 'PaymentMethodHandler' implementeert.
 
 ##### Sequentie Diagram
-![img_13.png](img_13.png)
+![img_2.png](img_2.png)
 
-De Reiziger stuurt een verzoek via de frontend naar de 'PaymentController' om te betalen, die het vervolgens doorgeeft aan de 'PaymentService'. De PaymentService gaat eerst per bouwsteen het alvast opslaan, zodat niet iemand anders tijdens het betaalprocess hetzelfde bouwsteen kan boeken. Als dit gedaan is gaat de betaalprocedure verder. De service roept de 'PaymentMethod' aan om zo naar de juiste klasse te gaan. Deze stuurt dan het betaalverzoek naar de juiste API en handelt het zo af. De reiziger betaalt naar TripTop, TripTop regelt vervolgens zelf de betaling naar de externe systemen.
-Is de betaling succesvol, dan slaat de 'BouwsteenPaymentHandler' voor elke bouwsteen de definitieve boeking op. Hierna krijgt de reiziger een bevestiging dat het is gelukt en zijn bijbehorende boekingen.
-Is de betaling mislukt, dan haalt de 'BouwsteenPaymentHandler' voor elke bouwsteen de boeking uit de database. Hierna krijgt de reiziger een annulering van de betaling met bijbehorende info.
+De Reiziger stuurt een verzoek via de frontend naar de 'PaymentController' om te betalen, die het vervolgens 
+doorgeeft aan de 'PaymentService'. De 'PaymentService' haalt de juiste klasse op voor het betalen en daar wordt 
+vervolgens 'handlePayment' op aangeroepen. 
+In het geval van 'PaypalHandler' wordt eerst een autorisatie token aangemaakt via een Paypal endpoint. Deze token 
+wordt vervolgens bij 'createPayment' meegegeven, die weer een endpoint bij Paypal aanroept voor het maken van een 
+betaling. Vervolgens wordt de betaallink uit de resulterende json gehaald. Vervolgens gebeuren er 2 dingen. 1. De 
+betaallink wordt helemaal terug gestuurd naar de gebruiker die kan betalen. Tegelijkertijd is er een tweede thread 
+draaiend die om de 5 seconden de status van bijbehorende betaling kijkt, dit gebeurd 20 keer, tenzij de betaling is 
+voltooid. Zodra de loop klaar is stopt de thread en is alles voltooid.
+In het geval van Stripe wordt 'StripeHandler' aangeroepen. Deze maakt een nieuw product met de juiste prijs 
+aangemaakt. Vervolgens wordt dit product gebruikt om de prijs te krijgen en om de betaallink te maken. Zodra deze 
+link is gemaakt krijgt de gebruiker deze terug en kan betalen.
 
 #### 7.3.2 Ontwerpvraag 2: "Hoe kunnen we verschillende externe vervoer services integreren zonder afhankelijk te worden van hun specifieke implementaties?"
 ##### Class Diagram
@@ -314,3 +330,22 @@ Bij het maken van het prototype voor het betalen, gaat er gebruik worden gemaakt
 
 > [!TIP]
 > Zelf beschrijven van wat je moet doen om de software te installeren en te kunnen runnen.
+
+Er wordt geen .jar bestand geleverd omdat dit een prototype is. Om deze software te kunnen runnen moet er een Java 
+IDE geïnstalleerd zijn, wij raden IntelliJ, omdat het zeker is dat alles werkt.
+Ook moet er een JDK van versie 21 of hoger geïnstalleerd en geselecteerd zijn in IntelliJ en moet Maven geïnstalleerd 
+zijn. Om te kijken welke versie je hebt kan je de volgende commando's gebruiken:
+```bash
+java -version
+mvn -v
+```
+Om de software te installeren kan je de repository klonen of downloaden.
+Als de repository is gedownload, open de folder met IntelliJ en ga naar het volgende bestand:
+'triptop-de-broederbond-fgs/prototype/src/main/java/nl/han/soex/prototype/PrototypeApplication.java'
+Klik vervolgens op de groene pijl naast de PrototypeApplication.java en kies voor 'Run PrototypeApplication.main()'. 
+Nu start de applicatie op en kan je deze benaderen via de volgende URL:
+```bash
+http://localhost:8080
+```
+Er zijn verschillende endpoints die de applicatie gebruikt. Alle endpoints met method staan in de bijbehorende 
+controller klasse. In de parameters staat dan vervolgens wat deze endpoint verwacht.

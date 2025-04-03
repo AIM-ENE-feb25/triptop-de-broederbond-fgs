@@ -12,6 +12,6 @@ import java.util.List;
 @Setter
 public class PaymentRequest {
     private List<Object> buildingBlocks;
-    private PaymentMethods paymentMethod;
+    private PaymentMethod paymentMethod;
     private BigDecimal amount;
 }

@@ -2,37 +2,39 @@
 
 autonumber
 
-actor Reiziger
+actor Traveler
 participant "paymentController:\nPaymentController" as paymentController
 participant "paymentService:\nPaymentService" as paymentService
-participant "paymentMethod:\nPaymentMethod" as paymentMethod
-participant "bouwsteenPaymentHandler:\nBouwsteenPaymentHandler" as bouwsteenPaymentHandler
-participant "External Payment Provider" as paymentProvider
-database "Database" as database
+participant "paymentMethodStrategy:\nPaymentMethodStrategy" as paymentMethodStrategy
+participant "paymentMethodHandler:\nPaymentMethodHandler" as paymentMethodHandler
+participant "paypalHandler:\nPaypalHandler" as paypalHandler
+participant "stripeHandler:\nStripeHandler" as stripeHandler
 
-Reiziger -> paymentController : handlePayment(paymentRequest)
+Traveler -> paymentController: handlePayment(paymentRequest)
+paymentController -> paymentService: handlePayment(paymentRequest)
+paymentService -> paymentMethodStrategy: paymentMethodHandler = getHandler(paymentMethod)
+paymentMethodStrategy -> paymentMethodHandler: return PaymentMethodHandler
 
-
-paymentController -> paymentService : handlePayment(paymentRequest)
-paymentService -> bouwsteenPaymentHandler : savePayment(paymentRequest)
-bouwsteenPaymentHandler -> database : save(paymentRequest)
-paymentService -> paymentMethod : handlePayment(amount)
-paymentMethod -> paymentProvider : Stuur betalingsverzoek
-
-alt Betaling gelukt
-    paymentProvider --> paymentMethod : Response betaling
-    paymentMethod --> paymentService : Response betaling
-    paymentService -> bouwsteenPaymentHandler : savePayment(paymentRequest)
-    bouwsteenPaymentHandler -> database : save(paymentRequest)
-    paymentService --> paymentController : Bevestiging
-    paymentController --> Reiziger : Bevestiging
-else Betaling mislukt
-    paymentProvider --> paymentMethod : Response betaling
-    paymentMethod --> paymentService : Response betaling
-    paymentService -> bouwsteenPaymentHandler : cancelPayment(paymentRequest)
-    bouwsteenPaymentHandler -> database : delete(paymentRequest)
-    paymentService --> paymentController : Annulering
-    paymentController --> Reiziger : Annulering
+alt paymentMethod = PAYPAL
+    paymentService -> paypalHandler: paymentMethodHandler.handlePayment(paymentRequest)
+    paypalHandler -> paypalHandler: token = getToken()
+    paypalHandler -> paypalHandler: json = createPayment(token, amount)
+    paypalHandler -> paypalHandler: paymentLink = getUserPaymentLink(json)
+    par
+        loop 20 times
+            paypalHandler -> paypalHandler: capturePayment(token, paymentId)
+        end
+        paypalHandler -> paymentService: return paymentLink
+        paymentService -> paymentController : return paymentLink
+        paymentController -> Traveler: ResponseEntity<String>
+    end
+else paymentMethod = STRIPE
+    paymentService -> stripeHandler: paymentMethodHandler.handlePayment(paymentRequest)
+    stripeHandler -> stripeHandler: product = createProduct(amount)
+    stripeHandler -> stripeHandler: paymentLink = createPaymentLink(product.price)
+    stripeHandler -> paymentService: return paymentLik
+    paymentService -> paymentController : return paymentLink
+    paymentController -> Traveler: ResponseEntity<String>
 end
 
 @enduml
