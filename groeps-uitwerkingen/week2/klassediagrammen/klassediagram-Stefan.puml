@@ -6,16 +6,19 @@ class PaymentController{
     +handlePayment(PaymentRequest paymentRequest) : ResponseEntity<String>
 }
 PaymentController --> PaymentService : calls
+PaymentController --> PaymentRequest : uses
 
 class PaymentService{
     +handlePayment(PaymentRequest paymentRequest) : String
 }
 PaymentService --> PaymentMethodStrategy : uses
 PaymentService --> PaymentMethodHandler : uses
+PaymentService --> PaymentRequest : uses
 
 interface PaymentMethodHandler{
     +handlePayment(PaymentRequest request): String
 }
+PaymentMethodHandler --> PaymentRequest : uses
 
 class PaypalHandler{
     -CLIENT_ID : String
