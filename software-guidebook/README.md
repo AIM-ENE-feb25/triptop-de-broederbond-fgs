@@ -80,9 +80,6 @@ Er is geen budget opengesteld voor enige betaalde API's. Dit zorgt ervoor dat de
 ### 5.3 Kennis
 Het developerteam bestaat uit onervaren studenten. Dit zorgt ervoor dat er minder kennis en ervarin is, waardoor er meer tijd moet worden besteet aan het onderzoeken en experimenteren.
 
-> !TODO 
-> Nog enige extra contraints bedenken
-
 ## 6. Principles
 
 > [!IMPORTANT]
@@ -115,13 +112,6 @@ De frontend stuurt een betaalverzoek met een lijst van bouwstenen die de gebruik
 De frontend haalt vervoerinformatie op via de 'Vervoer Controller'. Enige logica nodig voor het ophalen van deze informatie gebeurd in de 'Vervoer Service'. Informatie over vervoer dat opgeslagen moet worden, gebeurd via de 'Vervoer Repository' die praat met de 'Database'.
 De frontend stuurt bij het inloggen een token mee, die de frontend krijgt via een extern identity provider service ('Auth0' of 'WireMock API'). Om deze token te valideren, stuurt de 'Identity Controller' de token naar de 'Identity Service'. Deze controleert de token met de juiste service. Op TripTop heeft elke gebruiker een eigen account die gekoppelt is aan één of meerdere identity provider. Dit profiel wordt opgeslagen via de 'Identity Repository' die het vervolgens de informatie opslaat en ophaalt via de 'Database'.
 
-
-> [!IMPORTANT]
-> Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
-
-> !TODO 
-> mark ging navragen over de scenario's en dynamisch diagram
-> Antwoord: alleen maken als het relevant is
 ###     7.3. Design & Code
 
 > [!IMPORTANT]
