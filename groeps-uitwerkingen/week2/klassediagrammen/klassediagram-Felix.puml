@@ -12,18 +12,11 @@ class TransportService {
     +extractTransportType(request: Request): TransportType
 }
 
-class Journey {
-    - journeyId: Long
+class Trip {
+    - tripId: Long
     - departure: String
     - destination: String
     - date: Date
-    - status: JourneyStatus
-}
-
-enum JourneyStatus {
-    AVAILABLE
-    BOOKED
-    CANCELLED
 }
 
 enum TransportType {
@@ -47,8 +40,7 @@ class AdapterFactory {
     +getAdapter(transportType: TransportType): ITransportAdapter
 }
 
-TransportService --> Journey
-Journey --> JourneyStatus
+TransportService --> Trip
 
 KLMAdapter ..|> ITransportAdapter
 NSAdapter ..|> ITransportAdapter
