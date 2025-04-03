@@ -97,20 +97,21 @@ zorgt er ook voor dat de software makkelijker te onderhouden en uit te breiden i
 toegepast bij de verschillende externe betaalsystemen. Er is een interface gemaakt voor het afhandelen van een 
 betaling. De verschillende handler klasse implementeren deze interface. Bij het regelen van een betaling wordt een 
 betaalmethode meegegeven en wordt een Handler klasse gedeclareerd en geïnitialiseerd met de juiste handler.
+
 Ook is er gebruik gemaakt van 'Single Responsibility Principle'. Dit is toegepast omdat er later mogelijk nieuwe 
 externe systemen moeten worden toegevoegd. Door de software zo te structureren, kunnen we de verantwoordelijkheden
 tussen de verschillende componenten scheiden. Dit zorgt er ook voor dat de software makkelijker te onderhouden en 
 uit te breiden is. Dit principe is bijvoorbeeld toegepast bij de verschillende externe betaalsystemen. Er is een 
-aparte handler klasse gemaakt voor elke betaalsysteem.
+aparte handler klasse gemaakt voor elke betaalsysteem. Ook is dit terug te vinden bij de transport klassen, waarbij de externe vervoer api's alle een eigen adapter klasse hebben.
 
 Het Open/Closed Principle komt terug in de identity providers, omdat je nieuwe providers kunt toevoegen zonder de huidige code aan te passen.
 Hierdoor blijft de bestaande werking intact, terwijl het systeem toch flexibel uitbreidbaar is.
 
 Ook het principe Encapsulate What Varies is verwerkt, zowel bij de betalingsinterface als de identity providers.
 Neem bijvoorbeeld betalingen: elke betaalmethode heeft z’n eigen logica, maar doordat dit afgeschermd is, heeft een aanpassing geen gevolgen voor de rest van het systeem.
-Hetzelfde zie je bij identity providers, waar elke provider een eigen authenticatieproces kan hebben.
+Hetzelfde zie je bij identity providers, waar elke provider een eigen authenticatieproces kan hebben. Ook bij de transporten werkt dit zo, als je bij NS iets aanpast zal dat niks veranderen bij KLM bijvoorbeeld.
 
-Door deze variabele logica te isoleren, kun je nieuwe betaalmethoden of providers toevoegen of bestaande aanpassen zonder dat dit andere onderdelen beïnvloedt.
+Door deze variabele logica te isoleren, kun je nieuwe betaalmethoden, providers of transporten toevoegen of bestaande aanpassen zonder dat dit andere onderdelen beïnvloedt.
 Dit houdt de code flexibel en schaalbaar, wat toekomstige uitbreidingen een stuk eenvoudiger maakt.
 
 ## 7. Software Architecture
@@ -169,8 +170,12 @@ link is gemaakt krijgt de gebruiker deze terug en kan betalen.
 #### 7.3.2 Ontwerpvraag 2: "Hoe kunnen we verschillende externe vervoer services integreren zonder afhankelijk te worden van hun specifieke implementaties?"
 ##### Class Diagram
 ![img_12.png](img_12.png)
+De TransportController ontvangt een verzoek om alle beschikbare trips op te halen voor een bepaald TransportType, zoals aangegeven in de request. De controller roept vervolgens de getAvailableTrips-methode van TransportService aan. Binnen deze service wordt eerst het juiste TransportType uit het verzoek gehaald. Vervolgens vraagt de service via AdapterFactory de juiste ITransportAdapter op, gebaseerd op het vervoerstype. De geselecteerde adapter implementeert de getAvailableTrips-methode en maakt een verbinding met de bijbehorende externe API (bijvoorbeeld KLM of NS) om de beschikbare trips op te halen. De opgehaalde trips worden vervolgens teruggegeven aan de service en uiteindelijk aan de controller, die ze terugstuurt als respons.  
 
 ##### Sequentie Diagram
+![img_14.png](img_14.png)
+
+In dit sequentiediagram zie je de flow die ik eerder heb beschreven, maar nu visueel uitgewerkt. Het laat precies zien hoe een reiziger een verzoek indient en hoe dit verzoek door de verschillende lagen van de applicatie stroomt. Je ziet hoe de TransportController het verzoek afhandelt, de TransportService de juiste adapter selecteert via de AdapterFactory, en hoe de adapter vervolgens de trips ophaalt via een externe API. Daarnaast wordt ook weergegeven wat er gebeurt als de verbinding met de API mislukt, waarbij een foutmelding teruggegeven wordt aan de reiziger.
 
 #### 7.3.3 Ontwerpvraag 3: "Hoe kunnen we verschillende identity providers met verschillende interfaces integreren voor het gehele systeem?"
 ##### Class Diagram
