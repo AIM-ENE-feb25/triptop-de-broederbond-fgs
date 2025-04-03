@@ -103,6 +103,16 @@ tussen de verschillende componenten scheiden. Dit zorgt er ook voor dat de softw
 uit te breiden is. Dit principe is bijvoorbeeld toegepast bij de verschillende externe betaalsystemen. Er is een 
 aparte handler klasse gemaakt voor elke betaalsysteem.
 
+Het Open/Closed Principle komt terug in de identity providers, omdat je nieuwe providers kunt toevoegen zonder de huidige code aan te passen.
+Hierdoor blijft de bestaande werking intact, terwijl het systeem toch flexibel uitbreidbaar is.
+
+Ook het principe Encapsulate What Varies is verwerkt, zowel bij de betalingsinterface als de identity providers.
+Neem bijvoorbeeld betalingen: elke betaalmethode heeft z’n eigen logica, maar doordat dit afgeschermd is, heeft een aanpassing geen gevolgen voor de rest van het systeem.
+Hetzelfde zie je bij identity providers, waar elke provider een eigen authenticatieproces kan hebben.
+
+Door deze variabele logica te isoleren, kun je nieuwe betaalmethoden of providers toevoegen of bestaande aanpassen zonder dat dit andere onderdelen beïnvloedt.
+Dit houdt de code flexibel en schaalbaar, wat toekomstige uitbreidingen een stuk eenvoudiger maakt.
+
 ## 7. Software Architecture
 
 ###     7.1. Containers
