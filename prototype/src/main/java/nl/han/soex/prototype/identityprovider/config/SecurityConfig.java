@@ -4,6 +4,7 @@ import nl.han.soex.prototype.identityprovider.security.AuthenticationEntryPointI
 import nl.han.soex.prototype.identityprovider.filters.AuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -29,9 +30,11 @@ public class SecurityConfig {
         // TODO: voor prototypes toegang tot alles behalve de protected endpoint.
         http
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/protected").authenticated()
                         .anyRequest().permitAll()
                 ).csrf(AbstractHttpConfigurer::disable);
+        //                .cors(AbstractHttpConfigurer::disable);
 
         http.exceptionHandling(exception -> exception
                 .authenticationEntryPoint(authenticationEntryPoint));
