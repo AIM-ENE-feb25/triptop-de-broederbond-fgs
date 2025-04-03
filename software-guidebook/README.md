@@ -131,10 +131,6 @@ De frontend haalt vervoerinformatie op via de 'Vervoer Controller'. Enige logica
 De frontend stuurt bij het inloggen een token mee, die de frontend krijgt via een extern identity provider service ('Auth0' of 'WireMock API'). Om deze token te valideren, stuurt de 'Identity Controller' de token naar de 'Identity Service'. Deze controleert de token met de juiste service. Op TripTop heeft elke gebruiker een eigen account die gekoppelt is aan één of meerdere identity provider. Dit profiel wordt opgeslagen via de 'Identity Repository' die het vervolgens de informatie opslaat en ophaalt via de 'Database'.
 
 ###     7.3. Design & Code
-
-> [!IMPORTANT]
-> Voeg toe: Per ontwerpvraag een Class Diagram plus een Sequence Diagram van een aantal scenario's inclusief begeleidende tekst.
-
 #### 7.3.1 Ontwerpvraag 1: "Hoe kunnen we verschillende betalingssystemen integreren voor de verschillende bouwstenen?"
 ##### Class Diagram
 ![img_3.png](img_3.png)
@@ -334,3 +330,22 @@ Bij het maken van het prototype voor het betalen, gaat er gebruik worden gemaakt
 
 > [!TIP]
 > Zelf beschrijven van wat je moet doen om de software te installeren en te kunnen runnen.
+
+Er wordt geen .jar bestand geleverd omdat dit een prototype is. Om deze software te kunnen runnen moet er een Java 
+IDE geïnstalleerd zijn, wij raden IntelliJ, omdat het zeker is dat alles werkt.
+Ook moet er een JDK van versie 21 of hoger geïnstalleerd en geselecteerd zijn in IntelliJ en moet Maven geïnstalleerd 
+zijn. Om te kijken welke versie je hebt kan je de volgende commando's gebruiken:
+```bash
+java -version
+mvn -v
+```
+Om de software te installeren kan je de repository klonen of downloaden.
+Als de repository is gedownload, open de folder met IntelliJ en ga naar het volgende bestand:
+'triptop-de-broederbond-fgs/prototype/src/main/java/nl/han/soex/prototype/PrototypeApplication.java'
+Klik vervolgens op de groene pijl naast de PrototypeApplication.java en kies voor 'Run PrototypeApplication.main()'. 
+Nu start de applicatie op en kan je deze benaderen via de volgende URL:
+```bash
+http://localhost:8080
+```
+Er zijn verschillende endpoints die de applicatie gebruikt. Alle endpoints met method staan in de bijbehorende 
+controller klasse. In de parameters staat dan vervolgens wat deze endpoint verwacht.
