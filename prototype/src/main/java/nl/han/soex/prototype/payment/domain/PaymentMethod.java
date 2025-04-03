@@ -1,6 +1,6 @@
 package nl.han.soex.prototype.payment.domain;
 
-public enum PaymentMethods {
+public enum PaymentMethod {
     PAYPAL,
     STRIPE,
 }

@@ -1,8 +1,6 @@
 package nl.han.soex.prototype.payment.domain.handlers;
 
 import nl.han.soex.prototype.payment.domain.PaymentRequest;
-import nl.han.soex.prototype.payment.domain.PaymentStatus;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -99,11 +97,6 @@ public class PaypalHandler implements PaymentMethodHandler {
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    public void canclePayment() {
-        // TODO
     }
 
     private String createPayment(String token, BigDecimal amount){

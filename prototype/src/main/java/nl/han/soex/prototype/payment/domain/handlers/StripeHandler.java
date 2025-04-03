@@ -4,8 +4,10 @@ package nl.han.soex.prototype.payment.domain.handlers;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentLink;
+import com.stripe.model.Price;
 import com.stripe.model.Product;
 import com.stripe.param.PaymentLinkCreateParams;
+import com.stripe.param.PriceCreateParams;
 import com.stripe.param.ProductCreateParams;
 import nl.han.soex.prototype.payment.domain.PaymentRequest;
 
@@ -15,7 +17,6 @@ public class StripeHandler implements PaymentMethodHandler{
 
     private final String API_KEY =
             "sk_test_51R7ZC2Peokx2Ees81jN2RRw6GJUt0rcefCljs4se6XimMwj3sjliS1ldDse7MNhkmzUzAQnSOmvRN0iiJEVBnCVu00eOCt7VyK";
-    private final int MAX_TRIES = 20;
 
     @Override
     public String handlePayment(PaymentRequest paymentRequest) {
@@ -64,10 +65,5 @@ public class StripeHandler implements PaymentMethodHandler{
                 .build();
 
         return PaymentLink.create(params);
-    }
-
-    @Override
-    public void canclePayment() {
-
     }
 }

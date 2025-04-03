@@ -22,7 +22,7 @@ public class PaymentController {
     }
 
     @PostMapping
-    public ResponseEntity<String> handlePayment(@RequestBody PaymentRequest paymentRequest) throws InterruptedException {
+    public ResponseEntity<String> handlePayment(@RequestBody PaymentRequest paymentRequest) {
         String paymentLink = paymentService.handlePayment(paymentRequest);
 
         return ResponseEntity.ok(paymentLink);

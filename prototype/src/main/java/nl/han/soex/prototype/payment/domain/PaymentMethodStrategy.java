@@ -7,12 +7,12 @@ import nl.han.soex.prototype.payment.domain.handlers.StripeHandler;
 import java.util.Map;
 
 public class PaymentMethodStrategy {
-    private static final Map<PaymentMethods, PaymentMethodHandler> handlers = Map.of(
-            PaymentMethods.PAYPAL, new PaypalHandler(),
-            PaymentMethods.STRIPE, new StripeHandler()
+    private static final Map<PaymentMethod, PaymentMethodHandler> handlers = Map.of(
+            PaymentMethod.PAYPAL, new PaypalHandler(),
+            PaymentMethod.STRIPE, new StripeHandler()
     );
 
-    public static PaymentMethodHandler getHandler(PaymentMethods method) {
+    public static PaymentMethodHandler getHandler(PaymentMethod method) {
         return handlers.getOrDefault(method, null);
     }
 }

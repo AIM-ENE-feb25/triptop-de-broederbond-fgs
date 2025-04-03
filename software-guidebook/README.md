@@ -119,16 +119,28 @@ De frontend stuurt bij het inloggen een token mee, die de frontend krijgt via ee
 
 #### 7.3.1 Ontwerpvraag 1: "Hoe kunnen we verschillende betalingssystemen integreren voor de verschillende bouwstenen?"
 ##### Class Diagram
-![img_14.png](img_14.png)
+![img_3.png](img_3.png)
 
-De 'PaymentController' is verantwoordelijk voor het ontvangen van het betaal verzoek. Deze krijgt als parameter een 'PaymentRequest' in de body. Zo'n 'PaymentRequest' heeft een lijst aan bouwstenen die gaan worden. Ook bevat deze de manier dat betaald gaat worden en het aantal. Via de PaymentMethod wordt er verbonden met een specifieke betaalservice via de bijbehorende klasse. Is de betaling voldaan dan wordt via de 'BouwsteenPaymentHandler' voor elke bouwsteen die betaald is de juiste service aangeroepen om dit op te slaan.
+De 'PaymentController' krijgt het initiële request van de reiziger. Deze krijgt een 'PaymentRequest' in de 
+'handlePayment' waarin de 'PaymentService' wordt aangeroepen. De 'PaymentService' roept vervolgens 
+'PaymentMethodStrategy' aan voor het verkrijgen van de juiste handler. Hierna wordt de handler aangeroepen en wordt 
+verdere logica verwerkt in een klasse die 'PaymentMethodHandler' implementeert.
 
 ##### Sequentie Diagram
-![img_13.png](img_13.png)
+![img_2.png](img_2.png)
 
-De Reiziger stuurt een verzoek via de frontend naar de 'PaymentController' om te betalen, die het vervolgens doorgeeft aan de 'PaymentService'. De PaymentService gaat eerst per bouwsteen het alvast opslaan, zodat niet iemand anders tijdens het betaalprocess hetzelfde bouwsteen kan boeken. Als dit gedaan is gaat de betaalprocedure verder. De service roept de 'PaymentMethod' aan om zo naar de juiste klasse te gaan. Deze stuurt dan het betaalverzoek naar de juiste API en handelt het zo af. De reiziger betaalt naar TripTop, TripTop regelt vervolgens zelf de betaling naar de externe systemen.
-Is de betaling succesvol, dan slaat de 'BouwsteenPaymentHandler' voor elke bouwsteen de definitieve boeking op. Hierna krijgt de reiziger een bevestiging dat het is gelukt en zijn bijbehorende boekingen.
-Is de betaling mislukt, dan haalt de 'BouwsteenPaymentHandler' voor elke bouwsteen de boeking uit de database. Hierna krijgt de reiziger een annulering van de betaling met bijbehorende info.
+De Reiziger stuurt een verzoek via de frontend naar de 'PaymentController' om te betalen, die het vervolgens 
+doorgeeft aan de 'PaymentService'. De 'PaymentService' haalt de juiste klasse op voor het betalen en daar wordt 
+vervolgens 'handlePayment' op aangeroepen. 
+In het geval van 'PaypalHandler' wordt eerst een autorisatie token aangemaakt via een Paypal endpoint. Deze token 
+wordt vervolgens bij 'createPayment' meegegeven, die weer een endpoint bij Paypal aanroept voor het maken van een 
+betaling. Vervolgens wordt de betaallink uit de resulterende json gehaald. Vervolgens gebeuren er 2 dingen. 1. De 
+betaallink wordt helemaal terug gestuurd naar de gebruiker die kan betalen. Tegelijkertijd is er een tweede thread 
+draaiend die om de 5 seconden de status van bijbehorende betaling kijkt, dit gebeurd 20 keer, tenzij de betaling is 
+voltooid. Zodra de loop klaar is stopt de thread en is alles voltooid.
+In het geval van Stripe wordt 'StripeHandler' aangeroepen. Deze maakt een nieuw product met de juiste prijs 
+aangemaakt. Vervolgens wordt dit product gebruikt om de prijs te krijgen en om de betaallink te maken. Zodra deze 
+link is gemaakt krijgt de gebruiker deze terug en kan betalen.
 
 #### 7.3.2 Ontwerpvraag 2: "Hoe kunnen we verschillende externe vervoer services integreren zonder afhankelijk te worden van hun specifieke implementaties?"
 ##### Class Diagram
