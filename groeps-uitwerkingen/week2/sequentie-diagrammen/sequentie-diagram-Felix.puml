@@ -7,15 +7,15 @@ participant "TransportController:\nTransportController" as TC
 participant "TransportService:\nTransportService" as TS
 participant "AdapterFactory:\nAdapterFactory" as AF
 participant "ITransportAdapter:\nITransportAdapter" as Adapter
-participant "Journey:\nJourney" as J
+participant "Trip:\nTrip"
 
-Reiziger -> TC: getAvailableTrips(request)
-TC -> TS: getAvailableTrips(request)
-TS -> TS: transportType = extractTransportType(request)
+Reiziger -> TC: getAvailableTrips(tripRequest)
+TC -> TS: getAvailableTrips(tripRequest)
+TS -> TS: transportType = extractTransportType(tripRequest)
 TS -> AF: adapter = getTransportAdapter(transportType)
 
 alt Connection Established with API
-    TS -> Adapter: trips = adapter.getAvailableTrips(request)
+    TS -> Adapter: trips = adapter.getAvailableTrips(tripRequest)
     TS -> TC: trips
     TC -> Reiziger: trips
 else Connection Failure with API

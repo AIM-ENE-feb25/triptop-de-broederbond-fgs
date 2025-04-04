@@ -1,15 +1,15 @@
 @startuml
 
 class TransportController {
-    +getAvailableTrips(request: Request): Trips
+    +getAvailableTrips(tripRequest: TripRequest): Trips
 }
 
 TransportController --> TransportService
 
 class TransportService {
-    +getAvailableTrips(request: Request): Trips
-    +getTransportAdapter(transportType: TransportType): ITransportAdapter
-    +extractTransportType(request: Request): TransportType
+    +getAvailableTrips(tripRequest: TripRequest): Trips
+    +getAdapter(transportType: TransportType): ITransportAdapter
+    +extractTransportType(tripRequest: TripRequest): TransportType
 }
 
 class Trip {
@@ -25,15 +25,15 @@ enum TransportType {
 }
 
 interface ITransportAdapter {
-    +getAvailableTrips(request: Request): Trips
+    +getAvailableTrips(tripRequest: TripRequest): Trips
 }
 
 class KLMAdapter {
-    +getAvailableTrips(request: Request): Trips
+    +getAvailableTrips(tripRequest: TripRequest): Trips
 }
 
 class NSAdapter {
-    +getAvailableTrips(request: Request): Trips
+    +getAvailableTrips(tripRequest: TripRequest): Trips
 }
 
 class AdapterFactory {
