@@ -1,0 +1,29 @@
+ @startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+System("SPA", "Single-Page Application", "Front end van TravelExpensePro")
+SystemDb("Database", "Database", "Opslag van uitgaven")
+
+Container_Boundary("Backend", "Backend", "Verantwoordelijk voor logica en dataverwerking") {
+    Container("ExpenseController", "ExpenseController", "API endpoint voor uitgaven")
+    Container("ExpenseService", "ExpenseService", "Behandelt de logica van uitgaven")
+    Container("ExpenseDAO", "ExpenseDAO", "Database toegang voor uitgaven")
+    Container("Expense", "Expense", "Weergave van een uitgave")
+
+
+    Container("OverviewService", "OverviewService", "Verwerkt overzichten van uitgaven")
+    Container("OverviewDAO", "OverviewDAO", "Database toegang voor overzichten")
+    Container("OverviewResultSetExtractor", "OverviewResultSetExtractor", "Extraheert en transformeert databasegegevens")
+}
+
+Rel("SPA", "ExpenseController", "Maakt API calls naar")
+Rel("ExpenseController", "ExpenseService", "Stuurt verzoeken naar")
+Rel("ExpenseService", "ExpenseDAO", "Verwerkt gegevens met")
+Rel("ExpenseDAO", "Expense", "Maakt gebruik van")
+Rel("ExpenseDAO", "Database", "Slaat gegevens op in")
+
+Rel("ExpenseController", "OverviewService", "Vraagt overzichten op bij")
+Rel("OverviewService", "OverviewDAO", "Haalt data op via")
+Rel("OverviewDAO", "OverviewResultSetExtractor", "Zet data om in domeinobjecten")
+Rel("OverviewDAO", "Database", "Leest gegevens uit")
+@enduml
