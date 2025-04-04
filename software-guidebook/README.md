@@ -193,6 +193,8 @@ de gebruiker naar de inlogpagina stuurt. Gaat dit via de backend dan moet de ser
 is gekozen, vervolgens een redirect link aanmaken, deze link terugsturen en dan moet de website de gebruiker
 redirecten naar de inlogpagina.
 
+[ADR-inloggen](#84-adr-004-identity-provider-via-de-frontend-en-backend)
+
 ##### Scenario 2: Reis Boeken
 
 ![img_4.png](img_4.png)
@@ -341,11 +343,15 @@ Zie ADR 8.4 voor de keuze van de combinatie van de frontend en backend voor het 
 
 Datum: 28-03-2025
 
+#### Status
+
+Accepted
+
 #### Context
 
 De onderzoeksvraag is: “Hoe kunnen we verschillende externe vervoersdiensten integreren zonder afhankelijk te worden van
 hun specifieke implementaties?” Hiervoor moet een design pattern gekozen worden dat flexibiliteit biedt en het toevoegen
-van nieuwe vervoersystemen eenvoudig maakt.
+van nieuwe vervoer systemen eenvoudig maakt.
 
 #### Considered Options
 
@@ -361,10 +367,6 @@ van nieuwe vervoersystemen eenvoudig maakt.
 
 Er is gekozen voor het Factory Pattern en het Adapter Pattern.
 
-#### Status
-
-Pending
-
 #### Consequences
 
 Met het Factory Pattern en Adapter Pattern kunnen we eenvoudig nieuwe vervoerssystemen toevoegen zonder bestaande code
@@ -372,9 +374,14 @@ aan te passen. Het Factory Pattern kiest automatisch de juiste adapter voor de v
 ervoor dat we op dezelfde manier met verschillende vervoerders kunnen werken. Dit maakt het systeem flexibel, makkelijk
 uit te breiden en goed te onderhouden, omdat we gewoon nieuwe adapters kunnen toevoegen zonder veel extra werk.
 
+
 ### 8.2. ADR-002 Identity Provider Design Pattern
 
 Datum: 28-3-2025
+
+#### Status
+
+Accepted
 
 #### Context
 
@@ -401,19 +408,20 @@ Er is gekozen voor het gebruik van het Adapter en Factory Pattern. Deze keuze is
 waaruit blijkt dat deze twee patterns het beste passen bij dit probleem. Na het maken van het prototype kunnen we met
 zekerheid zeggen of deze conclusie klopt.
 
-#### Status
-
-Pending
-
 #### Consequences
 
 Volgens de criteria uit de tabel zal het gebruik van deze patterns een positief effect hebben op de herbruikbaarheid,
 onderhoudbaarheid en testbaarheid van het systeem. Dit komt doordat de code beter gestructureerd wordt, afhankelijkheden
 worden verminderd en de afzonderlijke componenten eenvoudiger te testen en hergebruiken zijn.
 
+
 ### 8.3. ADR-003 Betaal Design Pattern
 
 Datum: 28-03-2025
+
+#### Status
+
+Accepted
 
 #### Context
 
@@ -436,17 +444,18 @@ Er is besloten om hier te kiezen voor de strategy pattern. De overweging was tus
 pattern en de factory method pattern. Na een goede discussie, is er uiteindelijk besloten om te kiezen voor de strategy
 pattern, omdat deze de meeste bokjes afvinkte die nog niet ergens anders gekozen was.
 
-#### Status
-
-Pending
-
 #### Consequences
 
 Bij het maken van het prototype voor het betalen, gaat er gebruik worden gemaakt van de strategy pattern.
 
+
 ### 8.4. ADR-004 Identity Provider via de frontend en backend
 
 Datum: 04-04-2025
+
+#### Status
+
+Accepted
 
 #### Context
 
@@ -467,13 +476,10 @@ Laten we alles via de frontend verlopen, via de backend of een combinatie van de
 Er is gekozen voor de combinatie van de frontend en backend. 
 Deze keuze is gebaseerd op de tabel van de overwegingen (Considered Options) en omdat deze aanpak het beste aansluit bij de identity provider flow.
 
-#### Status
-
-Accepted
-
 #### Consequences
 
 Bij het maken van het prototype wordt gebruik gemaakt van een combinatie van de frontend en backend voor het inlogproces met identity providers.
+
 
 ### 8.5. ADR-005 Opslaan Boeking Tijdens Betaalproces
 
