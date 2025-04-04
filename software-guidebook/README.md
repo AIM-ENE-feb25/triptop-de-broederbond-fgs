@@ -83,9 +83,6 @@ meer tijd moet worden besteed aan het onderzoeken en experimenteren.
 
 ## 6. Principles
 
-> [!IMPORTANT]
-> Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
-
 In de software is 'Programming to an interface' toegepast. Dit is toegepast omdat er veel verschillende externe 
 systemen zijn die met elkaar moeten communiceren. Door een interface te gebruiken, kunnen we de implementatie van 
 deze systemen makkelijker scheiden en later te gebruiken. Dit zorgt er ook voor dat er later makkelijker nieuwe 
@@ -120,13 +117,33 @@ Dit houdt de code flexibel en schaalbaar, wat toekomstige uitbreidingen een stuk
 #### 7.1.1 Container Diagram
 ![img_1.png](img_1.png)
 
-De klant en de reisagent sturen een request naar de TripTop-webapplicatie. Deze stuurt een response terug met de single page applicatie die ze kunnen gebruiken voor het samenstellen van een reis. Deze single page applicatie ontvangt en stuurt gegevens naar de REST API backend die de gegevens afhandeld. De backend communeert met externe services om het samenstellen van een reis mogelijk te maken. De backend slaat enige gegevens op die later gebruikt moeten worden. 
+Dit diagram is bedoeld om meer inzicht te krijgen over hoe de TripTop applicatie van binnen in communiceert met 
+elkaar en de externe services. 
+De klant en reisagent bezoeken beide de frontend webapplicatie. Deze frontend is een single page applicatie gemaakt met 
+React.js. De frontend gebruikt een identity provider om de gebruiker in te loggen en een token aan te maken, die 
+vervolgens in de backend geverifiëerd wordt. Er is voor deze manier gekozen, omdat nu de klant met verschillende 
+accounts kan inloggen op zijn/haar TripTop-profiel. Deze API gaat via de frontend omdat deze externe services 
+meestal een redirect link gebruiker die de gebruiker naar de inlogpagina stuurt. Gaat dit via de backend dan moet de
+server kijken voor welke login methode is gekozen, vervolgens een redirect link aanmaken, deze link terugsturen en
+dan moet de website de gebruiker redirecten.
+Enige andere verzoeken gaan naar de REST API backend gemaakt met Java en Spring Data. De REST API communiceert 
+met externe services voor het ophalen/verwerken van data. De reden waarom deze andere externe services niet via de 
+frontend gaan, is omdat deze services meestal gebruik maken van gevoelige informatie over de applicatie, meestal een 
+'API-key'. Gaan dit via de frontend, dan zou deze 'API-key' zichtbaar kunnen zijn en misbruikt kunnen worden door de 
+klant.
+De REST API slaat data op in een database die nog niet is gekozen, omdat er nog niet genoeg informatie is over de 
+manier van het opslaan van de data. Er is hier gekozen voor het werken met React en Spring Data omdat de groep hier 
+ervaring mee heeft en er niet veel tijd is voor het maken van de architectuur.
 
 #### 7.1.2 Dynamische Diagrammen
 ##### Scenario 1: Inloggen
 ![img_7.png](img_7.png)
 
-De frontend stuurt de inloggegevens naar de externe identity provider service, deze service verifieërt de inloggegevens en stuurt een token terug als deze gegevens kloppen, zo niet wordt de gebruiker niet ingelogd en krijgt deze geen token. Als de frontend een request stuurt, stuurt deze een token mee die de backend controleert via de externe identity provider service. Deze stuurt vervolgens een response terug met of de token geldig is. De backend handelt deze response af en stuurt vervolgens een passend response terug naar de frontend. 
+De frontend stuurt de inloggegevens naar de externe identity provider service, deze service verifieërt de inloggegevens 
+en stuurt een token terug als deze gegevens kloppen, zo niet wordt de gebruiker niet ingelogd en krijgt deze geen token. 
+Als de frontend een request stuurt, stuurt deze een token mee die de backend controleert via de externe identity 
+provider service. Deze stuurt vervolgens een response terug met of de token geldig is. De backend handelt deze response 
+af en stuurt vervolgens een passend response terug naar de frontend. 
 
 ##### Scenario 2: Reis Boeken
 ![img_8.png](img_8.png)
@@ -357,8 +374,8 @@ Bij het maken van het prototype voor het betalen, gaat er gebruik worden gemaakt
 > [!TIP]
 > Zelf beschrijven van wat je moet doen om de software te installeren en te kunnen runnen.
 
-Er wordt geen .jar bestand geleverd omdat dit een prototype is. Om deze software te kunnen runnen moet er een Java 
-IDE geïnstalleerd zijn, wij raden IntelliJ, omdat het zeker is dat alles werkt.
+Om deze software te kunnen runnen moet er een Java IDE geïnstalleerd zijn, wij raden IntelliJ, omdat het zeker is dat 
+alles in die omgeving werkt.
 Ook moet er een JDK van versie 21 of hoger geïnstalleerd en geselecteerd zijn in IntelliJ en moet Maven geïnstalleerd 
 zijn. Om te kijken welke versie je hebt kan je de volgende commando's gebruiken:
 ```bash

@@ -9,8 +9,7 @@ Person(klant, "Klant", "Stelt reis samen en boekt deze")
 Person(reisAgent, "ReisAgent", "Helpt klant met het samenstellen van een reis")
 
 System_Boundary(tripTopApp, "Triptop App") {
-Container(webApp, "Web applicatie", "Container: Java and Spring Data", "Levert de content van de website")
-Container(singlePageApp, "Single page applicatie", "Container: JavaScript and React", "Single page applicatie voor het samenstellen van een reis")
+Container(frontend, "Frontend", "Container: JavaScript and React", "Website voor het samenstellen van een reis")
 Container(restAPI, "REST API", "Container: Java and Spring Data", "API voor het communiceren met de back-end")
 ContainerDb(database, "Database", "Container: ?", "Database voor het opslaan en ophalen van gegevens")
 }
@@ -26,17 +25,15 @@ Container_Ext(noticationService, "Notificatie service", "Service zoals e-mail of
 Container_Ext(identityProviderService, "Identity provider service", "Service zoals Google of Facebook voor het inloggen")
 
 ' Klant relaties
-Rel(klant, webApp, "Bezoekt pagina", "HTTP")
-Rel(klant, singlePageApp, "Stelt reis samen met")
+Rel(klant, frontend, "Stelt reis samen met", "HTTP")
 Rel(noticationService, klant, "Stuurt notificaties naar")
 
 ' ReisAgent relaties
-Rel(reisAgent, webApp, "Bezoekt pagina", "HTTP")
-Rel(reisAgent, singlePageApp, "Helpt klant via")
+Rel(reisAgent, frontend, "Helpt klant via", "HTTP")
 
 ' Triptop relaties
-Rel_R(webApp, singlePageApp, "Levert")
-Rel(singlePageApp, restAPI, "Communiceert met", "JSON/HTTP")
+Rel(frontend, restAPI, "Communiceert met", "JSON/HTTP")
+Rel(frontend, identityProviderService, "Genereert token met", "HTTPS")
 Rel_L(restAPI, database, "Leest en schrijft data naar")
 
 'API relaties
@@ -45,7 +42,7 @@ Rel_U(restAPI, vervoerService, "Regelt vervoer met", "HTTPS")
 Rel_U(restAPI, activiteitService, "Plant activiteiten met", "HTTPS")
 Rel_U(restAPI, autohuurService, "Huurt vervoer met", "HTTPS")
 Rel(restAPI, voedselService, "Regelt voedsel met", "HTTPS")
-Rel(restAPI, identityProviderService, "Logt in met")
+Rel(restAPI, identityProviderService, "Authenticeert/autoriseert met", "HTTPS")
 Rel(restAPI, paymentService, "Betaalt met", "HTTPS")
 Rel(restAPI, noticationService, "Stuurt notificaties via")
 @enduml
