@@ -312,6 +312,8 @@ IdentityProviderFactory' de juiste implementatie van de 'IdentityProvider' inter
 uitvoert om het token te verifiëren. Dit zorgt ervoor dat het token bij het bezoeken van de endpoints gecontroleerd
 wordt op geldigheid.
 
+Zie ADR 8.4 voor de keuze van de combinatie van de frontend en backend voor het inlog process.
+
 ##### Sequentie Diagram
 
 ![img_5.png](img_5.png)
@@ -330,6 +332,8 @@ een JWT-token via de methode 'generateToken' van de klasse 'TokenProvider' en re
 response van het verzoek.
 Nadat de 'frontend' het JWT-token (van de service of van de applicatie zelf) heeft ontvangen, kan de reiziger beschermde
 endpoints aanroepen.
+
+Zie ADR 8.4 voor de keuze van de combinatie van de frontend en backend voor het inlog process.
 
 ## 8. Architectural Decision Records
 
