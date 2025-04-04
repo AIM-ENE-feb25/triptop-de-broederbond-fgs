@@ -2,7 +2,7 @@
 
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
-Container(singlePageApp, "Single-Page Application", "Frontend van de applicatie")
+Container(singlePageApp, "Frontend", "JavaScript en React", "Frontend van de applicatie")
 
 Container_Boundary(backend, "REST API") {
     'Betaal componenten
@@ -15,7 +15,7 @@ Container_Boundary(backend, "REST API") {
     Component(transportationRepository, "Vervoer Repository", "Spring repository", "Repository klasse voor vervoer")
 
     'Identity componenten
-    Component(identity_controller, "Identity Controller", "Spring rest controller")
+    Component(identity_controller, "Identity Controller", "Spring rest controller", " API Endpoint voor accounts")
     Component(identity_service, "Identity Service", "Spring service", "Componenten met ster roepen deze aan voor het controleren van de token")
     Component(identity_dao, "Identity Repository", "Spring repository", "Repository klasse voor identity")
 }

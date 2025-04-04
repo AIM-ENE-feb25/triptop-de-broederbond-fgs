@@ -5,7 +5,7 @@
 SHOW_PERSON_OUTLINE()
 LAYOUT_WITH_LEGEND()
 
-Person(klant, "Klant", "Stelt reis samen en boekt deze")
+Person(klant, "Reiziger", "Stelt reis samen en boekt deze")
 Person(reisAgent, "ReisAgent", "Helpt klant met het samenstellen van een reis")
 
 System_Boundary(tripTopApp, "Triptop App") {
@@ -14,15 +14,15 @@ Container(backend, "Backend", "Container: Java and Spring Data", "Server voor he
 ContainerDb(database, "Database", "Container: ?", "Database voor het opslaan en ophalen van gegevens")
 }
 
-Container_Ext(overnachtingService, "Overnachting service", "Service zoals booking.com of AirBnB voor het boeken van een overnachting")
-Container_Ext(vervoerService, "Vervoer service", "Service zoals NS of KLM voor het vervoer naar de bestemming")
-Container_Ext(activiteitService, "Activiteit service", "Service zoals GetYourGuide voor het plannen van excursies/activiteiten")
-Container_Ext(autohuurService, "Autohuur service", "Service zoals Sixt of Hertz voor het huren van vervoer")
-Container_Ext(voedselService, "Voedsel service", "Service zoals TakeAway voor het bestellen van eten en drinken")
-Container_Ext(identityProviderService, "Identity provider", "Service zoals Google of Facebook voor het inloggen")
-Container_Ext(paymentService, "Betaal service", "Service zoals PayPal of iDeal voor het betalen")
-Container_Ext(noticationService, "Notificatie service", "Service zoals e-mail of SMS voor het versturen van notificaties")
-Container_Ext(identityProviderService, "Identity provider service", "Service zoals Google of Facebook voor het inloggen")
+System_Ext(overnachtingService, "Overnachting service", "Service zoals booking.com of AirBnB voor het boeken van een overnachting")
+System_Ext(vervoerService, "Vervoer service", "Service zoals NS of KLM voor het vervoer naar de bestemming")
+System_Ext(activiteitService, "Activiteit service", "Service zoals GetYourGuide voor het plannen van excursies/activiteiten")
+System_Ext(autohuurService, "Autohuur service", "Service zoals Sixt of Hertz voor het huren van vervoer")
+System_Ext(voedselService, "Voedsel service", "Service zoals TakeAway voor het bestellen van eten en drinken")
+System_Ext(identityProviderService, "Identity provider", "Service zoals Google of Facebook voor het inloggen")
+System_Ext(paymentService, "Betaal service", "Service zoals PayPal of iDeal voor het betalen")
+System_Ext(noticationService, "Notificatie service", "Service zoals e-mail of SMS voor het versturen van notificaties")
+System_Ext(identityProviderService, "Identity provider service", "Service zoals Google of Facebook voor het inloggen")
 
 ' Klant relaties
 Rel(klant, frontend, "Stelt reis samen met", "HTTP")

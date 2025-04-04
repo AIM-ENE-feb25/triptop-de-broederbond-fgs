@@ -150,9 +150,6 @@ aanpassing geen gevolgen voor de rest van het systeem.
 Hetzelfde zie je bij identity providers, waar elke provider een eigen authenticatieproces kan hebben. Ook bij de
 transporten werkt dit zo, als je bij NS iets aanpast zal dat niks veranderen bij KLM bijvoorbeeld.
 
-Door deze variabele logica te isoleren, kun je nieuwe betaalmethoden, providers of transporten toevoegen of bestaande
-aanpassen zonder dat dit andere onderdelen beïnvloedt.
-Dit houdt de code flexibel en schaalbaar, wat toekomstige uitbreidingen een stuk eenvoudiger maakt.
 
 ## 7. Software Architecture
 
@@ -160,7 +157,7 @@ Dit houdt de code flexibel en schaalbaar, wat toekomstige uitbreidingen een stuk
 
 #### 7.1.1 Container Diagram
 
-![img_1.png](img_1.png)
+![img_10.png](img_10.png)
 
 Dit diagram is bedoeld om meer inzicht te krijgen over hoe de TripTop applicatie van binnen in communiceert met
 elkaar en de externe services.
@@ -210,11 +207,13 @@ Er is in deze flow gekozen om de klant eerst te laten betalen naar TripTop en da
 plaatst. Dit is gedaan omdat TripTop dan het geld al heeft om de boekingen te plaatsen. Mocht er iets misgaan en 
 gaat de betaling niet door, dan kan TripTop makkelijk alles annuleren en het geld terugstorten.
 
+[ADR-boeking](#85-adr-005-opslaan-boeking-tijdens-betaalproces)
+
 ### 7.2. Components
 
 #### 7.2.1 Component Diagram
 
-![img_9.png](img_9.png)
+![img_17.png](img_17.png)
 
 De frontend stuurt een betaalverzoek met een lijst van bouwstenen die de gebruiker wil betalen naar de 'Betaal
 Controller'. Deze controller heeft een *, wat betekent dat deze eerst de token autoriseert via de 'Identity Service'.
@@ -253,6 +252,8 @@ implementeren. Voor het selecteren van de juiste strategie heb ik een 'PaymentMe
 statische methode 'getHandler' heeft, die de methode omzet in een instantie van het object. Hierdoor kan ik de 
 juiste 'handlePayment' methode later aanroepen.
 
+[ADR Design Pattern](#83-adr-003-betaal-design-pattern)
+
 ##### Sequentie Diagram
 
 ![img_2.png](img_2.png)
@@ -282,6 +283,8 @@ link is gemaakt krijgt de gebruiker deze terug en kan betalen.
 Er is gekozen voor een combinatie van het Factory en Adapter design pattern om het transportsysteem flexibel en uitbreidbaar te houden. Het Adapter pattern maakt het eenvoudig om verschillende externe services te integreren, zoals NS en KLM, zonder bestaande functionaliteit te hoeven aanpassen. Iedere adapter, zoals de NSAdapter en KLMAdapter, weet hoe hij met de specifieke externe service moet communiceren.
 
 De Factory is verantwoordelijk voor het selecteren van de juiste adapter op basis van het vervoerType uit het TripRequest. Binnen de getAdapter-methode wordt dit type gebruikt om via een switch case de juiste implementatie van de ITransportAdapter terug te geven.
+
+[ADR Design Pattern](#81-adr-001-vervoer-design-pattern)
 
 ##### Sequentie Diagram
 
@@ -314,7 +317,7 @@ IdentityProviderFactory' de juiste implementatie van de 'IdentityProvider' inter
 uitvoert om het token te verifiëren. Dit zorgt ervoor dat het token bij het bezoeken van de endpoints gecontroleerd
 wordt op geldigheid.
 
-Zie ADR 8.4 voor de keuze van de combinatie van de frontend en backend voor het inlog process.
+[ADR Design Pattern](#82-adr-002-identity-provider-design-pattern)
 
 ##### Sequentie Diagram
 
@@ -345,7 +348,7 @@ Datum: 28-03-2025
 
 #### Status
 
-Accepted
+Denied, later inzichten gekregen dat er een verkeerd design pattern is gekozen.
 
 #### Context
 
@@ -381,7 +384,7 @@ Datum: 28-3-2025
 
 #### Status
 
-Accepted
+Denied, later inzichten gekregen dat er een verkeerd design pattern is gekozen.
 
 #### Context
 
@@ -491,29 +494,38 @@ Accepted
 
 ## Context
 
-Bij het maken van een boeking is het onhandig als jouw gewenste boeking al geboekt wordt tijdens het betalen. Er zijn hier verschillende oplossingen voor met eigen voor- en nadelen. Er is onderzoek gedaan naar verschillende methodes om dit probleem op te lossen.
+Bij het maken van een boeking is het onhandig als jouw gewenste boeking al geboekt wordt tijdens het betalen. Er 
+zijn hier verschillende oplossingen voor met eigen voor- en nadelen. Er is onderzoek gedaan naar verschillende 
+methodes om dit probleem op te lossen.
 
 ## Considered Options
 
-| Forces | Optimistic Locking | Pessimistic Locking | Reservation Pattern |
-| --- | --- | --- | --- |
-| Concurrency (lage conflictkans) | + | — | ++ |
-| Complexiteit | + | - | - |
-| Dataconsistentie | 0 | ++ | ++ |
-| Gebruikerservaring | ++ | - | + |
+### Optimistic Locking
+Er wordt een versie nummer bijgehouden. Als er een schrijfactie gebeurt, update dit versienummer waardoor het niet 
+meer overeenkomt met de opgehaalde versienummer. Dit zorgt ervoor dat je de data opnieuw moet ophalen en moet 
+controleren of de actie die je wilt uitvoeren niet al gedaan is door iets anders.
+
+### Pessimistic Locking
+Er wordt een lock gezet op de tabel die je wilt wijzigen. Dit zorgt ervoor dat niemand anders deze data kan lezen of 
+schrijven. Dit zorgt ervoor dat je geen racing conditions hebt, maar dat de tabel niet meer actief is
+
+### Reservation Pattern
+Er wordt tijdelijk al wat data in de tabel gezet. Dit zorgt ervoor als iemand dezelfde data wil toevoegen aan de tabel, 
+dat deze data er al is en dit dus niet kan doen.
 
 ## Decision
 
-We hebben besloten om het Reservation Pattern te implementeren.
+We hebben besloten om het Reservation Pattern te implementeren. Locking zorgt ervoor dat functionaliteiten van de 
+database voor een tijd niet meer bruikbaar is. Door het reservation pattern te gebruiken, kunnen we een boeking doen 
+zonder last te hebben van racing conditions en blijft de database geheel actief.
 
 ## Consequences
 
-De consequentie hiervan is dat we de boeking tijdens het boekingsproces eerst tijdelijk opslaan in de database, zodat een ticket wordt gereserveerd voor de gebruiker. Hierdoor kan niemand anders dezelfde boeking maken totdat het proces volledig is afgerond.
+De consequentie hiervan is dat we de boeking tijdens het boekingsproces eerst tijdelijk opslaan in de database, 
+zodat een ticket wordt gereserveerd voor de gebruiker. Hierdoor kan niemand anders dezelfde boeking maken totdat het 
+proces volledig is afgerond.
 
 ## 9. Deployment, Operation and Support
-
-> [!TIP]
-> Zelf beschrijven van wat je moet doen om de software te installeren en te kunnen runnen.
 
 Om deze software te kunnen runnen moet er een Java IDE geïnstalleerd zijn, wij raden IntelliJ, omdat het zeker is dat
 alles in die omgeving werkt.
