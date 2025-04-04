@@ -121,17 +121,13 @@ Dit diagram is bedoeld om meer inzicht te krijgen over hoe de TripTop applicatie
 elkaar en de externe services. 
 De klant en reisagent bezoeken beide de frontend webapplicatie. Deze frontend is een single page applicatie gemaakt met 
 React.js. De frontend gebruikt een identity provider om de gebruiker in te loggen en een token aan te maken, die 
-vervolgens in de backend geverifiëerd wordt. Er is voor deze manier gekozen, omdat nu de klant met verschillende 
-accounts kan inloggen op zijn/haar TripTop-profiel. Deze API gaat via de frontend omdat deze externe services 
-meestal een redirect link gebruiker die de gebruiker naar de inlogpagina stuurt. Gaat dit via de backend dan moet de
-server kijken voor welke login methode is gekozen, vervolgens een redirect link aanmaken, deze link terugsturen en
-dan moet de website de gebruiker redirecten.
-Enige andere verzoeken gaan naar de REST API backend gemaakt met Java en Spring Data. De REST API communiceert 
+vervolgens in de backend geverifiëerd wordt.
+Enige andere verzoeken gaan naar de backend gemaakt met Java en Spring Data. De backend communiceert 
 met externe services voor het ophalen/verwerken van data. De reden waarom deze andere externe services niet via de 
 frontend gaan, is omdat deze services meestal gebruik maken van gevoelige informatie over de applicatie, meestal een 
 'API-key'. Gaan dit via de frontend, dan zou deze 'API-key' zichtbaar kunnen zijn en misbruikt kunnen worden door de 
 klant.
-De REST API slaat data op in een database die nog niet is gekozen, omdat er nog niet genoeg informatie is over de 
+De backend slaat data op in een database die nog niet is gekozen, omdat er nog niet genoeg informatie is over de 
 manier van het opslaan van de data. Er is hier gekozen voor het werken met React en Spring Data omdat de groep hier 
 ervaring mee heeft en er niet veel tijd is voor het maken van de architectuur.
 
@@ -143,12 +139,21 @@ De frontend stuurt de inloggegevens naar de externe identity provider service, d
 en stuurt een token terug als deze gegevens kloppen, zo niet wordt de gebruiker niet ingelogd en krijgt deze geen token. 
 Als de frontend een request stuurt, stuurt deze een token mee die de backend controleert via de externe identity 
 provider service. Deze stuurt vervolgens een response terug met of de token geldig is. De backend handelt deze response 
-af en stuurt vervolgens een passend response terug naar de frontend. 
+af en stuurt vervolgens een passend response terug naar de frontend.
+Er is voor deze manier gekozen, omdat nu de klant met verschillende accounts kan inloggen op zijn/haar 
+TripTop-profiel. Deze API gaat via de frontend omdat deze externe services meestal een redirect link gebruiker die 
+de gebruiker naar de inlogpagina stuurt. Gaat dit via de backend dan moet de server kijken voor welke login methode 
+is gekozen, vervolgens een redirect link aanmaken, deze link terugsturen en dan moet de website de gebruiker 
+redirecten naar de inlogpagina.
 
 ##### Scenario 2: Reis Boeken
 ![img_8.png](img_8.png)
 
-De frontend stuurt een betaalverzoek naar de REST API (backend), de REST API controleert of de token van de gebruiker klopt. Wanneer dit klopt slaat de REST API de boeking op in de database om (race condition), en bevestigt de REST API de betaling doormiddel van de betaal service. Hierna boekt de REST API een overnachting en vervoer. Dan slaat de database de definitieve boeking op en stuurt de backend een notificatie naar de notificatie service. Als er iets fout gaat bij een van de externe services, dan handelt de backend dit af een stuurt een response naar de frontend.
+De frontend stuurt een betaalverzoek naar de REST API (backend), de REST API controleert of de token van de 
+gebruiker klopt. Als dit klopt, slaat de REST API de boeking op in de database om (race condition), en bevestigt 
+de REST API de betaling doormiddel van de betaal service. Hierna boekt de REST API een overnachting en vervoer. Dan 
+slaat de database de definitieve boeking op en stuurt de backend een notificatie naar de notificatie service. Als er 
+iets fout gaat bij een van de externe services, dan handelt de backend dit af een stuurt een response naar de frontend.
 
 ###     7.2. Components
 #### 7.2.1 Component Diagram

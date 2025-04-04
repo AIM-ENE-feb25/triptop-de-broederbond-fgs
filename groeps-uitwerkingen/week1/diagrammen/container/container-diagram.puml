@@ -10,7 +10,7 @@ Person(reisAgent, "ReisAgent", "Helpt klant met het samenstellen van een reis")
 
 System_Boundary(tripTopApp, "Triptop App") {
 Container(frontend, "Frontend", "Container: JavaScript and React", "Website voor het samenstellen van een reis")
-Container(restAPI, "REST API", "Container: Java and Spring Data", "API voor het communiceren met de back-end")
+Container(backend, "Backend", "Container: Java and Spring Data", "Server voor het verwerken van data")
 ContainerDb(database, "Database", "Container: ?", "Database voor het opslaan en ophalen van gegevens")
 }
 
@@ -32,17 +32,17 @@ Rel(noticationService, klant, "Stuurt notificaties naar")
 Rel(reisAgent, frontend, "Helpt klant via", "HTTP")
 
 ' Triptop relaties
-Rel(frontend, restAPI, "Communiceert met", "JSON/HTTP")
+Rel(frontend, backend, "Communiceert met", "JSON/HTTP")
 Rel(frontend, identityProviderService, "Genereert token met", "HTTPS")
-Rel_L(restAPI, database, "Leest en schrijft data naar")
+Rel_L(backend, database, "Leest en schrijft data naar")
 
 'API relaties
-Rel_R(restAPI, overnachtingService, "Boekt overnachting met", "HTTPS")
-Rel_U(restAPI, vervoerService, "Regelt vervoer met", "HTTPS")
-Rel_U(restAPI, activiteitService, "Plant activiteiten met", "HTTPS")
-Rel_U(restAPI, autohuurService, "Huurt vervoer met", "HTTPS")
-Rel(restAPI, voedselService, "Regelt voedsel met", "HTTPS")
-Rel(restAPI, identityProviderService, "Authenticeert/autoriseert met", "HTTPS")
-Rel(restAPI, paymentService, "Betaalt met", "HTTPS")
-Rel(restAPI, noticationService, "Stuurt notificaties via")
+Rel_R(backend, overnachtingService, "Boekt overnachting met", "HTTPS")
+Rel_U(backend, vervoerService, "Regelt vervoer met", "HTTPS")
+Rel_U(backend, activiteitService, "Plant activiteiten met", "HTTPS")
+Rel_U(backend, autohuurService, "Huurt vervoer met", "HTTPS")
+Rel(backend, voedselService, "Regelt voedsel met", "HTTPS")
+Rel(backend, identityProviderService, "Authenticeert/autoriseert met", "HTTPS")
+Rel(backend, paymentService, "Betaalt met", "HTTPS")
+Rel(backend, noticationService, "Stuurt notificaties via")
 @enduml
