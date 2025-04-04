@@ -1,5 +1,7 @@
 @startuml
 
+title Container diagram van TripTop voor het gehele systeem
+
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 SHOW_PERSON_OUTLINE()
@@ -9,8 +11,8 @@ Person(klant, "Reiziger", "Stelt reis samen en boekt deze")
 Person(reisAgent, "ReisAgent", "Helpt klant met het samenstellen van een reis")
 
 System_Boundary(tripTopApp, "Triptop App") {
-Container(frontend, "Frontend", "Container: JavaScript and React", "Website voor het samenstellen van een reis")
-Container(backend, "Backend", "Container: Java and Spring Data", "Server voor het verwerken van data")
+Container(frontend, "Frontend", "Container: JavaScript en React", "Website voor het samenstellen van een reis")
+Container(backend, "Backend", "Container: Java en Spring Data", "Server voor het verwerken van data")
 ContainerDb(database, "Database", "Container: ?", "Database voor het opslaan en ophalen van gegevens")
 }
 

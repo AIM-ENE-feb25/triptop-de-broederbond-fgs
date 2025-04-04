@@ -6,6 +6,7 @@ class TransportController {
 
 TransportController --> TransportService
 
+AdapterFactory --> TransportType
 class TransportService {
     +getAvailableTrips(tripRequest: TripRequest): Trips
     +getAdapter(transportType: TransportType): ITransportAdapter

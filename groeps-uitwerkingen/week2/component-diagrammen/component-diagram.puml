@@ -1,10 +1,12 @@
 @startuml
 
+Title Component Diagram voor de backend container van het TripTop systeem
+
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 Container(singlePageApp, "Frontend", "JavaScript en React", "Frontend van de applicatie")
 
-Container_Boundary(backend, "REST API") {
+Container_Boundary(backend, "Backend") {
     'Betaal componenten
     Component(paymentController, "Betaal Controller*", "Spring rest controller", "Verantwoordelijk voor het afhandelen van betalingen")
     Component(paymentService, "Betaal Service", "Spring service", "Verantwoordelijk voor het verwerken van betalingen")

@@ -11,7 +11,7 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 
 ## 2. Context
 
-![img.png](img.png)
+![img_20.png](img_20.png)
 
 ### 2.1 Functionaliteit
 
@@ -157,7 +157,7 @@ transporten werkt dit zo, als je bij NS iets aanpast zal dat niks veranderen bij
 
 #### 7.1.1 Container Diagram
 
-![img_10.png](img_10.png)
+![img_23.png](img_23.png)
 
 Dit diagram is bedoeld om meer inzicht te krijgen over hoe de TripTop applicatie van binnen in communiceert met
 elkaar en de externe services.
@@ -213,7 +213,7 @@ gaat de betaling niet door, dan kan TripTop makkelijk alles annuleren en het gel
 
 #### 7.2.1 Component Diagram
 
-![img_17.png](img_17.png)
+![img_22.png](img_22.png)
 
 De frontend stuurt een betaalverzoek met een lijst van bouwstenen die de gebruiker wil betalen naar de 'Betaal
 Controller'. Deze controller heeft een *, wat betekent dat deze eerst de token autoriseert via de 'Identity Service'.
@@ -278,7 +278,7 @@ link is gemaakt krijgt de gebruiker deze terug en kan betalen.
 
 ##### Class Diagram
 
-![img_12.png](img_12.png)
+![img_18.png](img_18.png)
 
 Er is gekozen voor een combinatie van het Factory en Adapter design pattern om het transportsysteem flexibel en uitbreidbaar te houden. Het Adapter pattern maakt het eenvoudig om verschillende externe services te integreren, zoals NS en KLM, zonder bestaande functionaliteit te hoeven aanpassen. Iedere adapter, zoals de NSAdapter en KLMAdapter, weet hoe hij met de specifieke externe service moet communiceren.
 
