@@ -333,96 +333,7 @@ endpoints aanroepen.
 
 ## 8. Architectural Decision Records
 
-> [!IMPORTANT]
-> Voeg toe: 3 tot 5 ADR's die beslissingen beschrijven die zijn genomen tijdens het ontwerpen en bouwen van de software.
-
-### 8.1. ADR-001 TITLE
-
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "
-> ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it
-> is a conversation with a future developer. This requires good writing style, with full sentences organized into
-> paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill
-> people, even PowerPoint bullets.)
-
-#### Context
-
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces
-> are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply
-> describing facts about the problem we're facing and points out factors to take into account or to weigh when making the
-> final decision.
-
-#### Considered Options
-
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was
-> selected.
-
-#### Decision
-
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We
-> will …"
-
-#### Status
-
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed.
-> If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its
-> replacement.
-
-#### Consequences
-
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not
-> just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them
-> affect the team and project in the future.
-
-### 8.2. ADR-002 TITLE
-
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "
-> ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it
-> is a conversation with a future developer. This requires good writing style, with full sentences organized into
-> paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill
-> people, even PowerPoint bullets.)
-
-#### Context
-
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces
-> are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply
-> describing facts about the problem we're facing and points out factors to take into account or to weigh when making the
-> final decision.
-
-#### Considered Options
-
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was
-> selected.
-
-#### Decision
-
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We
-> will …"
-
-#### Status
-
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed.
-> If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its
-> replacement.
-
-#### Consequences
-
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not
-> just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them
-> affect the team and project in the future.
-
-### 8.3. ADR-003 Vervoer Design Pattern
+### 8.1. ADR-001 Vervoer Design Pattern
 
 Datum: 28-03-2025
 
@@ -457,7 +368,7 @@ aan te passen. Het Factory Pattern kiest automatisch de juiste adapter voor de v
 ervoor dat we op dezelfde manier met verschillende vervoerders kunnen werken. Dit maakt het systeem flexibel, makkelijk
 uit te breiden en goed te onderhouden, omdat we gewoon nieuwe adapters kunnen toevoegen zonder veel extra werk.
 
-### 8.4. ADR-004 Identity Provider Design Pattern
+### 8.2. ADR-002 Identity Provider Design Pattern
 
 Datum: 28-3-2025
 
@@ -496,7 +407,7 @@ Volgens de criteria uit de tabel zal het gebruik van deze patterns een positief 
 onderhoudbaarheid en testbaarheid van het systeem. Dit komt doordat de code beter gestructureerd wordt, afhankelijkheden
 worden verminderd en de afzonderlijke componenten eenvoudiger te testen en hergebruiken zijn.
 
-### 8.5. ADR-005 Betaal Design Pattern
+### 8.3. ADR-003 Betaal Design Pattern
 
 Datum: 28-03-2025
 
@@ -529,9 +440,9 @@ Pending
 
 Bij het maken van het prototype voor het betalen, gaat er gebruik worden gemaakt van de strategy pattern.
 
-### 8.6. ADR-006 Identity Provider via de frontend en backend
+### 8.4. ADR-004 Identity Provider via de frontend en backend
 
-Datum: 28-03-2025
+Datum: 04-04-2025
 
 #### Context
 
@@ -559,6 +470,35 @@ Accepted
 #### Consequences
 
 Bij het maken van het prototype wordt gebruik gemaakt van een combinatie van de frontend en backend voor het inlogproces met identity providers.
+
+### 8.5. ADR-005 Opslaan Boeking Tijdens Betaalproces
+
+Datum: 04-04-2025
+
+## Status
+
+Accepted
+
+## Context
+
+Bij het maken van een boeking is het onhandig als jouw gewenste boeking al geboekt wordt tijdens het betalen. Er zijn hier verschillende oplossingen voor met eigen voor- en nadelen. Er is onderzoek gedaan naar verschillende methodes om dit probleem op te lossen.
+
+## Considered Options
+
+| Forces | Optimistic Locking | Pessimistic Locking | Reservation Pattern |
+| --- | --- | --- | --- |
+| Concurrency (lage conflictkans) | + | — | ++ |
+| Complexiteit | + | - | - |
+| Dataconsistentie | 0 | ++ | ++ |
+| Gebruikerservaring | ++ | - | + |
+
+## Decision
+
+We hebben besloten om het Reservation Pattern te implementeren.
+
+## Consequences
+
+De consequentie hiervan is dat we de boeking tijdens het boekingsproces eerst tijdelijk opslaan in de database, zodat een ticket wordt gereserveerd voor de gebruiker. Hierdoor kan niemand anders dezelfde boeking maken totdat het proces volledig is afgerond.
 
 ## 9. Deployment, Operation and Support
 
