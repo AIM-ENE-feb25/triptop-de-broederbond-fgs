@@ -323,7 +323,9 @@ de inloggegevens niet correct zijn, wordt er een foutmelding teruggestuurd.
 Nadat de 'frontend' het token heeft ontvangen, stuurt het een verzoek naar de 'AuthenticationController', die het via
 de 'authenticate' doorgeeft aan de 'AuthenticationService'. Deze maakt gebruik van de 'IdentityProviderFactory' om de
 juiste implementatie van de 'IdentityProvider' interface te gebruiken voor de tokenvalidatie.
-Wanneer het om een JWT-token gaat, wordt dit door de implementatie geverifieerd. Als het geen JWT-token betreft, wordt
+Wanneer het om een JWT-token gaat, wordt dit door de implementatie geverifieerd.
+In punt 8 staat dat de identity provider de JWT-token valideert. Hiervoor is gekozen omdat de daadwerkelijke implementatie per ‘IdentityProvider’ kan verschillen.
+Als het geen JWT-token betreft, wordt
 de token geverifieerd via de API van de 'Identity Provider Service'. Als dit succesvol is, genereert de implementatie
 een JWT-token via de methode 'generateToken' van de klasse 'TokenProvider' en retourneert deze naar de 'frontend' via de
 response van het verzoek.
