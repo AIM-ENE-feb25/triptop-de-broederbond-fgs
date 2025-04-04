@@ -10,14 +10,15 @@ import nl.han.soex.prototype.transport.TripRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NSAdapter implements ITransportAdapter {
 
-    @Value("${ns.api.key}")
-    private String apiKey;
+//    @Value("${ns.api.key}")
+    private final String apiKey = "e7181d47c68640d7ba5ac1d53b776ac5";
 
     private static final String NS_API_URL = "https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/trips";
 
@@ -35,6 +36,7 @@ public class NSAdapter implements ITransportAdapter {
                 .asJson();
 
         if (response.getStatus() != 200) {
+            System.out.println(response.getBody());
             throw new RuntimeException("Failed to retrieve trips " + response.getStatusText());
         }
 
@@ -52,23 +54,28 @@ public class NSAdapter implements ITransportAdapter {
             JSONObject tripObj = tripsArray.getJSONObject(i);
 
             long tripId = i + 1;
+
             JSONObject firstLeg = tripObj.getJSONArray("legs").getJSONObject(0);
             String departure = firstLeg.getJSONObject("origin").getString("name");
             String destination = firstLeg.getJSONObject("destination").getString("name");
-            String dateTime = tripObj.getString("plannedDepartureDateTime");
+            String dateTime = firstLeg.getJSONObject("origin").getString("plannedDateTime");
+
 
             String plannedTrack = firstLeg.getJSONObject("origin").optString("plannedTrack", "N/A");
             String actualTrack = firstLeg.getJSONObject("origin").optString("actualTrack", "N/A");
 
             TrainTrip trainTrip = new TrainTrip(
-                    tripId,
-                    departure,
-                    destination,
-                    dateTime,
-                    plannedTrack,
-                    actualTrack
+                tripId,
+                departure,
+                destination,
+                dateTime,
+                plannedTrack,
+                actualTrack
             );
+
+
             trips.add(trainTrip);
+
         }
 
         return trips;

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,9 +23,9 @@ public class TransportController {
     // POST omdat GET geen body toe staat
     // en body gebruikt wordt voor factory
     @PostMapping("/trips")
-    public ResponseEntity<String> getAvailableTrips(@RequestBody TripRequest tripRequest) throws UnirestException {
+    public ResponseEntity<List<Trip>> getAvailableTrips(@RequestBody TripRequest tripRequest) throws UnirestException, IOException, InterruptedException {
         List<Trip> trips = transportService.getAvailableTrips(tripRequest);
-        return ResponseEntity.ok(trips.toString());
+        return ResponseEntity.ok(trips);
     }
 
 }
