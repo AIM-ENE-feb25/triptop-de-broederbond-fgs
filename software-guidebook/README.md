@@ -245,6 +245,11 @@ De 'PaymentController' krijgt het initiële request van de reiziger. Deze krijgt
 'handlePayment' waarin de 'PaymentService' wordt aangeroepen. De 'PaymentService' roept vervolgens
 'PaymentMethodStrategy' aan voor het verkrijgen van de juiste handler. Hierna wordt de handler aangeroepen en wordt
 verdere logica verwerkt in een klasse die 'PaymentMethodHandler' implementeert.
+Ik heb gekozen om de 'Strategy Pattern' te gebruiken, omdat er verschillende soorten betaalmethode zijn en door een 
+central 'PaymentMethodHandler' interface te maken kan ik de verschillende betaalmethoden afhandelen door deze te 
+implementeren. Voor het selecteren van de juiste strategie heb ik een 'PaymentMethodStrategy' klasse gemaakt die de 
+statische methode 'getHandler' heeft, die de methode omzet in een instantie van het object. Hierdoor kan ik de 
+juiste 'handlePayment' methode later aanroepen.
 
 ##### Sequentie Diagram
 
@@ -256,9 +261,12 @@ vervolgens 'handlePayment' op aangeroepen.
 In het geval van 'PaypalHandler' wordt eerst een autorisatie token aangemaakt via een Paypal endpoint. Deze token
 wordt vervolgens bij 'createPayment' meegegeven, die weer een endpoint bij Paypal aanroept voor het maken van een
 betaling. Vervolgens wordt de betaallink uit de resulterende json gehaald. Vervolgens gebeuren er 2 dingen. 1. De
-betaallink wordt helemaal terug gestuurd naar de gebruiker die kan betalen. Tegelijkertijd is er een tweede thread
-draaiend die om de 5 seconden de status van bijbehorende betaling kijkt, dit gebeurd 20 keer, tenzij de betaling is
-voltooid. Zodra de loop klaar is stopt de thread en is alles voltooid.
+betaallink wordt helemaal terug gestuurd naar de gebruiker die kan gaan betalen. Tegelijkertijd is er een tweede thread
+draaiend die om de 5 seconden de status van bijbehorende betaling ophaalt. Dit gebeurt 20 keer, tenzij de betaling is
+voltooid. Het wordt op deze manier gedaan, omdat Paypal wilt dat de betaling wordt 'gecaptured'. Gebeurt dit niet 
+wordt er geen geld afgehouden bij de gebruiker. Zodra de loop klaar is stopt de thread en is alles voltooid. Er is 
+hier dan ook gekozen om niet te werken met een websocket, omdat deze implementatie veel tijd kost, die er niet was 
+en deze manier laat wel zien dat het werkt.
 In het geval van Stripe wordt 'StripeHandler' aangeroepen. Deze maakt een nieuw product met de juiste prijs
 aangemaakt. Vervolgens wordt dit product gebruikt om de prijs te krijgen en om de betaallink te maken. Zodra deze
 link is gemaakt krijgt de gebruiker deze terug en kan betalen.
