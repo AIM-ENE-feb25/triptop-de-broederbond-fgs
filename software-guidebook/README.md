@@ -529,6 +529,37 @@ Pending
 
 Bij het maken van het prototype voor het betalen, gaat er gebruik worden gemaakt van de strategy pattern.
 
+### 8.6. ADR-006 Identity Provider via de frontend en backend
+
+Datum: 28-03-2025
+
+#### Context
+
+Bij het gebruik van identity providers om de gebruikers te laten inloggen lopen we tegen een probleem aan.
+Laten we alles via de frontend verlopen, via de backend of een combinatie van de frontend en backend.
+
+#### Considered Options
+
+| **Forces**               | **Alleen frontend** | **Alleen backend** | **Combinatie van frontend en backend** |
+|--------------------------|---------------------|--------------------|----------------------------------------|
+| **Complexiteit**          | 0                   | +                  | +                                      |
+| **Veiligheid**            | +                   | +                  | +                                      |
+| **Flexibiliteit**         | +                   | +                  | 0                                      |
+| **Identity provider flow**| -                   | +                  | ++                                     |
+
+#### Decision
+
+Er is gekozen voor de combinatie van de frontend en backend. 
+Deze keuze is gebaseerd op de tabel van de overwegingen (Considered Options) en omdat deze aanpak het beste aansluit bij de identity provider flow.
+
+#### Status
+
+Accepted
+
+#### Consequences
+
+Bij het maken van het prototype wordt gebruik gemaakt van een combinatie van de frontend en backend voor het inlogproces met identity providers.
+
 ## 9. Deployment, Operation and Support
 
 > [!TIP]
