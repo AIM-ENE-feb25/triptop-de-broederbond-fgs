@@ -276,6 +276,15 @@ link is gemaakt krijgt de gebruiker deze terug en kan betalen.
 ##### Class Diagram
 
 ![img_12.png](img_12.png)
+
+Er is gekozen voor een combinatie van het Factory en Adapter design pattern om het transportsysteem flexibel en uitbreidbaar te houden. Het Adapter pattern maakt het eenvoudig om verschillende externe services te integreren, zoals NS en KLM, zonder bestaande functionaliteit te hoeven aanpassen. Iedere adapter, zoals de NSAdapter en KLMAdapter, weet hoe hij met de specifieke externe service moet communiceren.
+
+De Factory is verantwoordelijk voor het selecteren van de juiste adapter op basis van het vervoerType uit het TripRequest. Binnen de getAdapter-methode wordt dit type gebruikt om via een switch case de juiste implementatie van de ITransportAdapter terug te geven.
+
+##### Sequentie Diagram
+
+![img_14.png](img_14.png)
+
 De TransportController ontvangt een verzoek om alle beschikbare trips op te halen voor een bepaald TransportType, zoals
 aangegeven in de request. De controller roept vervolgens de getAvailableTrips-methode van TransportService aan. Binnen
 deze service wordt eerst het juiste TransportType uit het verzoek gehaald. Vervolgens vraagt de service via
@@ -283,16 +292,6 @@ AdapterFactory de juiste ITransportAdapter op, gebaseerd op het vervoerstype. De
 getAvailableTrips-methode en maakt een verbinding met de bijbehorende externe API (bijvoorbeeld KLM of NS) om de
 beschikbare trips op te halen. De opgehaalde trips worden vervolgens teruggegeven aan de service en uiteindelijk aan de
 controller, die ze terugstuurt als respons.
-
-##### Sequentie Diagram
-
-![img_14.png](img_14.png)
-
-In dit sequentiediagram zie je de flow die ik eerder heb beschreven, maar nu visueel uitgewerkt. Het laat precies zien
-hoe een reiziger een verzoek indient en hoe dit verzoek door de verschillende lagen van de applicatie stroomt. Je ziet
-hoe de TransportController het verzoek afhandelt, de TransportService de juiste adapter selecteert via de
-AdapterFactory, en hoe de adapter vervolgens de trips ophaalt via een externe API. Daarnaast wordt ook weergegeven wat
-er gebeurt als de verbinding met de API mislukt, waarbij een foutmelding teruggegeven wordt aan de reiziger.
 
 #### 7.3.3 Ontwerpvraag 3: "Hoe kunnen we verschillende identity providers met verschillende interfaces integreren voor het gehele systeem?"
 
