@@ -214,21 +214,24 @@ gaat de betaling niet door, dan kan TripTop makkelijk alles annuleren en het gel
 
 ![img_9.png](img_9.png)
 
-De frontend stuurt een betaalverzoek met een lijst van bouwstenen die de gebruiker wilt betalen naar de 'Betaal
-Controller'. Deze controller heeft een *, wat betekent dat deze eerst de token authoriseert via de 'Identity Service'.
-Als de token geauthoriseert is, stuurt de 'Betaal Controller' het verzoek naar de 'Betaal Service'. De 'Betaal Service'
-gaat per bouwsteen naar de juiste service waar de bouwsteen verwerkt wordt. TripTop schiet per bouwsteen de betaling
-voor en regelt zo per bouwsteen de ticket. Is alles goed gegaan, gaat de 'Betaal Service' met de juiste externe
-betaalsyteem communiceren. Als de betaling is afgerond wordt per bouwsteen de informatie opgeslagen waarna de gebruiker
-zijn tickets krijgt.
-De frontend haalt vervoerinformatie op via de 'Vervoer Controller'. Enige logica nodig voor het ophalen van deze
+De frontend stuurt een betaalverzoek met een lijst van bouwstenen die de gebruiker wil betalen naar de 'Betaal
+Controller'. Deze controller heeft een *, wat betekent dat deze eerst de token autoriseert via de 'Identity Service'.
+Er is gekozen voor deze manier omdat het zo de gebruiker zelf kan aanvinken op de frontend met wat hij/zij wil 
+betalen en zo kunnen we makkelijk op de backend de betaling regelen.
+Als de token geautoriseerd is, stuurt de 'Betaal Controller' het verzoek naar de 'Betaal Service'. De 'Betaal Service'
+gaat per bouwsteen naar de juiste service waar de bouwsteen alvast opgeslagen wordt. Vervolgens gaat de 'Betaal 
+Service' naar de betaalmethode die de klant heeft geselecteerd en betaalt de klant de bouwstenen.
+Heeft de klant betaalt, dan gaat de 'Betaal Service' per bouwsteen naar de juiste service en boekt deze. Als alles 
+is geboekt worden alle bouwstenen definitief opgeslagen, waarna de klant een bevestiging krijgt van zijn boekingen.
+De frontend haalt vervoer informatie op via de 'Vervoer Controller'. Enige logica nodig voor het ophalen van deze
 informatie gebeurd in de 'Vervoer Service'. Informatie over vervoer dat opgeslagen moet worden, gebeurd via de 'Vervoer
-Repository' die praat met de 'Database'.
-De frontend stuurt bij het inloggen een token mee, die de frontend krijgt via een extern identity provider service ('
-Auth0' of 'WireMock API'). Om deze token te valideren, stuurt de 'Identity Controller' de token naar de 'Identity
+Repository' die praat met de database.
+De frontend stuurt bij het inloggen een token mee die de frontend krijgt via een externe identity provider ('Auth0' 
+of 'WireMock API'). Om deze token te valideren, stuurt de 'Identity Controller' de token naar de 'Identity
 Service'. Deze controleert de token met de juiste service. Op TripTop heeft elke gebruiker een eigen account die
-gekoppelt is aan één of meerdere identity provider. Dit profiel wordt opgeslagen via de 'Identity Repository' die het
-vervolgens de informatie opslaat en ophaalt via de 'Database'.
+gekoppeld is aan één of meerdere identity providers. Dit profiel wordt opgeslagen via de 'Identity Repository' die het
+vervolgens de informatie opslaat en ophaalt via de 'Database'. Er is hier gekozen voor deze manier, omdat we zo de 
+verschillende boekingen per profiel kunnen opslaan en zo kan de klant zelf kiezen met welke manier die wil inloggen.
 
 ### 7.3. Design & Code
 
