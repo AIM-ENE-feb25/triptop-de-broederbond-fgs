@@ -6,18 +6,18 @@ SHOW_PERSON_OUTLINE()
 LAYOUT_WITH_LEGEND()
 
 System_Boundary(tripTopApp, "Triptop App") {
-    Container(singlePageApp, "Single page applicatie", "JavaScript and React", "Voor het samenstellen van een reis")
-    Container(restAPI, "REST API", "Java and Spring Data", "API voor het communiceren met de back-end")
+    Container(frontend, "Frontend", "JavaScript and React", "Voor het samenstellen van een reis")
+    Container(restAPI, "Backend", "Java and Spring Data", "Backend voor het verwerken van data")
     ContainerDb(database, "Database", "?", "Opslaan en ophalen van gegevens")
 }
 
-Container_Ext(identityProviderService, "IdentityProviderService (WireMock)", "Biedt opties aan om je te identificeren")
-Container_Ext(overnachtingService, "Overnachting service", "Boekt accommodaties")
-Container_Ext(vervoerService, "Vervoer service", "Regelt vervoer")
-Container_Ext(paymentService, "Betaal service", "Handelt betalingen af")
-Container_Ext(noticationService, "Notificatie service", "Stuurt bevestigingen")
+System_Ext(identityProviderService, "IdentityProviderService (WireMock)", "Biedt opties aan om je te identificeren")
+System_Ext(overnachtingService, "Overnachting service", "Boekt accommodaties")
+System_Ext(vervoerService, "Vervoer service", "Regelt vervoer")
+System_Ext(paymentService, "Betaal service", "Handelt betalingen af")
+System_Ext(noticationService, "Notificatie service", "Stuurt bevestigingen")
 
-Rel_D(singlePageApp, restAPI, "Stuurt boekingsverzoek", "JSON/HTTP")
+Rel_D(frontend, restAPI, "Stuurt boekingsverzoek", "JSON/HTTP")
 ' Om te voorkomen dat een andere gebruiken deze boeking kan 'overnemen'
 Rel(restAPI, identityProviderService, "Controleert token", "JSON/HTTP")
 Rel_D(restAPI, database, "Slaat boeking op")
@@ -27,6 +27,6 @@ Rel_D(restAPI, overnachtingService, "Boekt overnachting")
 Rel_D(restAPI, vervoerService, "Regelt vervoer")
 Rel_D(restAPI, database, "Slaat definitieve boeking op")
 Rel_D(restAPI, noticationService, "Stuurt bevestiging naar klant")
-Rel(restAPI, singlePageApp, "Geeft bevestiging terug", "JSON/HTTP")
+Rel(restAPI, frontend, "Geeft bevestiging terug", "JSON/HTTP")
 
 @enduml
