@@ -1,44 +1,68 @@
 package nl.han.soex.prototype.transport.adapters;
 
-import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import nl.han.soex.prototype.transport.FlightTrip;
 import nl.han.soex.prototype.transport.Trip;
 import nl.han.soex.prototype.transport.TripRequest;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 public class KLMAdapter implements ITransportAdapter {
 
-    @Value("${klm.api.key}")
-    private String apiKey;
+    private final String apiKey = "jhdbdb8jrsv947uemt35gkd9";
 
-    private static final String KLM_API_URL = "https://api.klm.com/flight-service";
+    private static final String KLM_API_URL = "https://api.airfranceklm.com/opendata/offers/v3/available-offers";
 
     @Override
-    public List<Trip> getAvailableTrips(TripRequest tripRequest) throws UnirestException {
+    public List<Trip> getAvailableTrips(TripRequest tripRequest) throws IOException, InterruptedException {
 
         String fromLocation = tripRequest.getDeparture();
         String toLocation = tripRequest.getDestination();
         String departureDate = tripRequest.getDate();
 
-        HttpResponse<JsonNode> response = Unirest.post(KLM_API_URL)
-                .header("Ocp-Apim-Subscription-Key", apiKey)
-                .header("Accept", "application/json")
-                .body(buildRequestBody(fromLocation, toLocation, departureDate))
-                .asJson();
+        JSONObject bodyToSend = buildRequestBody(fromLocation, toLocation, departureDate);
 
-        if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed to retrieve trips from KLM API: " + response.getStatusText());
-        }
 
-        return parseTrips(response.getBody(), fromLocation, toLocation, departureDate);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(KLM_API_URL))
+                    .header("Content-Type", "application/json")
+                    .header("API-Key", apiKey)
+                    .header("AFKL-TRAVEL-Host", "KL")
+                    .POST(HttpRequest.BodyPublishers.ofString(bodyToSend.toString()))
+                    .build();
+
+            java.net.http.HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            JSONObject json = new JSONObject(response.body());
+
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("Failed to retrieve trips from KLM API: " + response.body());
+            }
+
+
+        return parseTrips(json, fromLocation, toLocation, departureDate);
     }
 
     private JSONObject buildRequestBody(String fromLocation, String toLocation, String departureDate) {
@@ -66,9 +90,9 @@ public class KLMAdapter implements ITransportAdapter {
     }
 
 
-    public List<Trip> parseTrips(JsonNode responseBody, String fromLocation, String toLocation, String departureDate) {
+    public List<Trip> parseTrips(JSONObject responseBody, String fromLocation, String toLocation, String departureDate) {
         List<Trip> trips = new ArrayList<>();
-        JSONObject jsonResponse = responseBody.getObject();
+        JSONObject jsonResponse = responseBody;
 
         JSONArray recommendations = jsonResponse.optJSONArray("recommendations");
         if (recommendations == null) return trips;

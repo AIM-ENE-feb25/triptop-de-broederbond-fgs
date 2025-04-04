@@ -22,5 +22,4 @@ public class TrainTrip extends Trip {
 
     public String getActualTrack() { return actualTrack; }
     public void setActualTrack(String actualTrack) { this.actualTrack = actualTrack; }
-
 }

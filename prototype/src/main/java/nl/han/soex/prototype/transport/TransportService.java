@@ -5,6 +5,7 @@ import nl.han.soex.prototype.transport.adapters.ITransportAdapter;
 import nl.han.soex.prototype.transport.factory.AdapterFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class TransportService {
         this.adapterFactory = adapterFactory;
     }
 
-    public List<Trip> getAvailableTrips(TripRequest tripRequest) throws UnirestException {
+    public List<Trip> getAvailableTrips(TripRequest tripRequest) throws UnirestException, IOException, InterruptedException {
         TransportType transportType = extractTransportType(tripRequest);
         ITransportAdapter adapter = adapterFactory.getAdapter(transportType);
         return adapter.getAvailableTrips(tripRequest);
